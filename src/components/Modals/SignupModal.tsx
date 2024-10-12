@@ -10,14 +10,15 @@ import twitter from "@/stuff/twitter.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { buttonClassName } from "@/constants/strings";
+import { useAuth } from "@/context/AuthProvider";
 
 export default function SignupModal() {
   const { push } = useRouter();
+  const auth = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isAuthenticate = typeof window !== 'undefined' ? localStorage?.getItem("isAuth") || "" : null
 
   const showModal = () => {
-    isAuthenticate ? push("/dashboard/profile") :
+    auth?.isLoggedIn ? push("/dashboard/profile") :
       setIsModalOpen(true);
   };
 

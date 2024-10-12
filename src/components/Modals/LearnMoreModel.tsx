@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthProvider";
 
 export default function LearnMoreModel() {
     const { push } = useRouter();
+    const auth = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const isAuthenticate = typeof window !== 'undefined' ? localStorage?.getItem("isAuth") || "" : null
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -18,7 +19,7 @@ export default function LearnMoreModel() {
     };
 
     function handleStart() {
-        return isAuthenticate ? push("/profile") : push("/login");
+        return auth?.isLoggedIn ? push("/dashboard/profile") : push("/login");
     }
 
     return (
