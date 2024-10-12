@@ -4,32 +4,14 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { message } from "antd"
-
-interface ILoginResponse {
-  message: string
-  error?: string
-}
+import { useAuth } from "@/context/AuthProvider";
 
 export default function LoginForm() {
-  const { push } = useRouter();
+  const auth = useAuth();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
   });
-
-  const onLogin = async () => {
-    try {
-      const response = await axios.post<ILoginResponse>("/api/users/login", user);
-      localStorage.setItem("isAuth", "true");
-      message.success(response.data.message);
-      push("/dashboard/profile");
-    } catch (error: any) {
-      message.error(error.response.data.error);
-    }
-  };
 
   return (
     <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
@@ -88,7 +70,7 @@ export default function LoginForm() {
       <div className="flex space-x-4">
         <div>
           <button
-            onClick={onLogin}
+            onClick={() => auth?.logIn(user)}
             className="rounded-lg border-2 py-2 px-3 text-sm"
           >
             Login Now

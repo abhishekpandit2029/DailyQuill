@@ -41,10 +41,7 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({
       message: "Login successful",
       success: true,
-    });
-
-    response.cookies.set("token", token, {
-      httpOnly: true,
+      token
     });
 
     return response;

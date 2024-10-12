@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 import Dashboardlayout from "@/components/Main/Layout/Dashboardlayout";
-import { AuthProvider } from "@/context/AuthProvider";
+import AuthProvider from "@/context/AuthProvider";
 
 const oppins = Poppins({
   subsets: ["latin"],

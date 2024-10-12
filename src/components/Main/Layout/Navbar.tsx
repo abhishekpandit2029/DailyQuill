@@ -1,20 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import DailyQuill from "@/stuff/Red_Illustrated_Bull_Stock_Broker_Logo__1_-removebg-preview.png";
 import SidebarMenu from "@/components/Drawers/SidebarMenu";
-import axios from "axios";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Dropdown, } from 'antd';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { MenuProps } from 'antd';
-import { message } from "antd"
 import { Button } from "@mui/base/Button";
 import { buttonClassName } from "@/constants/strings";
 import useMe from "@/hooks/useMe";
+import { useAuth } from "@/context/AuthProvider";
 
 export interface IMeResponse {
   data: {
@@ -24,9 +23,8 @@ export interface IMeResponse {
 
 function Navbar() {
   const { push } = useRouter();
+  const auth = useAuth();
   const isHome = useSelectedLayoutSegment()?.includes("home");
-  const [meData, setMeData] = useState<IMeResponse | null>(null);
-  const isAuthenticate = typeof window !== 'undefined' ? localStorage?.getItem("isAuth") || "" : null
 
   const { userData } = useMe()
 
@@ -36,21 +34,10 @@ function Navbar() {
       key: '0',
     },
     {
-      label: <a onClick={() => logout()} className="text-base font-semibold leading-6 text-gray-900">Logout</a>,
+      label: <a onClick={auth?.logOut} className="text-base font-semibold leading-6 text-gray-900">Logout</a>,
       key: '1',
     },
   ];
-
-  const logout = async () => {
-    try {
-      await axios.get("/api/users/logout");
-      localStorage.setItem("isAuth", "false");
-      message.success("Logout successful");
-      push("/login");
-    } catch (error: any) {
-      message.error(error.message);
-    }
-  };
 
   return (
     <nav
@@ -95,17 +82,7 @@ function Navbar() {
           </p>
         </Link>
 
-        {!isAuthenticate ?
-          <Link href="/login">
-            <Button
-              className={buttonClassName}
-            >
-              Log in
-            </Button>
-          </Link> : ""
-        }
-
-        {isAuthenticate && <Dropdown trigger={['click']} menu={{ items }}><div className="flex space-x-1 items-center cursor-pointer">
+        {auth?.isLoggedIn ? <Dropdown trigger={['click']} menu={{ items }}><div className="flex space-x-1 items-center cursor-pointer">
           <AccountCircleIcon style={{ fontSize: "35px" }} />
           <p className="text-base normal-case font-semibold leading-6 text-gray-900">
             {(userData?.data?.username ?
@@ -113,7 +90,15 @@ function Navbar() {
               : "User")}
           </p>
           <ExpandMoreIcon />
-        </div></Dropdown>}
+        </div></Dropdown> :
+          <Link href="/login">
+            <Button
+              className={buttonClassName}
+            >
+              Log in
+            </Button>
+          </Link>
+        }
       </div>
     </nav >
   );

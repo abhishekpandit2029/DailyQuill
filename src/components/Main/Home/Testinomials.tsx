@@ -7,13 +7,9 @@ export default function Testinomials() {
       id="Endorsements"
     >
       <div className="mx-auto max-w-2xl lg:max-w-4xl">
-        <Image
-          alt="workation"
-          src="https://tailwindui.com/img/logos/workcation-logo-indigo-600.svg"
-          className="mx-auto"
-          width="200"
-          height="20"
-        />
+        <p className="text-2xl tab:text-3xl font-bold leading-7 text-indigo-600 text-center">
+          Workation
+        </p>
         <figure className="mt-6">
           <blockquote className="text-center text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
             <p>

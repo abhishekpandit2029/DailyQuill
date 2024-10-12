@@ -38,7 +38,7 @@ export default function ProductOverview() {
     <div className="bg-white py-12" id="ProductOverview">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">
+          <h2 className="text-2xl tab:text-3xl font-bold leading-7 text-indigo-600 mb-4 tab:mb-6">
             Effortless Daily Journaling
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
