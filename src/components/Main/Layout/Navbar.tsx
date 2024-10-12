@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import { useSelectedLayoutSegment } from "next/navigation";
 import DailyQuill from "@/stuff/Red_Illustrated_Bull_Stock_Broker_Logo__1_-removebg-preview.png";
 import SidebarMenu from "@/components/Drawers/SidebarMenu";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -22,7 +22,6 @@ export interface IMeResponse {
 }
 
 function Navbar() {
-  const { push } = useRouter();
   const auth = useAuth();
   const isHome = useSelectedLayoutSegment()?.includes("home");
 
