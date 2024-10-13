@@ -56,6 +56,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    link_alias: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true },
 );
