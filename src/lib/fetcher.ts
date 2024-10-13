@@ -1,15 +1,16 @@
 import { message } from "antd";
 import useSWR, { SWRConfiguration } from "swr";
 import useSWRMutation, { SWRMutationConfiguration } from "swr/mutation";
+import { Cookies } from "react-cookie";
 
 async function fetcher({ url, init, error }: any) {
     try {
-        // const accessToken = new Cookies().get(AccessTokenKey);
+        const accessToken = new Cookies().get("token");
         const res = await fetch(url, {
             ...init,
             headers: {
                 "Accept-Encoding": "gzip",
-                // Authorization: accessToken ? `Bearer ${accessToken}` : "",
+                Authorization: accessToken ? `Bearer ${accessToken}` : "",
                 ...init.headers,
             },
         });
