@@ -10,6 +10,8 @@ import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
 import { MdSpaceDashboard } from "react-icons/md";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -28,6 +30,7 @@ export default function DashboardLayout({
     children: React.ReactNode;
 }>) {
     const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
+    const pathname = usePathname();
 
     return (
         <section>
@@ -59,25 +62,25 @@ export default function DashboardLayout({
                     <div className="rounded-2xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
                         <div className="w-full flex-col space-y-5 p-4 hidden lap:flex">
                             <Link href="/dashboard/profile" passHref>
-                                <p className="whitespace-nowrap text-base font-semibold leading-6 text-gray-900 cursor-pointer flex items-center space-x-2">
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/profile' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span><Person4OutlinedIcon /> </span>
                                     <span>Profile</span>
                                 </p>
                             </Link>
                             <Link href="/dashboard/feed" passHref>
-                                <p className="whitespace-nowrap text-base font-semibold leading-6 text-gray-900 cursor-pointer flex items-center space-x-2">
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/feed' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span><DynamicFeedIcon /> </span>
                                     <span>Feed</span>
                                 </p>
                             </Link>
                             <Link href="/dashboard/inbox" passHref>
-                                <p className="whitespace-nowrap text-base font-semibold leading-6 text-gray-900 cursor-pointer flex items-center space-x-2">
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/inbox' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span><MailOutlinedIcon /> </span>
                                     <span>Inbox</span>
                                 </p>
                             </Link>
                             <Link href="/dashboard/bin" passHref>
-                                <p className="whitespace-nowrap text-base font-semibold leading-6 text-gray-900 cursor-pointer flex items-center space-x-2">
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/bin' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span><DeleteOutlineIcon /> </span>
                                     <span>Bin</span>
                                 </p>

@@ -6,6 +6,8 @@ import Link from "next/link";
 import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
 import { IoMdSettings } from "react-icons/io";
 import { CgDarkMode } from "react-icons/cg";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -23,6 +25,7 @@ export default function SettingsLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const pathname = usePathname();
 
     return (
         <section>
@@ -39,13 +42,13 @@ export default function SettingsLayout({
                     <div className="rounded-2xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[12rem] h-full">
                         <div className="w-full flex-col space-y-5 p-4 hidden lap:flex">
                             <Link href="/settings/account" passHref>
-                                <p className="whitespace-nowrap text-base font-semibold leading-6 text-gray-900 cursor-pointer flex items-center space-x-2">
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/settings/account' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span><Person4OutlinedIcon /> </span>
                                     <span>Accounts</span>
                                 </p>
                             </Link>
                             <Link href="/settings/appearance" passHref>
-                                <p className="whitespace-nowrap text-base font-semibold leading-6 text-gray-900 cursor-pointer flex items-center space-x-2">
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/settings/appearance' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span><CgDarkMode className="text-xl" /> </span>
                                     <span>Appearance</span>
                                 </p>
