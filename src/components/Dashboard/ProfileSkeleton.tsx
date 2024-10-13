@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Skeleton from '@mui/material/Skeleton';
+import { FaSlack } from 'react-icons/fa6';
 
 export default function ProfileSkeleton() {
     return (
