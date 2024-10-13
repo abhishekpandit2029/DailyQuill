@@ -7,7 +7,7 @@ connect();
 export async function PATCH(request: NextRequest) {
     try {
         const reqBody = await request.json();
-        const { id, additional_name, bio, full_name, link, location, pronounce, language } = reqBody;
+        const { id, additional_name, bio, full_name, link, location, pronounce, language, link_alias } = reqBody;
 
         if (!id) {
             return NextResponse.json({ error: "Something went wrong, please try again later" }, { status: 400 });
@@ -15,7 +15,7 @@ export async function PATCH(request: NextRequest) {
 
         const updatedUser = await User.findByIdAndUpdate(
             id,
-            { additional_name, bio, full_name, link, location, pronounce, language },
+            { additional_name, bio, full_name, link, location, pronounce, language, link_alias },
             { new: true }
         );
 

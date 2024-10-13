@@ -18,6 +18,8 @@ import AddIcon from '@mui/icons-material/Add';
 import useMe from "@/hooks/useMe";
 import clsx from "clsx";
 import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
+import { TiLocationArrowOutline } from "react-icons/ti";
+import Link from "next/link";
 
 export interface IThoughtCards {
     title: string,
@@ -105,13 +107,14 @@ export default function ProfilePage() {
                 ) : (
 
                     <div className="w-full lap:w-4/5 flex flex-row space-x-4 items-center">
-                        <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row">
-                            <Image src={ProfilePic} alt="profile-pic" className="rounded-full max-w-[10rem]" />
+                        <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
+                            <Image src={ProfilePic} alt="profile-pic" className="rounded-full max-w-[9rem]" />
                         </div>
                         <div>
                             <p className="text-xl font-semibold mb-2">{userData?.data?.full_name}</p>
-                            <p className="text-base font-medium text-gray-600">{userData?.data?.bio}</p>
-                            <a href={userData?.data?.link} target="_blank" className="text-base font-medium text-indigo-500">{userData?.data?.link}</a>
+                            <p className="text-base font-medium text-gray-600 mb-1">{userData?.data?.bio}</p>
+                            <Link target="_blank" className="text-base font-medium text-indigo-500 flex space-x-1 items-center" href={userData?.data?.link || ""}><span>{userData?.data?.link_alias} </span><span><TiLocationArrowOutline className="text-lg" /></span>
+                            </Link>
                         </div>
                     </div>
                 )}

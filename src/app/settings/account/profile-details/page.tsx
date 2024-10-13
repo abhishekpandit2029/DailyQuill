@@ -16,6 +16,7 @@ export default function ProfileDetailsPage() {
 
     const onSubmit = () => {
         formRef.current?.validateFields().then((values) => {
+            console.log("values", values)
             update({ ...values, id: userData?.data?._id, });
         });
     };
