@@ -26,36 +26,35 @@ export default function AddToDairyForm(props: IAddToDairyFormProps) {
             labelCol={{ className: "font-medium" }}
             initialValues={record}
         >
-            <div className='flex flex-col -space-y-3'>
+            <div className='flex flex-col -space-y-1'>
                 <div>
                     <Form.Item
                         name="title"
-                        label="Title"
                         rules={[{ required: true, message: 'Please Enter Title' }]}
                     >
                         <Input
                             placeholder="Please Enter Title"
-                            className='rounded-xl'
+                            style={{ color: 'black', borderRadius: "0.5rem", padding: 12, }}
                         />
                     </Form.Item>
                 </div>
-                <div className='flex flex-col -space-y-4'>
+                <div className='flex flex-col -space-y-1'>
                     <Form.Item
                         name="content"
-                        label="Content"
                         rules={[{ required: true, message: 'Please Enter content' }]}
                     >
                         <TextArea
                             placeholder="Please Enter content"
                             className='h-100 scrollbar-hide'
+                            style={{ color: 'black', borderRadius: "0.5rem", padding: 12, }}
                         />
                     </Form.Item>
                     <Form.Item
                         name="tags"
-                        label="Tags"
                     >
                         <Input
                             placeholder="Please Enter Tags"
+                            style={{ color: 'black', borderRadius: "0.5rem", padding: 12, }}
                         />
                     </Form.Item>
                 </div>

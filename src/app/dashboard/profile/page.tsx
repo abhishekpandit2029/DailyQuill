@@ -5,7 +5,7 @@ import { FaRegCopy } from "react-icons/fa6";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import EditCardContentModel from "@/components/Modals/EditCardContentModel";
 import { FaRegEdit } from "react-icons/fa";
-import { Divider, message } from "antd";
+import { Divider, message, Rate } from "antd";
 import { SoftDeleteAction } from "@/components/Dashboard/CardActions";
 import { truncateString } from "@/constants/format";
 import CardViewModel from "@/components/Modals/CardViewModel";
@@ -20,6 +20,9 @@ import clsx from "clsx";
 import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import Link from "next/link";
+import { HeartOutlined } from '@ant-design/icons';
+import { IoHeart } from "react-icons/io5";
+
 
 export interface IThoughtCards {
     title: string,
@@ -113,8 +116,8 @@ export default function ProfilePage() {
                         <div>
                             <p className="text-xl font-semibold mb-2">{userData?.data?.full_name}</p>
                             <p className="text-base font-medium text-gray-600 mb-1">{userData?.data?.bio}</p>
-                            <Link target="_blank" className="text-base font-medium text-indigo-500 flex space-x-1 items-center" href={userData?.data?.link || ""}><span>{userData?.data?.link_alias} </span><span><TiLocationArrowOutline className="text-lg" /></span>
-                            </Link>
+                            <a className="text-base font-medium text-indigo-500 flex space-x-1 items-center" href={userData?.data?.link || ""}><span>{userData?.data?.link_alias} </span><span><TiLocationArrowOutline className="text-lg" /></span>
+                            </a>
                         </div>
                     </div>
                 )}
@@ -143,46 +146,48 @@ export default function ProfilePage() {
                             ))}
                         </Grid>
                     </div>
-                ) : (
+                ) :
+                    (
+                        filteredData && filteredData?.length <= 0 ?
+                            <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
+                                <div className="cursor-pointer border-dashed border-2 border-gray-200 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-[16rem] justify-center items-center text-center" onClick={() => {
+                                    setIsAddNewModalOpen(true);
+                                }}>
+                                    <AddIcon /> Add Your First One From Here.
+                                </div>
+                            </div> :
 
-                    filteredData && filteredData?.length <= 0 ?
-                        <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
-                            <div className="cursor-pointer border-dashed border-2 border-gray-200 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-[16rem] justify-center items-center text-center" onClick={() => {
-                                setIsAddNewModalOpen(true);
-                            }}>
-                                <AddIcon /> Add Your First One From Here.
+                            <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
+                                {Array.isArray(filteredData) &&
+                                    filteredData?.filter((items: any) => items?.isSoftDelete === false).map((items, index) => (
+                                        <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
+                                            <div>
+                                                <p className="font-bold text-lg">{items?.title}</p>
+                                            </div>
+                                            <div className="cursor-pointer" onClick={() => handleClickCardView(items)}>
+                                                <p>{truncateString(items?.content, 100)}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-xs text-gray-500">{items?.tags?.join(" ")}</p>
+                                            </div>
+                                            <Divider />
+                                            <div className="flex space-x-4 justify-end items-center">
+                                                <Rate character={<IoHeart className="text-[1.8rem] mt-1" />} count={1} className="text-red-700" />
+                                                <FaRegEdit
+                                                    className="cursor-pointer text-lg tab:text-xl hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200"
+                                                    onClick={() => handleClick(items)}
+                                                />
+                                                <FaRegCopy
+                                                    className="cursor-pointer text-lg tab:text-xl hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200"
+                                                    onClick={() => handleCopy(items?.content)}
+                                                />
+                                                <SoftDeleteAction record={items} />
+                                            </div>
+                                        </div>
+                                    ))
+                                }
                             </div>
-                        </div> :
-
-                        <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
-                            {Array.isArray(filteredData) &&
-                                filteredData?.filter((items: any) => items?.isSoftDelete === false).map((items, index) => (
-                                    <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
-                                        <div>
-                                            <p className="font-bold text-lg">{items?.title}</p>
-                                        </div>
-                                        <div className="cursor-pointer" onClick={() => handleClickCardView(items)}>
-                                            <p>{truncateString(items?.content, 100)}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-xs text-gray-500">{items?.tags?.join(" ")}</p>
-                                        </div>
-                                        <Divider />
-                                        <div className="flex space-x-4 justify-end items-center">
-                                            <FaRegEdit
-                                                className="cursor-pointer text-lg tab:text-xl hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200"
-                                                onClick={() => handleClick(items)}
-                                            />
-                                            <FaRegCopy
-                                                className="cursor-pointer text-lg tab:text-xl hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200"
-                                                onClick={() => handleCopy(items?.content)}
-                                            />
-                                            <SoftDeleteAction record={items} />
-                                        </div>
-                                    </div>
-                                ))}
-                        </div>
-                )}
+                    )}
             </div>
         </div>
     );

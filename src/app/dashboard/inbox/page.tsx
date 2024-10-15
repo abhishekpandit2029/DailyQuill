@@ -1,5 +1,20 @@
+"use client"
+
 export default function InboxPage() {
     return (
-        <div className="font-2xl font-bold text-center bg-white flex flex-col space-y-4 place-content-center my-3 tab:my-1 ml-0 lap:ml-4 lg:flex min-h-screen rounded-2xl ring-1 ring-gray-200 justify-start items-center p-6">Comming Soon... Kam Chalu hai</div>
-    );
+        <>
+            <div className="bg-white w-full flex space-x-4 ml-0 lap:ml-4 lg:flex p-1 h-full">
+                <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-[25rem] p-3 tab:p-4 h-full">
+                    <div className="w-full flex flex-row space-x-4">
+                        <p className="font-semibold text-2xl">Inbox</p>
+                    </div>
+                </div>
+                <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
+                    <div className="w-full flex flex-row space-x-4">
+                        abc
+                    </div>
+                </div>
+            </div>
+        </>
+    )
 }
