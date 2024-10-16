@@ -8,7 +8,7 @@ import CardSkeleton from "@/components/Dashboard/CardSkeleton";
 import Grid from "@mui/material/Grid";
 
 export default function FeedPage() {
-    const [open, setOpen] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(true)
 
     return (
         <>
