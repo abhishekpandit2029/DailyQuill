@@ -22,7 +22,8 @@ import { TiLocationArrowOutline } from "react-icons/ti";
 import Link from "next/link";
 import { HeartOutlined } from '@ant-design/icons';
 import { IoHeart } from "react-icons/io5";
-
+import { Button } from "@mui/base/Button";
+import { buttonClassName } from "@/constants/strings";
 
 export interface IThoughtCards {
     title: string,
@@ -108,16 +109,36 @@ export default function ProfilePage() {
                 {isMeLoading ? (
                     <ProfileSkeleton />
                 ) : (
-
-                    <div className="w-full lap:w-4/5 flex flex-row space-x-4 items-center">
-                        <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
-                            <Image src={ProfilePic} alt="profile-pic" className="rounded-full max-w-[9rem]" />
+                    <div className="w-full lap:w-4/5 flex flex-col space-y-4">
+                        <div className="flex space-x-8 items-center">
+                            <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
+                                <Image src={ProfilePic} alt="profile-pic" className="rounded-full max-w-[7rem]" />
+                            </div>
+                            <div className="flex space-x-4">
+                                <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">12</p><p className="font-medium text-base">Posts</p></div>
+                                <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">874</p><p className="font-medium text-base">Followers</p></div>
+                                <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">232</p><p className="font-medium text-base">Followings</p></div>
+                            </div>
                         </div>
+
                         <div>
                             <p className="text-xl font-semibold mb-2">{userData?.data?.full_name}</p>
                             <p className="text-base font-medium text-gray-600 mb-1">{userData?.data?.bio}</p>
                             <a className="text-base font-medium text-indigo-500 flex space-x-1 items-center" href={userData?.data?.link || ""}><span>{userData?.data?.link_alias} </span><span><TiLocationArrowOutline className="text-lg" /></span>
                             </a>
+                        </div>
+
+                        <div className="flex space-x-4">
+                            <Button
+                                className={buttonClassName}
+                            >
+                                Edit Profile
+                            </Button >
+                            <Button
+                                className={buttonClassName}
+                            >
+                                Share Profile
+                            </Button >
                         </div>
                     </div>
                 )}
@@ -159,7 +180,7 @@ export default function ProfilePage() {
 
                             <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
                                 {Array.isArray(filteredData) &&
-                                    filteredData?.filter((items: any) => items?.isSoftDelete === false).map((items, index) => (
+                                    filteredData?.map((items, index) => (
                                         <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
                                             <div>
                                                 <p className="font-bold text-lg">{items?.title}</p>

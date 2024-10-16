@@ -3,13 +3,13 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { MdOutlinePersonSearch } from "react-icons/md";
-import { Input } from 'antd';
 import SearchUserSidebar from "@/components/Dashboard/SearchUserSidebar";
 import CardSkeleton from "@/components/Dashboard/CardSkeleton";
 import Grid from "@mui/material/Grid";
 
 export default function FeedPage() {
     const [open, setOpen] = useState<boolean>(false)
+
     return (
         <>
             <div className={clsx("flex", open ? "space-x-3" : "space-x-0")}>

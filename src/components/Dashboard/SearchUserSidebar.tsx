@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 import ProfilePic from "@/stuff/pxfuel.jpg"
 import { HiMiniArrowTopRightOnSquare } from "react-icons/hi2";
+import { useRouter } from 'next/navigation';
 
 
 interface IUserData {
@@ -17,11 +18,17 @@ interface IGetUserData {
 }
 export default function SearchUserSidebar() {
     const [searchItems, setSearchItems] = useState<string>("")
+    const { push } = useRouter()
     const { data } = useGetQuery<IGetUserData>(`/users/getUsers?searchQuery=${searchItems}`);
 
     const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchItems(e.target.value);
     };
+
+    function handleClick(values: IUserData) {
+        console.log("values", values)
+        push(`/dashboard/feed/${values?.username}?id=${values?._id}`)
+    }
 
     return (
         <div className="w-full flex-col space-y-4 p-1 hidden lap:flex">
@@ -53,7 +60,7 @@ export default function SearchUserSidebar() {
                                                 <p className='text-[0.8rem]'>{item?.full_name}</p>
                                             </div>
                                         </div>
-                                        <div>
+                                        <div onClick={() => handleClick(item)}>
                                             <HiMiniArrowTopRightOnSquare style={{ color: "grey", fontSize: "1.2rem" }} className='cursor-pointer' />
                                         </div>
                                     </div>
