@@ -50,13 +50,10 @@ export default function DashboardLayout({
             )}
 
             <div className="rounded-3xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 mx-3 tab:mx-4 min-h-screen">
-                <div className="flex flex-col space-y-4">
-                    <div className="rounded-2xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem]">
-                        <div className="w-full flex-col space-y-6 p-4 hidden lap:flex">
-                            <p className="whitespace-nowrap text-base font-semibold leading-6 text-gray-900 flex items-center space-x-2">
-                                <span><MdSpaceDashboard className="text-lg" /> </span>
-                                <span>Your Space</span>
-                            </p>
+                <div className="flex flex-col space-y-4 p-1">
+                    <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">
+                        <div className="w-full flex flex-row space-x-4">
+                            <p className="font-semibold text-2xl">Your Space</p>
                         </div>
                     </div>
                     <div className="rounded-2xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">

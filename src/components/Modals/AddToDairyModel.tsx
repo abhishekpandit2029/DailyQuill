@@ -45,7 +45,7 @@ export default function AddToDairyModel(props: ICardModel) {
                 onCancel={handleCancel}
                 closable={false}
                 footer={[
-                    <Space key="button-space" className="px-4 py-8 tab:px-6 lap:px-8">
+                    <Space key="button-space" className="p-4">
                         <Button
                             key="cancel-button"
                             size="large"
@@ -67,7 +67,7 @@ export default function AddToDairyModel(props: ICardModel) {
                     </Space>
                 ]}
             >
-                <div className="flex flex-col space-y-4">
+                <div className="flex flex-col space-y-6">
                     <p className="whitespace-nowrap text-xl font-bold leading-6 text-gray-900">
                         Add Your Thought
                     </p>
