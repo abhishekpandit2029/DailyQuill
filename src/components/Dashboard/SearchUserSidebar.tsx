@@ -1,16 +1,18 @@
 import { useGetQuery } from '@/lib/fetcher';
 import { Input } from 'antd'
-import Image from 'next/image';
+import { Image } from 'antd';
 import React, { useState } from 'react'
 import ProfilePic from "@/stuff/pxfuel.jpg"
 import { HiMiniArrowTopRightOnSquare } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
+import { defaultProfileImage } from '@/constants/strings';
 
 
 interface IUserData {
     _id: string,
     username: string,
     full_name: string,
+    userprofile_image: string
 }
 
 interface IGetUserData {
@@ -53,8 +55,8 @@ export default function SearchUserSidebar() {
                                         className="flex items-center bg-white p-3 rounded-2xl justify-between"
                                         style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
                                     >
-                                        <div className='flex space-x-3 items-center'>
-                                            <Image src={ProfilePic} alt={'profile_img'} className="rounded-full w-11 h-11" />
+                                        <div className='flex space-x-3 items-center'>-
+                                            <Image src={item?.userprofile_image || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
                                             <div>
                                                 <p className='text-[0.9rem]'>{item?.username}</p>
                                                 <p className='text-[0.8rem]'>{item?.full_name}</p>
