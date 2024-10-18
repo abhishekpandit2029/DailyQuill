@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import { Image } from "antd";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import DailyQuill from "@/stuff/Red_Illustrated_Bull_Stock_Broker_Logo__1_-removebg-preview.png";
@@ -11,7 +11,7 @@ import { Dropdown, } from 'antd';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { MenuProps } from 'antd';
 import { Button } from "@mui/base/Button";
-import { buttonClassName } from "@/constants/strings";
+import { buttonClassName, defaultProfileImage } from "@/constants/strings";
 import useMe from "@/hooks/useMe";
 import { useAuth } from "@/context/AuthProvider";
 
@@ -45,7 +45,7 @@ function Navbar() {
     >
       <div className="flex items-center ">
         <a href="/" className="flex space-x-1">
-          <Image className="w-20" src={DailyQuill} alt="logo" />
+          <Image className="max-w-[5rem] h-auto" src={defaultProfileImage} alt="logo" preview={false} />
           <span className="self-center text-2xl font-semibold whitespace-nowrap">
             DailyQuill
           </span>
@@ -82,7 +82,8 @@ function Navbar() {
         </Link>
 
         {auth?.isLoggedIn ? <Dropdown trigger={['click']} menu={{ items }}><div className="flex space-x-1 items-center cursor-pointer">
-          <AccountCircleIcon style={{ fontSize: "35px" }} />
+          <Image src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className="max-w-[2rem] h-auto rounded-[100rem] ring-2 ring-indigo-400 cursor-pointer mr-1" preview={false} referrerPolicy="no-referrer" />
+
           <p className="text-base normal-case font-semibold leading-6 text-gray-900">
             {(userData?.data?.username ?
               userData.data.username.charAt(0).toUpperCase() + userData.data.username.slice(1).toLowerCase()

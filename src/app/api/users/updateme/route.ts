@@ -16,8 +16,12 @@ const uploadImage = async (image: string) => {
         const result = await cloudinary.v2.uploader.upload(image, {
             overwrite: true,
             invalidate: true,
-            resource_type: "auto"
+            resource_type: "auto",
+            transformation: [
+                { width: 500, height: 500, crop: "fill" }
+            ],
         });
+
         if (result.secure_url) {
             return result.secure_url;
         } else {
@@ -27,6 +31,7 @@ const uploadImage = async (image: string) => {
         throw new Error(error.message || "Image upload failed");
     }
 };
+
 
 export async function PATCH(request: NextRequest) {
     try {
@@ -38,7 +43,6 @@ export async function PATCH(request: NextRequest) {
         }
 
         const secureUrl = await uploadImage(userprofile_image);
-        console.log("secureUrl", secureUrl)
 
         const updatedUser = await User.findByIdAndUpdate(
             id,

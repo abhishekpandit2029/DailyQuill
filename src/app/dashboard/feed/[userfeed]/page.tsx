@@ -7,7 +7,7 @@ import CardViewModel from "@/components/Modals/CardViewModel";
 import { useGetQuery } from "@/lib/fetcher";
 import CardSkeleton from "@/components/Dashboard/CardSkeleton";
 import Grid from "@mui/material/Grid";
-import Image from "next/image";
+import { Image } from "antd";
 import ProfilePic from "@/stuff/pxfuel.jpg"
 import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
@@ -22,6 +22,7 @@ export interface IThoughtCards {
     content: string,
     tags: string[],
     _id: string;
+    userprofile_image: string
 }
 
 interface IGetCardsData {
@@ -36,6 +37,7 @@ interface IUserData {
     bio: string,
     link: string,
     link_alias: string,
+    userprofile_image: string
 }
 
 interface IGetUserData {
@@ -54,7 +56,6 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
 
     const { data: profileData } = useGetQuery<IGetUserData>(`/users/getUsers?searchQuery=${ID}`
     );
-    console.log("profileData", profileData)
 
     const handleCopy = (content: string) => {
         navigator.clipboard.writeText(content);
@@ -86,7 +87,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                     <div className="w-full lap:w-4/5 flex flex-col space-y-4">
                         <div className="flex space-x-8 items-center">
                             <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
-                                <Image src={ProfilePic} alt="profile-pic" className="rounded-full max-w-[7rem]" />
+                                <Image src={profileData?.users[0]?.userprofile_image} alt="profile-pic" className="rounded-full max-w-[7rem]" />
                             </div>
                             <div className="flex space-x-4">
                                 <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">12</p><p className="font-medium text-base">Posts</p></div>

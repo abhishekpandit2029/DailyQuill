@@ -17,7 +17,7 @@ export interface IUser {
     language: string,
     pronounce: string,
     link_alias: string,
-    userprofile_image: string,
+    userprofile_image?: string,
   }
 }
 

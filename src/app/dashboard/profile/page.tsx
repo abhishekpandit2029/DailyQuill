@@ -12,15 +12,12 @@ import CardViewModel from "@/components/Modals/CardViewModel";
 import { useGetQuery } from "@/lib/fetcher";
 import CardSkeleton from "@/components/Dashboard/CardSkeleton";
 import Grid from "@mui/material/Grid";
-import Image from "next/image";
-import ProfilePic from "@/stuff/pxfuel.jpg"
+import { Image } from "antd";
 import AddIcon from '@mui/icons-material/Add';
 import useMe from "@/hooks/useMe";
 import clsx from "clsx";
 import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
-import Link from "next/link";
-import { HeartOutlined } from '@ant-design/icons';
 import { IoHeart } from "react-icons/io5";
 import { Button } from "@mui/base/Button";
 import { buttonClassName } from "@/constants/strings";
@@ -30,6 +27,7 @@ export interface IThoughtCards {
     content: string,
     tags: string[],
     _id: string;
+    userprofile_image: string
 }
 
 interface IGetCardsData {
@@ -112,7 +110,7 @@ export default function ProfilePage() {
                     <div className="w-full lap:w-4/5 flex flex-col space-y-4">
                         <div className="flex space-x-8 items-center">
                             <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
-                                <Image src={ProfilePic} alt="profile-pic" className="rounded-full max-w-[7rem]" />
+                                <Image src={userData?.data?.userprofile_image} alt="profile-pic" className="rounded-full max-w-[7rem]" preview={false} />
                             </div>
                             <div className="flex space-x-4">
                                 <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">12</p><p className="font-medium text-base">Posts</p></div>
