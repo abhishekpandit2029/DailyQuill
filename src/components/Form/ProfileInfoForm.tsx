@@ -5,7 +5,7 @@ import { pronouns } from '@/constants/options';
 import { IUser } from '@/hooks/useMe';
 import dayjs from 'dayjs'
 import ProfilePic from "@/stuff/pxfuel.jpg"
-import Image from "next/image";
+import Image from "antd";
 
 interface IAddToDairyFormProps {
     record: IUser | undefined
@@ -43,15 +43,6 @@ export default function ProfileInfoForm(props: IAddToDairyFormProps) {
             labelCol={{ className: "font-medium" }}
             initialValues={record?.data}
         >
-
-            <div className='flex space-x-8'>
-                <Form.Item
-                    name="profile_photo"
-                    className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center justify-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400"
-                >
-                    <Image src={ProfilePic} alt="profile-pic" className="rounded-full max-w-[9rem]" />
-                </Form.Item>
-            </div>
             <div className='flex space-x-0 tab:space-x-8 tab:flex-row flex-col'>
                 <Form.Item
                     name="username"
