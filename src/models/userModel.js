@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema(
     },
     bio: {
       type: String,
+      default: "Today's Steps, Tomorrow's Memories: Your Daily Journey Companion. Capture life's moments, reflect, and cherish memories. Your personal journaling companion, making every day memorable.",
       required: false,
     },
     link: {
@@ -63,7 +64,19 @@ const userSchema = new mongoose.Schema(
     userprofile_image: {
       type: String,
       required: false,
-    }
+    },
+    posts: {
+      type: Number,
+      required: false,
+    },
+    followers: {
+      type: Number,
+      required: false,
+    },
+    followings: {
+      type: Number,
+      required: false,
+    },
   },
   { timestamps: true },
 );

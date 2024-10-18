@@ -122,7 +122,7 @@ export default function ProfilePage() {
                         <div>
                             <p className="text-xl font-semibold mb-2">{userData?.data?.full_name}</p>
                             <p className="text-base font-medium text-gray-600 mb-1">{userData?.data?.bio}</p>
-                            <a className="text-base font-medium text-indigo-500 flex space-x-1 items-center" href={userData?.data?.link || ""}><span>{userData?.data?.link_alias} </span><span><TiLocationArrowOutline className="text-lg" /></span>
+                            <a className="text-base font-medium text-indigo-500 flex space-x-1 items-center" href={userData?.data?.link || ""}><span>{userData?.data?.link_alias} </span><span> {userData?.data?.link_alias && <TiLocationArrowOutline className="text-lg" />}</span>
                             </a>
                         </div>
 
