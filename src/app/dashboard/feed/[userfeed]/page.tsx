@@ -8,7 +8,6 @@ import { useGetQuery, usePatchMutation } from "@/lib/fetcher";
 import CardSkeleton from "@/components/Dashboard/CardSkeleton";
 import Grid from "@mui/material/Grid";
 import { Image } from "antd";
-import ProfilePic from "@/stuff/pxfuel.jpg"
 import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { MdOutlineModeComment } from "react-icons/md";
@@ -78,7 +77,6 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
 
     const { trigger: unfollowTrigger } = usePatchMutation("/users/unfollowuser", {
         onSuccess: () => {
-            message.success("Information updated successfully");
             revalidate("/users/me");
             revalidate("/users/getUsers");
         },
@@ -202,7 +200,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                     )}
                 </div>
 
-                <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
+                <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex min-h-full">
                     {isLoading ? (
                         <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
                             <Grid container wrap="wrap" gap={3} justifyContent={"start"} padding={2}>
@@ -241,7 +239,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
             <div
                 style={{ backgroundColor: '#FEFEFE' }}
                 className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                    } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full w-[28rem]`}
+                    } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[28rem]`}
             >
                 <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? profileData?.users[0]?.followersLists : profileData?.users[0]?.followingsLists) || []} />
             </div>

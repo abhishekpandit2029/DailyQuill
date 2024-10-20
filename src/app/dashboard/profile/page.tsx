@@ -82,7 +82,7 @@ export default function ProfilePage() {
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
 
     return (
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 h-full">
             <div className={clsx("bg-white flex w-full my-3 tab:my-1 ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
                 {isAddNewModalOpen && (
                     <AddToDairyModel
@@ -164,7 +164,7 @@ export default function ProfilePage() {
                         <AddIcon /> Add New
                     </div>
 
-                    <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
+                    <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex min-h-full">
                         {isLoading ? (
                             <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
                                 <Grid container wrap="wrap" gap={3} justifyContent={"start"} padding={2}>
@@ -220,7 +220,7 @@ export default function ProfilePage() {
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
                     className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full w-[28rem]`}
+                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[28rem]`}
                 >
                     <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? userData?.data?.followersLists : userData?.data?.followingsLists) || []} />
                 </div>

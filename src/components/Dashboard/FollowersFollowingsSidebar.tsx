@@ -33,10 +33,10 @@ export default function FollowersFollowingsSidebar(props: ISidebarProps) {
     }
 
     return (
-        <div className="w-full flex-col space-y-4 p-1 flex min-h-full">
-            <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 min-h-full flex flex-col space-y-4">
+        <div className="w-full flex-col space-y-4 p-1 flex h-full">
+            <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 h-full flex flex-col space-y-4">
                 <p className='font-semibold text-xl'>{type}</p>
-                <div className='flex flex-col space-y-3 w-full'>
+                <div className='flex flex-col space-y-3 w-full h-full'>
                     {
                         sidebarData?.length > 0 ?
                             <>{
@@ -73,7 +73,8 @@ export default function FollowersFollowingsSidebar(props: ISidebarProps) {
                                 }
                             >
                                 <Button className={buttonClassName} onClick={() => push(`/dashboard/feed`)}>Make new Friends</Button>
-                            </Empty>}
+                            </Empty>
+                    }
                 </div>
             </div>
         </div >

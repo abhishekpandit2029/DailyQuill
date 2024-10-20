@@ -5,7 +5,6 @@ import { message } from "antd";
 export function useUpdateMe() {
     const { trigger: update, isMutating } = usePatchMutation("/users/updateme", {
         onSuccess: () => {
-            message.success("Information updated successfully");
             revalidate("/users/me");
             revalidate("/users/getUsers");
         },
