@@ -65,16 +65,28 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    posts: {
-      type: Number,
+    followersLists: {
+      type: [
+        {
+          follower_id: { type: String, required: false },
+          follower_username: { type: String, required: false },
+          follower_full_name: { type: String, required: false },
+          follower_profile_image: { type: String, required: false },
+        },
+        { timestamps: true },
+      ],
       required: false,
     },
-    followers: {
-      type: Number,
-      required: false,
-    },
-    followings: {
-      type: Number,
+    followingsLists: {
+      type: [
+        {
+          follower_id: { type: String, required: false, unique: true },
+          follower_username: { type: String, required: false, unique: true },
+          follower_full_name: { type: String, required: false, unique: true },
+          follower_profile_image: { type: String, required: false, unique: true },
+        },
+        { timestamps: true },
+      ],
       required: false,
     },
   },
