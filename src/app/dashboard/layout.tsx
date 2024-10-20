@@ -9,7 +9,6 @@ import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
-import { MdSpaceDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -53,7 +52,7 @@ export default function DashboardLayout({
                 <div className="flex flex-col space-y-4 p-1">
                     <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">
                         <div className="w-full flex flex-row space-x-4">
-                            <p className="font-semibold text-2xl">Your Space</p>
+                            <p className="font-semibold text-xl">My Space</p>
                         </div>
                     </div>
                     <div className="rounded-2xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">

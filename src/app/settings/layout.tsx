@@ -34,7 +34,7 @@ export default function SettingsLayout({
                     <div className="rounded-2xl ring-1 ring-inset ring-gray-900/5 min-w-[12rem]">
                         <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">
                             <div className="w-full flex flex-row space-x-4">
-                                <p className="font-semibold text-2xl">Settings</p>
+                                <p className="font-semibold text-xl">Settings</p>
                             </div>
                         </div>
                     </div>

@@ -148,7 +148,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
     }
 
     return (
-        <div className={clsx("bg-white flex place-content-center my-3 tab:my-1 ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
+        <div className={clsx("bg-white flex my-3 tab:my-1 ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
             {isCardModalOpen && (
                 <CardViewModel
                     handleCancel={() => {
@@ -158,7 +158,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                     initialData={cardViewData}
                 />
             )}
-            <div className="flex flex-col space-y-4 place-content-center h-fit">
+            <div className="flex flex-col space-y-4 w-full h-fit">
                 <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
                     {isLoading ? (
                         <ProfileSkeleton />

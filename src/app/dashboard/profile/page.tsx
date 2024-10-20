@@ -83,7 +83,7 @@ export default function ProfilePage() {
 
     return (
         <div className="flex space-x-4">
-            <div className={clsx("bg-white flex place-content-center my-3 tab:my-1 ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
+            <div className={clsx("bg-white flex w-full my-3 tab:my-1 ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
                 {isAddNewModalOpen && (
                     <AddToDairyModel
                         handleCancel={() => {
@@ -123,7 +123,7 @@ export default function ProfilePage() {
                     />
                 )}
 
-                <div className="flex flex-col space-y-4 place-content-center h-fit">
+                <div className="flex flex-col space-y-4 w-full h-fit">
                     <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
                         {isMeLoading ? (
                             <ProfileSkeleton />
@@ -131,7 +131,7 @@ export default function ProfilePage() {
                             <div className="w-full lap:w-4/5 flex flex-col space-y-4">
                                 <div className="flex space-x-8 items-center">
                                     <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
-                                        <Image src={userData?.data?.userprofile_image} alt="profile-pic" className="rounded-full max-w-[7rem]" preview={false} />
+                                        <Image src={userData?.data?.userprofile_image} alt="profile-pic" className="rounded-full max-w-[8rem]" preview={false} />
                                     </div>
                                     <div className="flex space-x-4">
                                         <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">{filteredData?.length || 0}</p><p className="font-medium text-base">Posts</p></div>
