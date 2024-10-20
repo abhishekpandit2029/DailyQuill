@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
         filter.$or = [
           { username: { $regex: searchQuery, $options: "i" } },
           { full_name: { $regex: searchQuery, $options: "i" } },
+          { _id: { $regex: searchQuery, $options: "i" } },
         ];
       }
     }

@@ -7,6 +7,7 @@ export function useUpdateMe() {
         onSuccess: () => {
             message.success("Information updated successfully");
             revalidate("/users/me");
+            revalidate("/users/getUsers");
         },
         onError: (error) => {
             message.error(error.message);

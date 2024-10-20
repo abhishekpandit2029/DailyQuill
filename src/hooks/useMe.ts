@@ -1,5 +1,16 @@
 import { useGetQuery } from "@/lib/fetcher";
 
+export interface IFollowersFollowings {
+  follower_id: string,
+  follower_username: string,
+  follower_full_name: string,
+  follower_profile_image: string,
+  // this below types are unused
+  username?: string,
+  full_name?: string,
+  userprofile_image?: string
+}
+
 export interface IUser {
   data: {
     _id: string,
@@ -18,6 +29,8 @@ export interface IUser {
     pronounce: string,
     link_alias: string,
     userprofile_image?: string,
+    followersLists: IFollowersFollowings[],
+    followingsLists: IFollowersFollowings[],
   }
 }
 
