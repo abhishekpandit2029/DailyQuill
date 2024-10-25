@@ -3,13 +3,15 @@
 import ProfileInfoForm from "@/components/Form/ProfileInfoForm";
 import useMe from "@/hooks/useMe";
 import { useUpdateMe } from "@/hooks/useUpdateMe";
-import { Button, FormInstance } from "antd";
+import { Button, FormInstance, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Image } from "antd";
-import { TbEdit } from "react-icons/tb";
 import { defaultProfileImage } from "@/constants/strings";
+import { usePatchMutation } from "@/lib/fetcher";
+import revalidate from "@/lib/revalidate";
+import clsx from "clsx";
 
 export default function ProfileDetailsPage() {
     const formRef = useRef<FormInstance>(null);
@@ -17,6 +19,15 @@ export default function ProfileDetailsPage() {
     const { back } = useRouter();
     const { userData } = useMe()
     const { update, isMutating } = useUpdateMe()
+
+    const { trigger: updateProfile, isMutating: ispdateProfile } = usePatchMutation("/users/userprofile", {
+        onSuccess: () => {
+            revalidate("/users/me");
+        },
+        onError: (error) => {
+            message.error(error.message);
+        },
+    });
 
     const convertBase64 = (file: any) => {
         return new Promise((resolve, reject) => {
@@ -38,13 +49,11 @@ export default function ProfileDetailsPage() {
     };
 
     function uploadSingleImage(base64: unknown) {
-        update({ userprofile_image: base64, id: userData?.data?._id, });
+        updateProfile({ userprofile_image: base64, id: userData?.data?._id, });
     }
 
     const uploadImage = async (event: { target: { files: any; }; }) => {
         const files = event.target.files;
-        console.log(files.length);
-
         if (files.length === 1) {
             const base64 = await convertBase64(files[0]);
             uploadSingleImage(base64);
@@ -54,7 +63,7 @@ export default function ProfileDetailsPage() {
 
     const onSubmit = () => {
         formRef.current?.validateFields().then((values) => {
-            update({ ...values, id: userData?.data?._id, userprofile_image: userData?.data?.userprofile_image });
+            update({ ...values, id: userData?.data?._id });
         });
     };
 
@@ -74,8 +83,7 @@ export default function ProfileDetailsPage() {
                                     ref={fileInputRef}
                                     style={{ display: "none" }}
                                 />
-
-                                <Image onClick={handleIconClick} src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className="max-w-[9rem] h-auto rounded-[100rem] ring-2 ring-indigo-400 cursor-pointer" preview={false} referrerPolicy="no-referrer" />
+                                <Image onClick={handleIconClick} src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className={clsx("max-w-[9rem] h-auto rounded-[100rem] ring-2 ring-indigo-400 cursor-pointer", ispdateProfile ? " animate-pulse" : " animate-none")} preview={false} referrerPolicy="no-referrer" loading="lazy" />
                             </div>
 
                             <ProfileInfoForm formRef={formRef} record={userData} />
