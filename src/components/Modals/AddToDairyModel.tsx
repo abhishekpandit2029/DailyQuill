@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { Button, FormInstance, message, Modal, Space } from "antd";
 import AddToDairyForm from "../Form/AddToDairyForm";
 import { buttonClassName } from "@/constants/strings";
-import { usePostMutation } from "@/lib/fetcher";
+import { useGetQuery, usePostMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import useMe from "@/hooks/useMe";
 
@@ -31,9 +31,17 @@ export default function AddToDairyModel(props: ICardModel) {
         },
     });
 
+    const { trigger } = usePostMutation("/allUsers/createallusercarddata");
+
     const onSubmit = () => {
         formRef.current?.validateFields().then((values) => {
             create({ ...values, isSoftDelete: false, username: userData?.data?.username });
+            trigger({
+                ...values,
+                username: userData?.data?.username,
+                full_name: userData?.data?.full_name,
+                userprofileImage: userData?.data?.userprofile_image,
+            })
         });
     };
 
