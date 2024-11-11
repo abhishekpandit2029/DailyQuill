@@ -12,7 +12,7 @@ export async function GET() {
       thoughtCards,
     });
 
-    response.headers.set('Cache-Control', 'no-cache, must-revalidate');
+    response.headers.set('Cache-Control', 'no-store');
     return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
