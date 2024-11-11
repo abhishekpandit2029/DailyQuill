@@ -8,9 +8,12 @@ export async function GET() {
   try {
     const thoughtCards = await allUserCardData.find();
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       thoughtCards,
     });
+
+    // response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
