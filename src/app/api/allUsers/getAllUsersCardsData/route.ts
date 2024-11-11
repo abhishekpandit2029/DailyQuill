@@ -8,12 +8,9 @@ export async function GET() {
   try {
     const thoughtCards = await allUserCardData.find();
 
-    const response = NextResponse.json({
+    return NextResponse.json({
       thoughtCards,
     });
-
-    response.headers.set('Cache-Control', 'no-store');
-    return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

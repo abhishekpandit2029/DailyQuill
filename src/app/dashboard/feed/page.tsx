@@ -30,7 +30,11 @@ export default function FeedPage() {
     const [open, setOpen] = useState<boolean>(true)
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [cardViewData, setCardViewData] = useState<IThoughtCardsData>();
-    const { data, isLoading } = useGetQuery<ICardModel>("/allUsers/getAllUsersCardsData");
+    const { data, isLoading } = useGetQuery<ICardModel>("/allUsers/getAllUsersCardsData", {
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true,
+        revalidateIfStale: true
+    });
 
     const handleClickCardView = (entry: any) => {
         setCardModalOpen(true);
