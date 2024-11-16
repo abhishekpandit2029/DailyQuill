@@ -10,6 +10,7 @@ import { useGetQuery } from "@/lib/fetcher";
 import { truncateString } from "@/constants/format";
 import { Image } from "antd"
 import { defaultProfileImage } from "@/constants/strings";
+import NoData from "../../../stuff/Nodata.svg"
 
 interface IThoughtCardsData {
     title: string,
@@ -27,11 +28,10 @@ interface ICardModel {
 }
 
 export default function FeedPage() {
-    const [open, setOpen] = useState<boolean>(true)
+    const [open, setOpen] = useState<boolean>(false)
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [cardViewData, setCardViewData] = useState<IThoughtCardsData>();
     const { data, isLoading } = useGetQuery<ICardModel>("/allUsers/getAllUsersCardsData");
-    console.log(data, "data");
 
     const handleClickCardView = (entry: any) => {
         setCardModalOpen(true);
@@ -40,9 +40,9 @@ export default function FeedPage() {
 
     return (
         <>
-            <div className={clsx("flex", open ? "space-x-3" : "space-x-0")}>
-                <div className="bg-white w-full flex flex-col space-y-4 place-content-center ml-0 lap:ml-4 lg:flex h-fit p-1">
-                    <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
+            <div className={clsx("flex", open ? "space-x-4" : "space-x-0")}>
+                <div className="bg-white w-full flex flex-col space-y-4 place-content-center ml-0 lap:ml-4 lg:flex h-fit">
+                    <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3">
                         <div className="w-full flex flex-row space-x-4 items-center justify-between">
                             <p className="font-semibold text-2xl">Feed</p>
                             <MdOutlinePersonSearch className="text-2xl cursor-pointer" onClick={() => setOpen(!open)} />
@@ -60,7 +60,7 @@ export default function FeedPage() {
                             </div>
                         ) :
                             (
-                                <div className="flex gap-4 flex-wrap p-3 tab:p-4">
+                                <div className="flex gap-4 flex-wrap p-3">
                                     {Array.isArray(data?.thoughtCards) &&
                                         data?.thoughtCards?.map((items, index) => (
                                             <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">

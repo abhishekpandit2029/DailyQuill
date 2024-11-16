@@ -90,6 +90,7 @@ function useQuery<Data>(
 
     return useSWR<Data, Error>(key, fetcher, {
         keepPreviousData: true,
+        revalidateOnFocus: false,
         ...config,
     });
 }
