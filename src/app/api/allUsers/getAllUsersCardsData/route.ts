@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const thoughtCards = await allUserCardData.find();
