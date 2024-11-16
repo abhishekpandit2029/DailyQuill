@@ -5,7 +5,7 @@ import { useState } from "react"
 import { MdOutlinePersonSearch } from "react-icons/md"
 
 export default function InboxPage() {
-    const [open, setOpen] = useState<boolean>(true)
+    const [open, setOpen] = useState<boolean>(false)
     return (
         <>
             <div className="bg-white w-full flex space-x-4 ml-0 lap:ml-4 lg:flex p-1 h-full">
