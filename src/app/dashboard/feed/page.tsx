@@ -49,10 +49,10 @@ export default function FeedPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex min-h-full">
+                    <div className="bg-white flex flex-col space-y-1 rounded-3xl ring-1 ring-gray-200 lg:flex min-h-full">
                         {isLoading ? (
                             <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
-                                <Grid container wrap="wrap" gap={3} justifyContent={"start"} padding={2}>
+                                <Grid container wrap="wrap" gap={2} justifyContent={"start"} padding={1.5}>
                                     {Array.from({ length: 3 }).map((_, index) => (
                                         <CardSkeleton key={index} />
                                     ))}
@@ -60,7 +60,7 @@ export default function FeedPage() {
                             </div>
                         ) :
                             (
-                                <div className="flex gap-4 flex-wrap p-3">
+                                <div className="flex gap-4 flex-wrap p-3.5">
                                     {Array.isArray(data?.thoughtCards) &&
                                         data?.thoughtCards?.map((items, index) => (
                                             <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">

@@ -32,7 +32,7 @@ export function SoftDeleteAction(record: any) {
             arrow={false}
             placement="topRight"
         >
-            <MdOutlineAutoDelete className="cursor-pointer text-[1.2rem] tab:text-[1.4rem] hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200" />
+            <p className="flex items-center text-base"><MdOutlineAutoDelete className="cursor-pointer text-[1.2rem] hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-1" /> Delete</p>
         </Popconfirm>
     );
 }

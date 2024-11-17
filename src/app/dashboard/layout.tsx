@@ -55,7 +55,7 @@ export default function DashboardLayout({
                             <p className="font-semibold text-2xl">My Space</p>
                         </div>
                     </div>
-                    <div className="rounded-2xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
+                    <div className="rounded-3xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
                         <div className="w-full flex-col space-y-5 p-4 hidden lap:flex">
                             <Link href="/dashboard/profile" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/profile' ? 'text-indigo-500' : 'text-gray-900')}>

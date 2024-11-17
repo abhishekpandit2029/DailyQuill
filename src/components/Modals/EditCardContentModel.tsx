@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
-import { Button, FormInstance, message, Modal, Space } from "antd";
+import { FormInstance, message, Modal, Space } from "antd";
 import AddToDairyForm from "../Form/AddToDairyForm";
 import { IThoughtCards } from "@/app/dashboard/profile/page";
 import { usePatchMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import { buttonClassName } from "@/constants/strings";
 import useMe from "@/hooks/useMe";
+import { Button } from "@mui/base/Button";
 
 interface ICardModel {
     handleCancel: () => void;
@@ -52,15 +53,12 @@ export default function EditCardContentModel(props: ICardModel) {
                 onCancel={handleCancel}
                 footer={[
                     <Space key="modal-footer" className="p-4">
-                        <Button key="cancel-button" size="large" onClick={onCancel} className={buttonClassName}>
+                        <Button key="cancel-button" onClick={onCancel} className={buttonClassName}>
                             Cancel
                         </Button>
                         <Button
                             key="update-button"
-                            size="large"
-                            loading={isMutating}
                             onClick={onSubmit}
-                            type="primary"
                             className={buttonClassName}
                         >
                             Update
@@ -70,7 +68,7 @@ export default function EditCardContentModel(props: ICardModel) {
             >
                 <div className="flex flex-col space-y-6">
                     <p className="whitespace-nowrap text-xl font-bold leading-6 text-gray-900">
-                        Add Your Thought
+                        Update Your Thought
                     </p>
                     <AddToDairyForm record={initialData} onSave={onSave} onCancel={onCancel} formRef={formRef} />
                 </div>

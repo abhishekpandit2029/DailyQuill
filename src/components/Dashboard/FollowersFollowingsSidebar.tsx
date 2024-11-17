@@ -33,8 +33,8 @@ export default function FollowersFollowingsSidebar(props: ISidebarProps) {
     }
 
     return (
-        <div className="w-full flex-col space-y-4 flex h-full">
-            <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 h-full flex flex-col space-y-4">
+        <div className="w-full flex-col space-y-4 flex h-full p-[0.1rem]">
+            <div className="rounded-3xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 h-full flex flex-col space-y-4">
                 <p className='font-semibold text-xl'>{type}</p>
                 <div className='flex flex-col space-y-3 w-full h-full'>
                     {

@@ -43,7 +43,7 @@ export default function SearchUserSidebar() {
                 </div>
             </div>
             <div className="w-full flex-col space-y-4 flex">
-                <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 min-h-screen">
+                <div className="rounded-3xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 min-h-screen">
                     <div className='flex flex-col space-y-3 w-full'>
                         {
                             data?.users?.map((item) => {

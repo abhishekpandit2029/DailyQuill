@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react";
-import { FaRegCopy } from "react-icons/fa6";
+import { FaRegCopy, FaRegHeart } from "react-icons/fa6";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import EditCardContentModel from "@/components/Modals/EditCardContentModel";
 import { FaRegEdit } from "react-icons/fa";
-import { Divider, message, Rate } from "antd";
+import { Divider, Dropdown, message, Rate } from "antd";
+import type { MenuProps } from 'antd';
 import { SoftDeleteAction } from "@/components/Dashboard/CardActions";
 import { truncateString } from "@/constants/format";
 import CardViewModel from "@/components/Modals/CardViewModel";
@@ -20,6 +21,8 @@ import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { IoHeart } from "react-icons/io5";
 import FollowersFollowingsSidebar from "@/components/Dashboard/FollowersFollowingsSidebar";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { MdOutlineModeComment } from "react-icons/md";
 
 export interface IThoughtCards {
     title: string,
@@ -83,7 +86,7 @@ export default function ProfilePage() {
 
     return (
         <div className="flex space-x-4 h-full">
-            <div className={clsx("bg-white flex w-full my-3 tab:my-1 ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
+            <div className={clsx("bg-white flex w-full ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
                 {isAddNewModalOpen && (
                     <AddToDairyModel
                         handleCancel={() => {
@@ -124,7 +127,7 @@ export default function ProfilePage() {
                 )}
 
                 <div className="flex flex-col space-y-4 w-full h-fit">
-                    <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
+                    <div className="rounded-3xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
                         {isMeLoading ? (
                             <ProfileSkeleton />
                         ) : (
@@ -164,7 +167,7 @@ export default function ProfilePage() {
                         <AddIcon /> Add New
                     </div>
 
-                    <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex min-h-full">
+                    <div className="bg-white flex flex-col space-y-1 rounded-3xl ring-1 ring-gray-200 lg:flex min-h-full">
                         {isLoading ? (
                             <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
                                 <Grid container wrap="wrap" gap={3} justifyContent={"start"} padding={2}>
@@ -176,7 +179,7 @@ export default function ProfilePage() {
                         ) :
                             (
                                 filteredData && filteredData?.length <= 0 ?
-                                    <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
+                                    <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3">
                                         <div className="cursor-pointer border-dashed border-2 border-gray-200 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-[16rem] justify-center items-center text-center" onClick={() => {
                                             setIsAddNewModalOpen(true);
                                         }}>
@@ -184,12 +187,42 @@ export default function ProfilePage() {
                                         </div>
                                     </div> :
 
-                                    <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
+                                    <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3.5">
                                         {Array.isArray(filteredData) &&
                                             filteredData?.map((items, index) => (
                                                 <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
-                                                    <div>
+                                                    <div className="flex justify-between items-center">
                                                         <p className="font-bold text-lg">{items?.title}</p>
+                                                        <Dropdown
+                                                            menu={{
+                                                                items: [
+                                                                    {
+                                                                        label: <p className="flex items-center text-base" onClick={() => handleCopy(items?.content)}><FaRegCopy
+                                                                            className="cursor-pointer hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-1"
+                                                                        /> Copy</p>,
+                                                                        key: '0',
+                                                                    },
+                                                                    {
+                                                                        label:
+                                                                            <p className="flex items-center text-base" onClick={() => handleClick(items)}><FaRegEdit
+                                                                                className="cursor-pointer hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-1"
+                                                                            /> Edit</p>,
+                                                                        key: '1',
+                                                                    },
+                                                                    {
+                                                                        label: <SoftDeleteAction record={items} />,
+                                                                        key: '2',
+                                                                    },
+                                                                ]
+                                                            }}
+                                                            trigger={['hover']}
+                                                            placement="bottomRight"
+                                                        >
+                                                            <span>
+                                                                <BiDotsVerticalRounded className="font-bold text-lg cursor-pointer" />
+                                                            </span>
+                                                        </Dropdown>
+
                                                     </div>
                                                     <div className="cursor-pointer" onClick={() => handleClickCardView(items)}>
                                                         <p>{truncateString(items?.content, 100)}</p>
@@ -199,16 +232,8 @@ export default function ProfilePage() {
                                                     </div>
                                                     <Divider />
                                                     <div className="flex space-x-4 justify-end items-center">
-                                                        <Rate character={<IoHeart className="text-[1.8rem] mt-1" />} count={1} className="text-red-700" />
-                                                        <FaRegEdit
-                                                            className="cursor-pointer text-lg tab:text-xl hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200"
-                                                            onClick={() => handleClick(items)}
-                                                        />
-                                                        <FaRegCopy
-                                                            className="cursor-pointer text-lg tab:text-xl hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200"
-                                                            onClick={() => handleCopy(items?.content)}
-                                                        />
-                                                        <SoftDeleteAction record={items} />
+                                                        <p className="flex items-center"><FaRegHeart className="font-bold text-xl" /></p>
+                                                        <p className="flex items-center"><MdOutlineModeComment className="font-bold text-xl" /></p>
                                                     </div>
                                                 </div>
                                             ))
@@ -220,7 +245,7 @@ export default function ProfilePage() {
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
                     className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[28rem]`}
+                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[24rem]`}
                 >
                     <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? userData?.data?.followersLists : userData?.data?.followingsLists) || []} />
                 </div>
