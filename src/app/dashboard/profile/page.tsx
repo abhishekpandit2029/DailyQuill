@@ -5,8 +5,7 @@ import { FaRegCopy, FaRegHeart } from "react-icons/fa6";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import EditCardContentModel from "@/components/Modals/EditCardContentModel";
 import { FaRegEdit } from "react-icons/fa";
-import { Divider, Dropdown, message, Rate } from "antd";
-import type { MenuProps } from 'antd';
+import { Divider, Dropdown, message } from "antd";
 import { SoftDeleteAction } from "@/components/Dashboard/CardActions";
 import { truncateString } from "@/constants/format";
 import CardViewModel from "@/components/Modals/CardViewModel";
@@ -19,7 +18,6 @@ import useMe from "@/hooks/useMe";
 import clsx from "clsx";
 import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
-import { IoHeart } from "react-icons/io5";
 import FollowersFollowingsSidebar from "@/components/Dashboard/FollowersFollowingsSidebar";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdOutlineModeComment } from "react-icons/md";
@@ -47,7 +45,7 @@ export default function ProfilePage() {
 
     const { userData, isLoading: isMeLoading } = useMe()
 
-    const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?username=${userData?.data?.username}`);
+    const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?userID=${userData?.data?._id}`);
 
     const handleClick = (entry: any) => {
         setSelectedEntry(entry);

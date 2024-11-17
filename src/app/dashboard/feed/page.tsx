@@ -10,7 +10,7 @@ import { useGetQuery } from "@/lib/fetcher";
 import { truncateString } from "@/constants/format";
 import { Image } from "antd"
 import { defaultProfileImage } from "@/constants/strings";
-import NoData from "../../../stuff/Nodata.svg"
+import { IGetCardsData } from "../bin/page";
 
 interface IThoughtCardsData {
     title: string,
@@ -23,20 +23,18 @@ interface IThoughtCardsData {
     updatedAt: string,
 }
 
-interface ICardModel {
-    thoughtCards: IThoughtCardsData[]
-}
-
 export default function FeedPage() {
     const [open, setOpen] = useState<boolean>(false)
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [cardViewData, setCardViewData] = useState<IThoughtCardsData>();
-    const { data, isLoading } = useGetQuery<ICardModel>("/allUsers/getAllUsersCardsData");
+    const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata`);
 
     const handleClickCardView = (entry: any) => {
         setCardModalOpen(true);
         setCardViewData(entry)
     };
+
+    const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
 
     return (
         <>
@@ -49,7 +47,7 @@ export default function FeedPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white flex flex-col space-y-1 rounded-3xl ring-1 ring-gray-200 lg:flex min-h-full">
+                    <div className="bg-white flex flex-col space-y-1 rounded-3xl ring-1 ring-gray-200 lg:flex min-h-screen">
                         {isLoading ? (
                             <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
                                 <Grid container wrap="wrap" gap={2} justifyContent={"start"} padding={1.5}>
@@ -61,8 +59,8 @@ export default function FeedPage() {
                         ) :
                             (
                                 <div className="flex gap-4 flex-wrap p-3.5">
-                                    {Array.isArray(data?.thoughtCards) &&
-                                        data?.thoughtCards?.map((items, index) => (
+                                    {Array.isArray(filteredData) &&
+                                        filteredData?.map((items, index) => (
                                             <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
                                                 <div className='flex space-x-3 items-center'>
                                                     <Image src={items?.userprofileImage || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />

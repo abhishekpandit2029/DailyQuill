@@ -1,20 +1,18 @@
 import { connect } from "@/dbConfig/dbConfig";
-import getThoughtCardModel from "@/models/thoughtCardModel";
+import thoughtCardModel from "@/models/thoughtCardModel";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
 export async function DELETE(request: NextRequest) {
     try {
-        const { id, username } = await request.json();
+        const { id } = await request.json();
 
         if (!id) {
             return NextResponse.json({ error: "Something went wrong, please try again later" }, { status: 400 });
         }
 
-        const ThoughtCard = getThoughtCardModel(username);
-
-        const deletedThoughtCard = await ThoughtCard.findByIdAndDelete(id);
+        const deletedThoughtCard = await thoughtCardModel.findByIdAndDelete(id);
 
         if (!deletedThoughtCard) {
             return NextResponse.json({ error: "Something went wrong, please try again later" }, { status: 404 });
