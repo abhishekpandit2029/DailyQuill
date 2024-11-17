@@ -12,17 +12,22 @@ export interface IThoughtCards {
     title: string,
     content: string,
     tags: string[],
-    _id: string;
+    username: string,
+    full_name: string,
+    userprofileImage: string,
+    createdAt: string,
+    updatedAt: string,
 }
 
-interface IGetCardsData {
+
+export interface IGetCardsData {
     thoughtCards: IThoughtCards[]
 }
 
 
 export default function BinPage() {
     const { userData } = useMe()
-    const { data } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?username=${userData?.data?.username}`);
+    const { data } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?userID=${userData?.data?._id}`);
     const BinData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === true) || [];
 
     return (

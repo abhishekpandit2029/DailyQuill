@@ -70,7 +70,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
     const username = params?.userfeed
     const isFollow = userData?.data?.followingsLists?.some(item => item?.follower_id === ID)
 
-    const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?username=${username}`);
+    const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?userID=${ID}`);
 
     const { data: profileData } = useGetQuery<IGetUserData>(`/users/getUsers?searchQuery=${ID}`
     );

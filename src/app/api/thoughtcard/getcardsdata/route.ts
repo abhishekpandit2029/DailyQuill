@@ -1,5 +1,5 @@
 import { connect } from "@/dbConfig/dbConfig";
-import getThoughtCardModel from "@/models/thoughtCardModel";
+import thoughtCardModel from "@/models/thoughtCardModel";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
@@ -9,15 +9,15 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
-        const username = searchParams.get("username");
+        const userID = searchParams.get("userID");
 
-        if (!username) {
-            return NextResponse.json({ error: "Username is required" }, { status: 400 });
+        let thoughtCards;
+
+        if (userID) {
+            thoughtCards = await thoughtCardModel.find({ userID }).sort({ _id: -1 });
+        } else {
+            thoughtCards = await thoughtCardModel.find().sort({ _id: -1 });;
         }
-
-        const ThoughtCard = getThoughtCardModel(username);
-
-        const thoughtCards = await ThoughtCard.find();
 
         return NextResponse.json({
             message: "Thoughts fetched successfully",

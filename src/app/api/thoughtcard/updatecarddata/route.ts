@@ -1,5 +1,4 @@
 import { connect } from "@/dbConfig/dbConfig";
-import getThoughtCardModel from "@/models/thoughtCardModel";
 import ThoughtCard from "@/models/thoughtCardModel";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,13 +7,11 @@ connect();
 export async function PATCH(request: NextRequest) {
     try {
         const reqBody = await request.json();
-        const { id, title, content, tags, isSoftDelete, username } = reqBody;
+        const { id, title, content, tags, isSoftDelete } = reqBody;
 
         if (!id) {
             return NextResponse.json({ error: "Something went wrong, please try again later" }, { status: 400 });
         }
-
-        const ThoughtCard = getThoughtCardModel(username);
 
         const updatedThoughtCard = await ThoughtCard.findByIdAndUpdate(
             id,

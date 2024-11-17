@@ -24,13 +24,22 @@ const thoughtCardSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please provide a username"],
         },
+        full_name: {
+            type: String,
+            required: [true, "Please provide a full_name"],
+        },
+        userprofileImage: {
+            type: String,
+            required: [true, "Please provide a userprofileImage"],
+        },
+        userID: {
+            type: String,
+            required: [true, "Please provide a userprofileImage"],
+        },
     },
     { timestamps: true }
 );
 
-const getThoughtCardModel = (username) => {
-    const collectionName = `thoughtcard_${username}`;
-    return mongoose.models[collectionName] || mongoose.model(collectionName, thoughtCardSchema);
-};
+const thoughtCard = mongoose.models.thoughtCards || mongoose.model("thoughtCards", thoughtCardSchema);
 
-export default getThoughtCardModel;
+export default thoughtCard;
