@@ -5,7 +5,7 @@ import { HardDeleteAction, RestoreDeleteAction } from "@/components/Dashboard/Ca
 import { truncateString } from "@/constants/format";
 import { useGetQuery } from "@/lib/fetcher";
 import Image from "next/image";
-import NoData from "../../../stuff/Nodata.svg"
+import NoData from "../../../../stuff/Nodata.svg"
 import useMe from "@/hooks/useMe";
 
 export interface IThoughtCards {
