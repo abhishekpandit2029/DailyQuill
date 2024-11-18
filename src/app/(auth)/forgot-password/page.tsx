@@ -1,6 +1,6 @@
-import ForgotPassword from "@/components/Auth/General/ForgotPassword/ForgotPassword";
 import Image from "next/image";
 import forgotpassword from "@/stuff/forgotpassword.svg";
+import ForgotPasswordForm from "@/components/Form/ForgotPasswordForm";
 
 export default function ForgotPasswordPage() {
   return (
@@ -8,7 +8,9 @@ export default function ForgotPasswordPage() {
       <div className="hidden tab:flex">
         <Image src={forgotpassword} className="min-w-full" alt="Logo" />
       </div>
-      <ForgotPassword />
+      <div className="flex flex-col space-y-4 w-screen tab:w-[25rem] px-6 tab:p-0">
+        <ForgotPasswordForm />
+      </div>
     </div>
   );
 }

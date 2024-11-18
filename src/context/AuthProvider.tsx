@@ -6,6 +6,7 @@ import { message } from "antd";
 import { usePostMutation } from "@/lib/fetcher";
 import { useCookies } from "react-cookie";
 import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
+import revalidate from "@/lib/revalidate";
 
 interface ILoginRequest {
   email: string
@@ -41,7 +42,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           expires: getExpiryFromToken(accessToken),
         });
         message.success("Login successful");
-        push("/dashboard/profile");
+        push("/home");
+        revalidate("/users/me");
       }
     },
     onError: () => {

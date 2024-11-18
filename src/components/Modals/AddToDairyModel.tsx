@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useRef } from "react";
-import { Button, FormInstance, message, Modal, Space } from "antd";
+import { FormInstance, message, Modal, Space } from "antd";
 import AddToDairyForm from "../Form/AddToDairyForm";
 import { buttonClassName } from "@/constants/strings";
 import { usePostMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import useMe from "@/hooks/useMe";
+import { Button } from "@mui/base/Button";
 
 interface ICardModel {
     handleCancel: () => void;
@@ -50,7 +51,6 @@ export default function AddToDairyModel(props: ICardModel) {
                     <Space key="button-space" className="p-4">
                         <Button
                             key="cancel-button"
-                            size="large"
                             onClick={onCancel}
                             className={buttonClassName}
                         >
@@ -58,10 +58,7 @@ export default function AddToDairyModel(props: ICardModel) {
                         </Button>
                         <Button
                             key="save-button"
-                            size="large"
-                            loading={isMutating && true}
                             onClick={onSubmit}
-                            type="primary"
                             className={buttonClassName}
                         >
                             Save

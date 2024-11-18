@@ -57,12 +57,16 @@ export default function LoginForm() {
       </div>
       <div className="flex justify-between">
         <div>
-          <p className="text-sm">Remember Me</p>
-        </div>
-        <div>
           <Link href="forgot-password">
             <p className="hover:underline text-sm cursor-pointer">
               Forgot Password?
+            </p>
+          </Link>
+        </div>
+        <div>
+          <Link href="reset-password">
+            <p className="hover:underline text-sm cursor-pointer">
+              Reset Password?
             </p>
           </Link>
         </div>
