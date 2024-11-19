@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FaRegCopy, FaRegHeart } from "react-icons/fa6";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import EditCardContentModel from "@/components/Modals/EditCardContentModel";
@@ -21,6 +21,10 @@ import { TiLocationArrowOutline } from "react-icons/ti";
 import FollowersFollowingsSidebar from "@/components/Dashboard/FollowersFollowingsSidebar";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdOutlineModeComment } from "react-icons/md";
+import CardInfoShareModal from "@/components/Modals/CardInfoShareModal";
+import { SlShare } from "react-icons/sl";
+
+
 
 export interface IThoughtCards {
     title: string,
@@ -37,9 +41,11 @@ interface IGetCardsData {
 export default function ProfilePage() {
     const [selectedEntry, setSelectedEntry] = useState<IThoughtCards>();
     const [cardViewData, setCardViewData] = useState<IThoughtCards>();
+    const [cardInfoShareData, setCardInfoShareData] = useState<IThoughtCards>();
     const [isEditCardModalOpen, setIsEditCardModalOpen] = useState(false);
     const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
     const [isCardModalOpen, setCardModalOpen] = useState(false);
+    const [isCardInfoShareModalOpen, setIsCardInfoShareModalOpenOpen] = useState(false);
     const [sidebarType, setSidebarType] = useState<string>("")
     const [open, setOpen] = useState<boolean>(false)
 
@@ -51,6 +57,11 @@ export default function ProfilePage() {
         setSelectedEntry(entry);
         setIsEditCardModalOpen(true);
     };
+
+    const handleCardInfoShareClick = useCallback((entry: any) => {
+        setCardInfoShareData(entry)
+        setIsCardInfoShareModalOpenOpen(true);
+    }, []);
 
     const handleClickCardView = (entry: any) => {
         setCardModalOpen(true);
@@ -121,6 +132,15 @@ export default function ProfilePage() {
                         }}
                         isModalOpen={isCardModalOpen}
                         initialData={cardViewData}
+                    />
+                )}
+                {isCardInfoShareModalOpen && (
+                    <CardInfoShareModal
+                        handleCancel={() => {
+                            setIsCardInfoShareModalOpenOpen(false);
+                        }}
+                        isModalOpen={isCardInfoShareModalOpen}
+                        initialData={cardInfoShareData}
                     />
                 )}
 
@@ -196,21 +216,28 @@ export default function ProfilePage() {
                                                                 items: [
                                                                     {
                                                                         label: <p className="flex items-center text-base" onClick={() => handleCopy(items?.content)}><FaRegCopy
-                                                                            className="cursor-pointer hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-1"
+                                                                            className="cursor-pointer hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-2"
                                                                         /> Copy</p>,
                                                                         key: '0',
                                                                     },
                                                                     {
                                                                         label:
                                                                             <p className="flex items-center text-base" onClick={() => handleClick(items)}><FaRegEdit
-                                                                                className="cursor-pointer hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-1"
+                                                                                className="cursor-pointer hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-2"
                                                                             /> Edit</p>,
                                                                         key: '1',
+                                                                    },
+                                                                    {
+                                                                        label: <p className="flex items-center text-base" onClick={() => handleCardInfoShareClick(items)}><SlShare
+                                                                            className="cursor-pointer hover:text-indigo-500 hover:scale-110 ease-in-out transition duration-200 mr-2"
+                                                                        /> Share</p>,
+                                                                        key: '3',
                                                                     },
                                                                     {
                                                                         label: <SoftDeleteAction record={items} />,
                                                                         key: '2',
                                                                     },
+
                                                                 ]
                                                             }}
                                                             trigger={['hover']}
