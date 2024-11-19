@@ -11,28 +11,12 @@ import { truncateString } from "@/constants/format";
 import { Image } from "antd"
 import { defaultProfileImage } from "@/constants/strings";
 import { IGetCardsData } from "../bin/page";
-
-interface IThoughtCardsData {
-    title: string,
-    content: string,
-    tags: string[],
-    username: string,
-    full_name: string,
-    userprofileImage: string,
-    createdAt: string,
-    updatedAt: string,
-}
+import { useRouter } from "next/navigation";
 
 export default function FeedPage() {
     const [open, setOpen] = useState<boolean>(false)
-    const [isCardModalOpen, setCardModalOpen] = useState(false);
-    const [cardViewData, setCardViewData] = useState<IThoughtCardsData>();
+    const { push } = useRouter()
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata`);
-
-    const handleClickCardView = (entry: any) => {
-        setCardModalOpen(true);
-        setCardViewData(entry)
-    };
 
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
 
@@ -62,7 +46,7 @@ export default function FeedPage() {
                                     {Array.isArray(filteredData) &&
                                         filteredData?.map((items, index) => (
                                             <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
-                                                <div className='flex space-x-3 items-center'>
+                                                <div className='flex space-x-3 items-center cursor-pointer' onClick={() => push(`/dashboard/feed/${items?.username}?id=${items?.userID}`)}>
                                                     <Image src={items?.userprofileImage || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
                                                     <div>
                                                         <p className='text-[0.9rem]'>{items?.username.charAt(0).toUpperCase() + items?.username.slice(1).toLowerCase()}</p>
@@ -73,7 +57,7 @@ export default function FeedPage() {
                                                 <div>
                                                     <p className="font-bold text-lg">{items?.title}</p>
                                                 </div>
-                                                <div className="cursor-pointer" onClick={() => handleClickCardView(items)}>
+                                                <div className="cursor-pointer">
                                                     <p>{truncateString(items?.content, 100)}</p>
                                                 </div>
                                                 <div>

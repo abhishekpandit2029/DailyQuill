@@ -17,13 +17,12 @@ export interface IThoughtCards {
     userprofileImage: string,
     createdAt: string,
     updatedAt: string,
+    userID: string
 }
-
 
 export interface IGetCardsData {
     thoughtCards: IThoughtCards[]
 }
-
 
 export default function BinPage() {
     const { userData } = useMe()
