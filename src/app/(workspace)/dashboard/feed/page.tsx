@@ -42,10 +42,10 @@ export default function FeedPage() {
                             </div>
                         ) :
                             (
-                                <div className="flex gap-4 flex-wrap p-3.5">
+                                <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3.5">
                                     {Array.isArray(filteredData) &&
                                         filteredData?.map((items, index) => (
-                                            <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
+                                            <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 min-w-fit h-fit">
                                                 <div className='flex space-x-3 items-center cursor-pointer' onClick={() => push(`/dashboard/feed/${items?.username}?id=${items?.userID}`)}>
                                                     <Image src={items?.userprofileImage || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
                                                     <div>
@@ -57,7 +57,7 @@ export default function FeedPage() {
                                                 <div>
                                                     <p className="font-bold text-lg">{items?.title}</p>
                                                 </div>
-                                                <div className="cursor-pointer">
+                                                <div className="cursor-pointer min-w-full">
                                                     <p>{truncateString(items?.content, 100)}</p>
                                                 </div>
                                                 <div>

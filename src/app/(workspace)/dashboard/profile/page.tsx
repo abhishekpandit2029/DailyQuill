@@ -188,7 +188,7 @@ export default function ProfilePage() {
                                     <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3.5">
                                         {Array.isArray(filteredData) &&
                                             filteredData?.map((items, index) => (
-                                                <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
+                                                <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 min-w-fit h-fit">
                                                     <div className="flex justify-between items-center">
                                                         <p className="font-bold text-lg">{items?.title}</p>
                                                         <Dropdown
@@ -222,8 +222,8 @@ export default function ProfilePage() {
                                                         </Dropdown>
 
                                                     </div>
-                                                    <div className="cursor-pointer" onClick={() => handleClickCardView(items)}>
-                                                        <p>{truncateString(items?.content, 100)}</p>
+                                                    <div className="cursor-pointer min-w-full" onClick={() => handleClickCardView(items)}>
+                                                        <p>{truncateString(items?.content, 50)}</p>
                                                     </div>
                                                     <div>
                                                         <p className="text-xs text-gray-500">{items?.tags?.join(" ")}</p>
