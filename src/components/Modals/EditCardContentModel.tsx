@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { FormInstance, message, Modal, Space } from "antd";
 import AddToDairyForm from "../Form/AddToDairyForm";
-import { IThoughtCards } from "@/app/dashboard/profile/page";
+import { IThoughtCards } from "@/app/(workspace)/dashboard/profile/page";
 import { usePatchMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import { buttonClassName } from "@/constants/strings";

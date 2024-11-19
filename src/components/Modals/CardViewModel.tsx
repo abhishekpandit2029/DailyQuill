@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Modal } from "antd";
-import { IThoughtCards } from "@/app/dashboard/profile/page";
+import { IThoughtCards } from "@/app/(workspace)/dashboard/profile/page";
 
 interface ICardModel {
     handleCancel: () => void;

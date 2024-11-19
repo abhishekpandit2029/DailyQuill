@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, FormInstance } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { IThoughtCards } from '@/app/dashboard/profile/page';
+import { IThoughtCards } from '@/app/(workspace)/dashboard/profile/page';
 
 interface IAddToDairyFormProps {
     record: IThoughtCards | undefined
