@@ -23,6 +23,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdOutlineModeComment } from "react-icons/md";
 import CardInfoShareModal from "@/components/Modals/CardInfoShareModal";
 import { SlShare } from "react-icons/sl";
+import { defaultProfileImage } from "@/constants/strings";
 
 
 
@@ -152,7 +153,7 @@ export default function ProfilePage() {
                             <div className="w-full lap:w-4/5 flex flex-col space-y-4">
                                 <div className="flex space-x-8 items-center">
                                     <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
-                                        <Image src={userData?.data?.userprofile_image} alt="profile-pic" className="rounded-full max-w-[8rem]" preview={false} />
+                                        <Image src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className="rounded-full max-w-[8rem]" preview={false} />
                                     </div>
                                     <div className="flex space-x-4">
                                         <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">{filteredData?.length || 0}</p><p className="font-medium text-base">Posts</p></div>

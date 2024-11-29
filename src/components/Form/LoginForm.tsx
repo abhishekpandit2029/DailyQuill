@@ -3,11 +3,14 @@
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "@/context/AuthProvider";
+import { BiShowAlt } from "react-icons/bi";
+import { GrFormViewHide } from "react-icons/gr";
 
 export default function LoginForm() {
   const auth = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = React.useState({
     email: "",
     password: "",
@@ -26,7 +29,7 @@ export default function LoginForm() {
             information by email address and password.
           </p>
         </div>
-        <div className="flex items-center space-x-6 bg-gray-100 py-3 px-6 rounded-md">
+        <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
           <div>
             <MailOutlineRoundedIcon />
           </div>
@@ -40,18 +43,30 @@ export default function LoginForm() {
             />
           </div>
         </div>
-        <div className="flex items-center space-x-6 bg-gray-100 py-3 px-6 rounded-md">
+        <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
           <div>
             <LockOutlinedIcon />
           </div>
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full relative">
             <input
-              placeholder="••••••"
+              placeholder="••••••••••••"
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               className="border-2 h-8 w-full text-sm bg-gray-100 outline-none border-none tracking-widest"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-2 top-2"
+            >
+              {showPassword ? (
+                <BiShowAlt
+                  className="text-gray-500 text-xl" />
+              ) : (
+                <GrFormViewHide className="text-gray-500 text-xl" />
+              )}
+            </button>
           </div>
         </div>
       </div>

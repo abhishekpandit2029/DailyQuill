@@ -42,7 +42,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           expires: getExpiryFromToken(accessToken),
         });
         message.success("Login successful");
-        push("/home");
+        push("/dashboard/profile");
         revalidate("/users/me");
       }
     },

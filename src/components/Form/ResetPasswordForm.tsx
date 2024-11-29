@@ -5,6 +5,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
 import { useRouter } from "next/navigation";
+import { BiShowAlt } from "react-icons/bi";
+import { GrFormViewHide } from "react-icons/gr";
 
 interface IRequest {
     email?: string,
@@ -17,6 +19,7 @@ interface IResponse {
 
 export default function ResetPasswordForm() {
     const { push } = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -40,7 +43,7 @@ export default function ResetPasswordForm() {
                         To reset your password, please enter the email address and current password you used for login.
                     </p>
                 </div>
-                <div className="flex items-center space-x-6 bg-gray-100 py-3 px-6 rounded-md">
+                <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
                     <div>
                         <MailOutlineRoundedIcon />
                     </div>
@@ -54,18 +57,30 @@ export default function ResetPasswordForm() {
                         />
                     </div>
                 </div>
-                <div className="flex items-center space-x-6 bg-gray-100 py-3 px-6 rounded-md">
+                <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
                     <div>
                         <LockOutlinedIcon />
                     </div>
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-full relative">
                         <input
-                            placeholder="••••••"
+                            placeholder="••••••••••••"
                             value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             className="border-2 h-8 w-full text-sm bg-gray-100 outline-none border-none tracking-widest"
                         />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            className="absolute right-2 top-2"
+                        >
+                            {showPassword ? (
+                                <BiShowAlt
+                                    className="text-gray-500 text-xl" />
+                            ) : (
+                                <GrFormViewHide className="text-gray-500 text-xl" />
+                            )}
+                        </button>
                     </div>
                 </div>
             </div>

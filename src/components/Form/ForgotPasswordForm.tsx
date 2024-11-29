@@ -37,7 +37,7 @@ export default function ResetPasswordForm() {
             To change your password, please enter the email address you used for login.
           </p>
         </div>
-        <div className="flex items-center space-x-6 bg-gray-100 py-3 px-6 rounded-md">
+        <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
           <div>
             <MailOutlineRoundedIcon />
           </div>
