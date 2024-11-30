@@ -8,6 +8,8 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { useEffect, useState } from "react";
 import useParams from "@/hooks/useParams";
 import checkTimeRemaining from "@/helpers/checkTimeRemaining";
+import { Suspense } from "react";
+import { Skeleton } from "antd";
 
 interface IDecodeToken {
     cat: string | JwtPayload | null;
@@ -24,7 +26,7 @@ function ExpiredToken() {
     )
 }
 
-export default function ForgotPasswordPage() {
+export default function RedirectRPFPPage() {
     const { get } = useParams();
     const [isTimeValid, setIsTimeValid] = useState<boolean>(true);
     const token = get("token");
@@ -44,7 +46,7 @@ export default function ForgotPasswordPage() {
     }, [token, decoded?.cat, isTimeValid]);
 
     return (
-        <>
+        <Suspense fallback={<Skeleton />}>
             {isTimeValid ? (
                 <div className="flex tab:px-8 tab:pb-4 lap:px-16 lap:pb-8 items-center justify-evenly">
                     <div className="hidden tab:flex">
@@ -57,6 +59,6 @@ export default function ForgotPasswordPage() {
             ) : (
                 <ExpiredToken />
             )}
-        </>
+        </Suspense>
     );
 }
