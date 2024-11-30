@@ -7,6 +7,8 @@ import { usePostMutation } from "@/lib/fetcher";
 import { useRouter } from "next/navigation";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
+import { Button, message } from "antd";
+import { buttonClassName } from "@/constants/strings";
 
 interface IRequest {
     email?: string,
@@ -15,19 +17,21 @@ interface IRequest {
 
 interface IResponse {
     exists: boolean
+    error: string
 }
 
 export default function ResetPasswordForm() {
-    const { push } = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState({
         email: "",
         password: "",
+        type: "reset"
     });
 
-    const { trigger } = usePostMutation<IRequest, IResponse>("/users/existance", {
+    const { trigger, isMutating } = usePostMutation<IRequest, IResponse>("/users/existance", {
         onSuccess(data) {
-            if (data.exists) push("/login")
+            if (data?.exists) message.success("Success! An email with the next steps has been sent to your registered email address.", 3)
+            else message.error(data?.error, 3)
         }
     });
 
@@ -85,12 +89,9 @@ export default function ResetPasswordForm() {
                 </div>
             </div>
             <div className="flex space-x-4">
-                <button
-                    onClick={() => trigger(user)}
-                    className="rounded-lg border-2 py-2 px-3 text-sm"
-                >
+                <Button type="primary" onClick={() => trigger(user)} loading={isMutating} size="large" className={buttonClassName}>
                     Submit
-                </button>
+                </Button>
             </div>
         </div>
     );

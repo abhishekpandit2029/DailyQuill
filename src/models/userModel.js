@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide a password"],
     },
+    new_password: {
+      type: String,
+      required: false,
+    },
     isVerfied: {
       type: Boolean,
       default: false,
@@ -62,6 +66,10 @@ const userSchema = new mongoose.Schema(
       required: false,
     },
     userprofile_image: {
+      type: String,
+      required: false,
+    },
+    type: {
       type: String,
       required: false,
     },

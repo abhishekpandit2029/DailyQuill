@@ -4,6 +4,8 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import React, { useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
 import { useRouter } from "next/navigation";
+import { Button, message } from "antd";
+import { buttonClassName } from "@/constants/strings";
 
 interface IRequest {
   email?: string,
@@ -11,17 +13,19 @@ interface IRequest {
 
 interface IResponse {
   exists: boolean
+  error: string
 }
 
-export default function ResetPasswordForm() {
-  const { push } = useRouter();
+export default function ForgotPasswordForm() {
   const [user, setUser] = useState({
     email: "",
+    type: "forgot"
   });
 
-  const { trigger } = usePostMutation<IRequest, IResponse>("/users/existance", {
+  const { trigger, isMutating } = usePostMutation<IRequest, IResponse>("/users/existance", {
     onSuccess(data) {
-      if (data.exists) push("/login")
+      if (data?.exists) message.success("Success! An email with the next steps has been sent to your registered email address.", 3)
+      else message.error(data?.error, 3)
     }
   });
 
@@ -53,12 +57,9 @@ export default function ResetPasswordForm() {
         </div>
       </div>
       <div className="flex space-x-4">
-        <button
-          onClick={() => trigger(user)}
-          className="rounded-lg border-2 py-2 px-3 text-sm"
-        >
+        <Button type="primary" onClick={() => trigger(user)} loading={isMutating} size="large" className={buttonClassName}>
           Submit
-        </button>
+        </Button>
       </div>
     </div>
   );

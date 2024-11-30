@@ -7,6 +7,7 @@ import { useCallback } from "react";
 
 export type SearchParams =
     | "id"
+    | "token"
 
 export type IUpdateSearchParams = Partial<
     Record<SearchParams, string | number | null>
