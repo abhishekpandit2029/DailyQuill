@@ -4,11 +4,12 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
-import { useRouter } from "next/navigation";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
 import { Button, message } from "antd";
 import { buttonClassName } from "@/constants/strings";
+import { useCookies } from "react-cookie";
+import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
 
 interface IRequest {
     email?: string,
@@ -18,9 +19,11 @@ interface IRequest {
 interface IResponse {
     exists: boolean
     error: string
+    token: string
 }
 
 export default function ResetPasswordForm() {
+    const [{ rpfp_token }, setCookie] = useCookies(["rpfp_token"]);
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState({
         email: "",
@@ -30,9 +33,16 @@ export default function ResetPasswordForm() {
 
     const { trigger, isMutating } = usePostMutation<IRequest, IResponse>("/users/existance", {
         onSuccess(data) {
-            if (data?.exists) message.success("Success! An email with the next steps has been sent to your registered email address.", 3)
-            else message.error(data?.error, 3)
-        }
+            const accessToken = data?.token;
+            if (accessToken) {
+                setCookie("rpfp_token", accessToken, {
+                    ...cookieOptions,
+                    expires: getExpiryFromToken(accessToken),
+                });
+                console.log("getExpiryFromToken(accessToken)", getExpiryFromToken(accessToken))
+                message.success("Success! An email with the next steps has been sent to your registered email address. The link is valid for 15 minutes, so be sure to use it before it expires.", 5)
+            } else message.error(data?.error)
+        },
     });
 
     return (

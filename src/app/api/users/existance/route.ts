@@ -74,6 +74,8 @@ export async function POST(req: NextRequest) {
       full_name: user.full_name,
       username: user.username,
       password: user.password,
+      token,
+      type
     }, { status: 200 });
 
   } catch (error) {

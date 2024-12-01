@@ -8,6 +8,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Button, message } from "antd";
 import { buttonClassName } from "@/constants/strings";
 import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
+import { cookieOptions } from "@/lib/jwt";
 
 interface IRequest {
     email?: string,
@@ -19,10 +21,12 @@ interface IResponse {
 
 interface IRedirectFPRPFormProps {
     dbemail: string
+    formtype: string
 }
 
-export default function RedirectFPRPForm({ dbemail }: IRedirectFPRPFormProps) {
+export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFormProps) {
     const { push } = useRouter()
+    const [{ rpfp_token }, removeCookie] = useCookies(["rpfp_token"]);
     const [showPassword, setShowPassword] = useState(false);
     const [showReenterPassword, setShowReenterPassword] = useState(false);
     const [passwordFPRP, setPasswordFPRP] = useState({
@@ -37,6 +41,7 @@ export default function RedirectFPRPForm({ dbemail }: IRedirectFPRPFormProps) {
     const { trigger, isMutating } = usePostMutation<IRequest, IResponse>("/users/update-password", {
         onSuccess() {
             message.success("Passwords update successfully")
+            removeCookie("rpfp_token", cookieOptions);
             push("/login")
         }
     });
@@ -52,7 +57,7 @@ export default function RedirectFPRPForm({ dbemail }: IRedirectFPRPFormProps) {
     return (
         <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
             <div>
-                <p className="text-[2.5rem]">Forgot</p>
+                <p className="text-[2.5rem]">{formtype.toLowerCase().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}</p>
                 <p className="text-[2.5rem]">Password :)</p>
             </div>
             <div className="flex flex-col space-y-4">
