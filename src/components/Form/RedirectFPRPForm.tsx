@@ -35,7 +35,7 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
     });
     const payload = {
         email: dbemail,
-        new_password: passwordFPRP.reenter_new_password,
+        new_password: passwordFPRP?.reenter_new_password,
     }
 
     const { trigger, isMutating } = usePostMutation<IRequest, IResponse>("/users/update-password", {
@@ -57,7 +57,7 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
     return (
         <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
             <div>
-                <p className="text-[2.5rem]">{formtype.toLowerCase().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}</p>
+                <p className="text-[2.5rem]">{formtype?.toLowerCase()?.split(" ")?.map(w => w?.charAt(0)?.toUpperCase() + w?.slice(1))?.join(" ")}</p>
                 <p className="text-[2.5rem]">Password :)</p>
             </div>
             <div className="flex flex-col space-y-4">

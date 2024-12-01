@@ -39,7 +39,6 @@ export default function ResetPasswordForm() {
                     ...cookieOptions,
                     expires: getExpiryFromToken(accessToken),
                 });
-                console.log("getExpiryFromToken(accessToken)", getExpiryFromToken(accessToken))
                 message.success("Success! An email with the next steps has been sent to your registered email address. The link is valid for 15 minutes, so be sure to use it before it expires.", 5)
             } else message.error(data?.error)
         },

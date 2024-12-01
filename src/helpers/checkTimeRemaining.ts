@@ -3,7 +3,6 @@ const checkTimeRemaining = (timestamp: number) => {
     const currentTime = Math.floor(Date.now() / 1000);
     const timeDifference = currentTime - timestampInSeconds;
     const timeDifferenceInMinutes = timeDifference / 60;
-    console.log("timeDifferenceInMinutes", timeDifferenceInMinutes)
     return timeDifferenceInMinutes <= 5;
 };
 
