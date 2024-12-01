@@ -3,7 +3,10 @@
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import React, { useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
-import { useRouter } from "next/navigation";
+import { Button, message } from "antd";
+import { buttonClassName } from "@/constants/strings";
+import { useCookies } from "react-cookie";
+import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
 
 interface IRequest {
   email?: string,
@@ -11,18 +14,29 @@ interface IRequest {
 
 interface IResponse {
   exists: boolean
+  error: string
+  token: string
 }
 
-export default function ResetPasswordForm() {
-  const { push } = useRouter();
+export default function ForgotPasswordForm() {
+  const [{ rpfp_token }, setCookie] = useCookies(["rpfp_token"]);
   const [user, setUser] = useState({
     email: "",
+    type: "forgot"
   });
 
-  const { trigger } = usePostMutation<IRequest, IResponse>("/users/existance", {
+  const { trigger, isMutating } = usePostMutation<IRequest, IResponse>("/users/existance", {
     onSuccess(data) {
-      if (data.exists) push("/login")
-    }
+      const accessToken = data?.token;
+      if (accessToken) {
+        setCookie("rpfp_token", accessToken, {
+          ...cookieOptions,
+          expires: getExpiryFromToken(accessToken),
+        });
+        console.log("getExpiryFromToken(accessToken)", getExpiryFromToken(accessToken))
+        message.success("Success! An email with the next steps has been sent to your registered email address. The link is valid for 15 minutes, so be sure to use it before it expires.", 5)
+      } else message.error(data?.error)
+    },
   });
 
   return (
@@ -53,12 +67,9 @@ export default function ResetPasswordForm() {
         </div>
       </div>
       <div className="flex space-x-4">
-        <button
-          onClick={() => trigger(user)}
-          className="rounded-lg border-2 py-2 px-3 text-sm"
-        >
+        <Button type="primary" onClick={() => trigger(user)} loading={isMutating} size="large" className={buttonClassName}>
           Submit
-        </button>
+        </Button>
       </div>
     </div>
   );
