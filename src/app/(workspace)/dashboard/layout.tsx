@@ -7,10 +7,12 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useState } from "react";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
+import { LuSettings } from "react-icons/lu";
+import { TbLogout2 } from "react-icons/tb";
 import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useAuth } from "@/context/AuthProvider";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -30,6 +32,7 @@ export default function DashboardLayout({
 }>) {
     const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
     const pathname = usePathname();
+    const auth = useAuth();
 
     return (
         <section>
@@ -52,21 +55,21 @@ export default function DashboardLayout({
                 <div className="flex flex-col space-y-4">
                     <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 min-w-[12rem]">
                         <div className="w-full flex flex-row space-x-4">
-                            <p className="font-semibold text-2xl">My Space</p>
+                            <p className="font-semibold text-xl">Core Space</p>
                         </div>
                     </div>
                     <div className="rounded-3xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
                         <div className="w-full flex-col space-y-5 p-4 hidden lap:flex">
                             <Link href="/dashboard/profile" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/profile' ? 'text-indigo-500' : 'text-gray-900')}>
-                                    <span><Person4OutlinedIcon /> </span>
-                                    <span>Profile</span>
+                                    <span className="text-lg"><Person4OutlinedIcon /> </span>
+                                    <span>Persona</span>
                                 </p>
                             </Link>
                             <Link href="/dashboard/feed" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/feed' ? 'text-indigo-500' : 'text-gray-900')}>
-                                    <span><DynamicFeedIcon /> </span>
-                                    <span>Feed</span>
+                                    <span className="text-lg"><DynamicFeedIcon /> </span>
+                                    <span>Moments</span>
                                 </p>
                             </Link>
                             {/* <Link href="/dashboard/inbox" passHref prefetch>
@@ -77,10 +80,20 @@ export default function DashboardLayout({
                             </Link> */}
                             <Link href="/dashboard/bin" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/bin' ? 'text-indigo-500' : 'text-gray-900')}>
-                                    <span><DeleteOutlineIcon /> </span>
-                                    <span>Bin</span>
+                                    <span className="text-lg"><DeleteOutlineIcon /> </span>
+                                    <span>Recycle</span>
                                 </p>
                             </Link>
+                            <Link href="/settings/account" passHref prefetch>
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/bin' ? 'text-indigo-500' : 'text-gray-900')}>
+                                    <span className="text-lg"><LuSettings /> </span>
+                                    <span>Control Hub</span>
+                                </p>
+                            </Link>
+                            <p onClick={auth?.logOut} className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/bin' ? 'text-indigo-500' : 'text-gray-900')}>
+                                <span className="text-lg"><TbLogout2 /> </span>
+                                <span>Adios!</span>
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -4,9 +4,7 @@ import React from "react";
 import { Image } from "antd";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import DailyQuill from "@/stuff/Red_Illustrated_Bull_Stock_Broker_Logo__1_-removebg-preview.png";
 import SidebarMenu from "@/components/Drawers/SidebarMenu";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Dropdown, } from 'antd';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { MenuProps } from 'antd';
@@ -26,17 +24,6 @@ function Navbar() {
   const isHome = useSelectedLayoutSegment()?.includes("home");
 
   const { userData } = useMe()
-
-  const items: MenuProps['items'] = [
-    {
-      label: <a href="/settings/account" className="text-base font-semibold leading-6 text-gray-900">Settings</a>,
-      key: '0',
-    },
-    {
-      label: <a onClick={auth?.logOut} className="text-base font-semibold leading-6 text-gray-900">Logout</a>,
-      key: '1',
-    },
-  ];
 
   return (
     <nav
@@ -81,16 +68,17 @@ function Navbar() {
           </p>
         </Link>
 
-        {auth?.isLoggedIn ? <Dropdown trigger={['click']} menu={{ items }}><div className="flex space-x-1 items-center cursor-pointer">
-          <Image src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className="max-w-[2rem] h-auto rounded-[100rem] ring-2 ring-indigo-400 cursor-pointer mr-1" preview={false} referrerPolicy="no-referrer" />
+        {auth?.isLoggedIn ?
+          <div className="flex space-x-1 items-center cursor-pointer">
+            <Image src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className="max-w-[2rem] h-auto rounded-[100rem] ring-2 ring-indigo-400 cursor-pointer mr-1" preview={false} referrerPolicy="no-referrer" />
 
-          <p className="text-base normal-case font-semibold leading-6 text-gray-900">
-            {(userData?.data?.username ?
-              userData.data.username.charAt(0).toUpperCase() + userData.data.username.slice(1).toLowerCase()
-              : "User")}
-          </p>
-          <ExpandMoreIcon />
-        </div></Dropdown> :
+            <p className="text-base normal-case font-semibold leading-6 text-gray-900">
+              {(userData?.data?.username ?
+                userData.data.username.charAt(0).toUpperCase() + userData.data.username.slice(1).toLowerCase()
+                : "User")}
+            </p>
+          </div>
+          :
           <Link href="/login">
             <Button
               className={buttonClassName}

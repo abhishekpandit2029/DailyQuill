@@ -4,10 +4,12 @@ import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
-import { IoMdSettings } from "react-icons/io";
+import { TfiBackLeft } from "react-icons/tfi";
 import { CgDarkMode } from "react-icons/cg";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
+import { RiArrowGoBackFill } from "react-icons/ri";
+
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -26,6 +28,7 @@ export default function SettingsLayout({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
+    const { back } = useRouter();
 
     return (
         <section>
@@ -33,8 +36,9 @@ export default function SettingsLayout({
                 <div className="flex flex-col space-y-4">
                     <div className="rounded-2xl ring-1 ring-inset ring-gray-900/5 min-w-[12rem]">
                         <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">
-                            <div className="w-full flex flex-row space-x-4">
-                                <p className="font-semibold text-xl">Settings</p>
+                            <div className="w-full flex flex-row items-baseline space-x-2">
+                                <RiArrowGoBackFill onClick={() => back()} className="text-lg cursor-pointer" />
+                                <p className="font-semibold text-xl">Control Hub</p>
                             </div>
                         </div>
                     </div>
