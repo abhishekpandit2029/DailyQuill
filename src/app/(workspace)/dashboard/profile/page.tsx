@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { FaRegCopy, FaRegHeart } from "react-icons/fa6";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import EditCardContentModel from "@/components/Modals/EditCardContentModel";
@@ -25,8 +25,6 @@ import CardInfoShareModal from "@/components/Modals/CardInfoShareModal";
 import { SlShare } from "react-icons/sl";
 import { defaultProfileImage } from "@/constants/strings";
 
-
-
 export interface IThoughtCards {
     title: string,
     content: string,
@@ -49,10 +47,25 @@ export default function ProfilePage() {
     const [isCardInfoShareModalOpen, setIsCardInfoShareModalOpenOpen] = useState(false);
     const [sidebarType, setSidebarType] = useState<string>("")
     const [open, setOpen] = useState<boolean>(false)
+    const [columnCount, setColumnCount] = useState(5);
 
     const { userData, isLoading: isMeLoading } = useMe()
 
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?userID=${userData?.data?._id}`);
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (!open) {
+            timer = setTimeout(() => {
+                setColumnCount(5);
+            }, 500);
+        } else {
+            setColumnCount(4);
+        }
+
+        return () => clearTimeout(timer)
+    }, [open]);
+
 
     const handleClick = (entry: any) => {
         setSelectedEntry(entry);
@@ -206,7 +219,9 @@ export default function ProfilePage() {
                                         </div>
                                     </div> :
 
-                                    <div className="columns-1 mob:columns-2 tab:columns-3 lap:columns-4 desk:columns-5 space-y-4 p-4">
+                                    <div
+                                        className={`columns-1 mob:columns-2 tab:columns-3 lap:columns-4 desk:columns-${columnCount} space-y-4 gap-3 tab:gap-4 p-3.5`}
+                                    >
                                         {Array.isArray(filteredData) &&
                                             filteredData?.map((items, index) => (
                                                 <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 min-w-fit h-fit">

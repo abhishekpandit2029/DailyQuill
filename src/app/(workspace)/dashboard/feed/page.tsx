@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdOutlinePersonSearch } from "react-icons/md";
 import SearchUserSidebar from "@/components/Dashboard/SearchUserSidebar";
 import CardSkeleton from "@/components/Dashboard/CardSkeleton";
@@ -15,10 +15,24 @@ import { useRouter } from "next/navigation";
 
 export default function FeedPage() {
     const [open, setOpen] = useState<boolean>(false)
+    const [columnCount, setColumnCount] = useState(5);
     const { push } = useRouter()
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata`);
 
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (!open) {
+            timer = setTimeout(() => {
+                setColumnCount(5);
+            }, 500);
+        } else {
+            setColumnCount(4);
+        }
+
+        return () => clearTimeout(timer)
+    }, [open]);
 
     return (
         <>
@@ -42,7 +56,9 @@ export default function FeedPage() {
                             </div>
                         ) :
                             (
-                                <div className="columns-1 mob:columns-2 tab:columns-3 lap:columns-4 desk:columns-5 space-y-4 p-4">
+                                <div
+                                    className={`columns-1 mob:columns-2 tab:columns-3 lap:columns-4 desk:columns-${columnCount} space-y-4 gap-3 tab:gap-4 p-3.5`}
+                                >
                                     {Array.isArray(filteredData) &&
                                         filteredData?.map((items, index) => (
                                             <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 min-w-fit h-fit">
