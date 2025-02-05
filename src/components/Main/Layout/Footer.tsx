@@ -9,6 +9,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { useMediaQuery } from "@mui/material";
+import dayjs from "dayjs";
 
 const FooterItemsArray = [
   {
@@ -67,7 +68,7 @@ function Footer() {
             </span>
           </div>
           <p className="text-[15px] w-[15rem] hidden tab:flex">
-            with new challenges, featured solutions, selected articles and our
+            With new challenges, featured solutions, selected articles and our
             latest news
           </p>
         </div>
@@ -112,7 +113,7 @@ function Footer() {
 
       <div className="flex items-center justify-center tab:justify-between text-gray-900 text-[15px]">
         <p className="text-center">
-          © 2023 DailyQuill Software, All rights reserved.
+          © {dayjs().year()} DailyQuill Software, All rights reserved.
         </p>
         {!TABLET_BREAK_POINT && (
           <div className="flex space-x-4">

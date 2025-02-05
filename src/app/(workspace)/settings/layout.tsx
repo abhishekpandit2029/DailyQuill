@@ -38,7 +38,7 @@ export default function SettingsLayout({
                         <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">
                             <div className="w-full flex flex-row items-baseline space-x-2">
                                 <RiArrowGoBackFill onClick={() => back()} className="text-lg cursor-pointer" />
-                                <p className="font-semibold text-xl">Control Hub</p>
+                                <p className="font-semibold text-[1.4rem]">Adjustments</p>
                             </div>
                         </div>
                     </div>

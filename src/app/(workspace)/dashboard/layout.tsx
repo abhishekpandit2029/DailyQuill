@@ -55,7 +55,7 @@ export default function DashboardLayout({
                 <div className="flex flex-col space-y-4">
                     <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 min-w-[12rem]">
                         <div className="w-full flex flex-row space-x-4">
-                            <p className="font-semibold text-xl">Core Space</p>
+                            <p className="font-semibold text-[1.5rem]">Core Space</p>
                         </div>
                     </div>
                     <div className="rounded-3xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
@@ -85,12 +85,12 @@ export default function DashboardLayout({
                                 </p>
                             </Link>
                             <Link href="/settings/account" passHref prefetch>
-                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/bin' ? 'text-indigo-500' : 'text-gray-900')}>
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/settings/account' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span className="text-lg"><LuSettings /> </span>
-                                    <span>Control Hub</span>
+                                    <span>Adjustments</span>
                                 </p>
                             </Link>
-                            <p onClick={auth?.logOut} className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/bin' ? 'text-indigo-500' : 'text-gray-900')}>
+                            <p onClick={auth?.logOut} className="whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2">
                                 <span className="text-lg"><TbLogout2 /> </span>
                                 <span>Adios!</span>
                             </p>

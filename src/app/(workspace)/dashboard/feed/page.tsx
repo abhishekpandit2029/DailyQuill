@@ -26,7 +26,7 @@ export default function FeedPage() {
                 <div className="bg-white w-full flex flex-col space-y-4 place-content-center ml-0 lap:ml-4 lg:flex h-fit">
                     <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3">
                         <div className="w-full flex flex-row space-x-4 items-center justify-between">
-                            <p className="font-semibold text-2xl">Feed</p>
+                            <p className="font-semibold text-[1.5rem]">Feed</p>
                             <MdOutlinePersonSearch className="text-2xl cursor-pointer" onClick={() => setOpen(!open)} />
                         </div>
                     </div>
