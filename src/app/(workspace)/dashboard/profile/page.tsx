@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import { FaRegCopy, FaRegHeart } from "react-icons/fa6";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import EditCardContentModel from "@/components/Modals/EditCardContentModel";
@@ -45,7 +45,7 @@ export default function ProfilePage() {
     const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [isCardInfoShareModalOpen, setIsCardInfoShareModalOpenOpen] = useState(false);
-    const [sidebarType, setSidebarType] = useState<string>("Followings")
+    const [sidebarType, setSidebarType] = useState<string>("Followers")
     const [open, setOpen] = useState<boolean>(true)
 
     const { userData, isLoading: isMeLoading } = useMe()
@@ -276,8 +276,6 @@ export default function ProfilePage() {
                     <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? userData?.data?.followersLists : userData?.data?.followingsLists) || []} />
                 </div>
             </div>
-
-
         </div >
     );
 }

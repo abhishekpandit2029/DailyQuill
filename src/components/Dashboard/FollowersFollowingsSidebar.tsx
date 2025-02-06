@@ -22,10 +22,11 @@ interface IGetUserData {
 interface ISidebarProps {
     type: string
     data: IFollowersFollowings[]
+    emptyMessage?: string
 }
 
 export default function FollowersFollowingsSidebar(props: ISidebarProps) {
-    const { type, data: sidebarData } = props
+    const { type, data: sidebarData, emptyMessage } = props
     const { push } = useRouter()
 
     function handleClick(id: string, username: string) {
@@ -68,11 +69,11 @@ export default function FollowersFollowingsSidebar(props: ISidebarProps) {
                                 imageStyle={{ height: 60 }}
                                 description={
                                     <p>
-                                        No {type} yet
+                                        {emptyMessage || `No ${type} yet`}
                                     </p>
                                 }
                             >
-                                <Button className={buttonClassName} onClick={() => push(`/dashboard/feed`)}>Make new Friends</Button>
+                                {!emptyMessage && <Button className={buttonClassName} onClick={() => push(`/dashboard/feed`)}>Make new Friends</Button>}
                             </Empty>
                     }
                 </div>

@@ -81,8 +81,7 @@ function Footer() {
                 Contact Us
               </h2>
               <p className="text-gray-500 leading-7 font-medium">
-                (555) 123-4567 support@DailyQuill.com 1234 Social Media Street
-                Suite 567 Cityville, Digitaland 54321 United States
+                +91 73505 97368 dailyquill.service@gmail.com Sarmaspura Achalpur Dist. Amravati Maharashtra India, 444806.
               </p>
               <div className="flex mt-4">
                 <FacebookIcon
