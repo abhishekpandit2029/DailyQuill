@@ -45,27 +45,12 @@ export default function ProfilePage() {
     const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [isCardInfoShareModalOpen, setIsCardInfoShareModalOpenOpen] = useState(false);
-    const [sidebarType, setSidebarType] = useState<string>("")
-    const [open, setOpen] = useState<boolean>(false)
-    const [columnCount, setColumnCount] = useState(5);
+    const [sidebarType, setSidebarType] = useState<string>("Followings")
+    const [open, setOpen] = useState<boolean>(true)
 
     const { userData, isLoading: isMeLoading } = useMe()
 
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?userID=${userData?.data?._id}`);
-
-    useEffect(() => {
-        let timer: NodeJS.Timeout;
-        if (!open) {
-            timer = setTimeout(() => {
-                setColumnCount(5);
-            }, 500);
-        } else {
-            setColumnCount(4);
-        }
-
-        return () => clearTimeout(timer)
-    }, [open]);
-
 
     const handleClick = (entry: any) => {
         setSelectedEntry(entry);
@@ -220,7 +205,7 @@ export default function ProfilePage() {
                                     </div> :
 
                                     <div
-                                        className={`columns-1 mob:columns-2 tab:columns-3 lap:columns-4 desk:columns-${columnCount} space-y-4 gap-3 tab:gap-4 p-3.5`}
+                                        className="columns-1 mob:columns-2 tab:columns-3 lap:columns-4 space-y-4 gap-3 tab:gap-4 p-3.5"
                                     >
                                         {Array.isArray(filteredData) &&
                                             filteredData?.map((items, index) => (

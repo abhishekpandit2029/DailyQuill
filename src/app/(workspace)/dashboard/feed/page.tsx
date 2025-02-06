@@ -14,25 +14,11 @@ import { IGetCardsData } from "../bin/page";
 import { useRouter } from "next/navigation";
 
 export default function FeedPage() {
-    const [open, setOpen] = useState<boolean>(false)
-    const [columnCount, setColumnCount] = useState(5);
+    const [open, setOpen] = useState<boolean>(true)
     const { push } = useRouter()
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata`);
 
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
-
-    useEffect(() => {
-        let timer: NodeJS.Timeout;
-        if (!open) {
-            timer = setTimeout(() => {
-                setColumnCount(5);
-            }, 500);
-        } else {
-            setColumnCount(4);
-        }
-
-        return () => clearTimeout(timer)
-    }, [open]);
 
     return (
         <>
@@ -57,7 +43,7 @@ export default function FeedPage() {
                         ) :
                             (
                                 <div
-                                    className={`columns-1 mob:columns-2 tab:columns-3 lap:columns-4 desk:columns-${columnCount} space-y-4 gap-3 tab:gap-4 p-3.5`}
+                                    className="columns-1 mob:columns-2 tab:columns-3 lap:columns-4 space-y-4 gap-3 tab:gap-4 p-3.5"
                                 >
                                     {Array.isArray(filteredData) &&
                                         filteredData?.map((items, index) => (
