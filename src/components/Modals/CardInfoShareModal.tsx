@@ -1,7 +1,6 @@
 
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import {
     FacebookShareButton,
     FacebookMessengerShareButton,
@@ -31,7 +30,6 @@ interface ICardModel {
 
 export default function CardInfoShareModal(props: ICardModel) {
     const { handleCancel, isModalOpen, initialData } = props;
-    const { push } = useRouter();
     const title = 'Check out this amazing post!';
     const hashtags = '#NextJS #ReactShare';
     return (
