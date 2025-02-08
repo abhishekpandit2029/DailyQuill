@@ -18,3 +18,9 @@ html {
 body::-webkit-scrollbar {
   display: none;
 }
+
+.custom-segmented .ant-segmented-item-label {
+  font-size: 17px !important;
+  padding: 2px !important;
+  width: 120px !important;
+}

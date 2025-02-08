@@ -86,23 +86,23 @@ function Footer() {
               <div className="flex mt-4">
                 <FacebookIcon
                   style={{ fontSize: "25px" }}
-                  className="hover:text-teal-700 cursor-pointer mr-2"
+                  className="hover:text-indigo-600 cursor-pointer mr-2"
                 />
                 <TwitterIcon
                   style={{ fontSize: "25px" }}
-                  className="hover:text-teal-700 cursor-pointer mx-2"
+                  className="hover:text-indigo-600 cursor-pointer mx-2"
                 />
                 <LinkedInIcon
                   style={{ fontSize: "25px" }}
-                  className="hover:text-teal-700 cursor-pointer mx-2"
+                  className="hover:text-indigo-600 cursor-pointer mx-2"
                 />
                 <InstagramIcon
                   style={{ fontSize: "25px" }}
-                  className="hover:text-teal-700 cursor-pointer mx-2"
+                  className="hover:text-indigo-600 cursor-pointer mx-2"
                 />
                 <YouTubeIcon
                   style={{ fontSize: "25px" }}
-                  className="hover:text-teal-700 cursor-pointer ml-2"
+                  className="hover:text-indigo-600 cursor-pointer ml-2"
                 />
               </div>
             </div>
