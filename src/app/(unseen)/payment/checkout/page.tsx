@@ -2,16 +2,24 @@
 
 import * as React from "react";
 import Script from "next/script";
-import { message, Segmented, Tag } from "antd";
+import { Button, message, Segmented, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
 import { mapPaymentCard, mapProcessFlow } from "@/constants/options";
+
+interface IOrderRes {
+  orderId: string
+}
+
+interface IOrderReq {
+  amount: number
+}
 
 export default function Checkout() {
   const [duration, setDuration] = useState("monthly");
   const [price, setPrice] = useState<string | undefined>();
 
-  const { trigger } = usePostMutation<any, any>("/razorpay/order", {
+  const { trigger } = usePostMutation<IOrderReq, IOrderRes>("/razorpay/order", {
     onSuccess(data) {
       const orderId = data.orderId
       setPrice("")
@@ -21,8 +29,12 @@ export default function Checkout() {
           amount: parseFloat(price!) * 100,
           currency: "INR",
           name: "DailyQuill",
-          description: "Payment",
+          description: "Make fast, secure, and seamless payments with our trusted payment gateway. We ensure 100% encrypted transactions with no hidden charges or recurring fees. Choose your preferred payment method and unlock premium features instantly",
           order_id: orderId,
+          notify: {
+            sms: true,
+            email: true
+          },
           handler: async function (response: any) {
             const data = {
               orderCreationId: orderId,
@@ -38,8 +50,8 @@ export default function Checkout() {
             });
 
             const res = await result.json();
-            if (res.isOk) alert(res.message);
-            else alert(res.message);
+            if (res.isOk) message.success("Payment is successfully done");
+            else message.error(res.message);
           },
           theme: {
             color: "#3F51B5",
@@ -113,7 +125,7 @@ export default function Checkout() {
           />
         </div>
 
-        <div className="flex justify-center items-center space-x-6">
+        <div className="flex justify-center items-center flex-wrap gap-6 w-[90%] lap:w-[80%] mx-auto">
           {mapPaymentCard?.map((items) => (
             <div key={items?.id} className="max-w-[18rem] rounded-2xl overflow-hidden shadow-lg p-4">
               <div className="flex items-center justify-between">
@@ -133,9 +145,9 @@ export default function Checkout() {
                 {items?.text}
               </p>
               <div className="mt-4">
-                <button onClick={() => setPrice(String(duration === "monthly" ? items?.monthly : items?.annual))} type="submit" className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <Button onClick={() => setPrice(String(duration === "monthly" ? items?.monthly : items?.annual))} type="primary" size="large" className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   Get started
-                </button>
+                </Button>
               </div>
             </div>
           ))}
@@ -143,13 +155,13 @@ export default function Checkout() {
       </div>
 
 
-      <div className="flex justify-center items-center flex-col space-y-8 w-[80%] mx-auto pt-6">
+      <div className="flex justify-center items-center flex-col space-y-8 w-[90%] lap:w-[80%] mx-auto pt-6">
         <p className="font-bold text-gray-900 text-4xl">
           Our Process Workflow
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lap:grid-cols-2 gap-6">
           {mapProcessFlow?.map((items) => (
-            <div key={items?.text} className="flex w-[30rem] flex-col space-y-2 ring-1 ring-gray-300 p-4 rounded-2xl">
+            <div key={items?.text} className="flex w-full lap:w-[30rem] flex-col space-y-2 ring-1 ring-gray-300 p-4 rounded-2xl">
               <p className="flex items-center text-xl font-semibold">{items?.icon}{items?.title}</p>
               <p className="text-gray-600">{items?.text}</p>
             </div>

@@ -1,6 +1,4 @@
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { Button } from "antd";
-import Link from "next/link";
 
 const includedFeatures = [
   "Instant Publishing",
@@ -61,7 +59,7 @@ export default function PriceSection() {
                 </p>
                 <p className="mt-6 flex items-baseline justify-center gap-x-2">
                   <span className="text-5xl font-bold tracking-tight text-gray-900">
-                    ₹ 1.00
+                    ₹ 199
                   </span>
                 </p>
                 <a href={`/payment/checkout`} className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
