@@ -161,8 +161,8 @@ export default function Checkout() {
         </p>
         <div className="grid grid-cols-1 lap:grid-cols-2 gap-6">
           {mapProcessFlow?.map((items) => (
-            <div key={items?.text} className="flex w-full lap:w-[30rem] flex-col space-y-2 ring-1 ring-gray-300 p-4 rounded-2xl">
-              <p className="flex items-center text-xl font-semibold">{items?.icon}{items?.title}</p>
+            <div key={items?.text} className="flex w-full lap:w-[30rem] flex-col space-y-2 ring-1 ring-gray-200 p-4 rounded-2xl">
+              <p className="flex items-center text-lg font-semibold">{items?.icon}{items?.title}</p>
               <p className="text-gray-600">{items?.text}</p>
             </div>
           ))}

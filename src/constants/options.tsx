@@ -67,23 +67,23 @@ export const mapPaymentCard = [
 
 export const mapProcessFlow = [
   {
-    icon: <TbCircleNumber1 className="text-4xl text-indigo-600 mr-2" />,
+    icon: <TbCircleNumber1 className="text-3xl text-indigo-600 mr-2" />,
     title: "Choose Your Plan",
-    text: "Select the perfect plan that aligns with your goals. Whether you're just starting out or looking to scale, we have flexible options to match your needs. Compare features, pick what suits you best, and get ready to grow!"
+    text: "Pick the best plan for your goals and start growing instantly."
   },
   {
-    icon: <TbCircleNumber2 className="text-4xl text-indigo-600 mr-2" />,
+    icon: <TbCircleNumber2 className="text-3xl text-indigo-600 mr-2" />,
     title: "Make a Secure Payment",
-    text: "Pay quickly and safely using Razorpay, ensuring a seamless and encrypted transaction. No hidden charges, no recurring fees—just a straightforward, hassle-free payment process designed for your convenience."
+    text: "Pay safely via Razorpay with an easy, one-time hassle-free transaction."
   },
   {
-    icon: <TbCircleNumber3 className="text-4xl text-indigo-600 mr-2" />,
+    icon: <TbCircleNumber3 className="text-3xl text-indigo-600 mr-2" />,
     title: "Unlock Premium Features",
-    text: "Once your payment is confirmed, you get instant access to all premium tools and benefits. From advanced analytics to exclusive engagement boosters, everything you need is unlocked and ready to help you grow. No waiting—just results!"
+    text: "Get instant access to exclusive tools, analytics, and engagement boosters."
   },
   {
-    icon: <TbCircleNumber4 className="text-4xl text-indigo-600 mr-2" />,
+    icon: <TbCircleNumber4 className="text-3xl text-indigo-600 mr-2" />,
     title: "Grow & Succeed",
-    text: "Now it’s time to take your social presence to the next level! Utilize premium features, track your growth, and maximize your impact effortlessly. Stay ahead of the competition with continuous updates and dedicated support."
+    text: "Elevate your presence, track progress, and stay ahead with premium features."
   }
 ]
