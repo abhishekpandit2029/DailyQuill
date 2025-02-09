@@ -25,13 +25,10 @@ export default function PriceSection() {
         <div className="mx-auto mt-6 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
           <div className="p-4 sm:p-10 lg:flex-auto">
             <h3 className="text-2xl font-bold tracking-tight text-gray-900">
-              Lifetime membership
+              One-Time Payment, Lasting Benefits!
             </h3>
             <p className="mt-6 text-base leading-7 text-gray-600">
-              Enjoy unlimited access with our Lifetime Membership. Get all
-              features and updates for a one-time fee, with no recurring
-              charges. Benefit from exclusive perks and continuous support
-              without the hassle of monthly payments.
+              Enjoy all premium features with a single payment—no subscriptions, no hidden charges. Stay ahead with exclusive perks, priority support, and continuous updates to keep you growing!
             </p>
             <div className="mt-10 flex items-center gap-x-4">
               <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">
@@ -58,17 +55,14 @@ export default function PriceSection() {
             <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
               <div className="mx-auto max-w-xs px-8">
                 <p className="text-base font-semibold text-gray-600">
-                  Pay once, own it forever
+                  Get Started Without Breaking the Bank!
                 </p>
                 <p className="mt-6 flex items-baseline justify-center gap-x-2">
                   <span className="text-5xl font-bold tracking-tight text-gray-900">
-                    ₹ 1.00
+                    ₹ 199
                   </span>
                 </p>
-                <a
-                  href={process.env.RAZORPAY_PAYMENT_LINK}
-                  className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
+                <a href={`/payment/checkout`} className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   Get access
                 </a>
                 <p className="mt-6 text-xs leading-5 text-gray-600">
