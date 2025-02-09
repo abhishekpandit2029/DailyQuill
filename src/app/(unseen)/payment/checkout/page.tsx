@@ -4,8 +4,12 @@ import * as React from "react";
 import Script from "next/script";
 import { Button, message, Segmented, Tag } from "antd";
 import { useEffect, useState } from "react";
-import { usePostMutation } from "@/lib/fetcher";
+import { useGetQuery, usePostMutation } from "@/lib/fetcher";
 import { mapPaymentCard, mapProcessFlow } from "@/constants/options";
+import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
+import revalidate from "@/lib/revalidate";
+import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
 
 interface IOrderRes {
   orderId: string
@@ -17,12 +21,38 @@ interface IOrderReq {
 
 export default function Checkout() {
   const [duration, setDuration] = useState("monthly");
+  const [selectedPlan, setSelectedPlan] = useState<string>()
   const [price, setPrice] = useState<string | undefined>();
+  const { push } = useRouter()
+  const [{ userId, isSubscribed, token }, setCookie] = useCookies(["userId", "isSubscribed", "token"]);
 
-  const { trigger } = usePostMutation<IOrderReq, IOrderRes>("/razorpay/order", {
+  const { trigger: subscriptionTrigger } = usePostMutation<any, any>("/users/subscription", {
+    onSuccess() {
+      revalidate(`/users/subscription/${userId}`)
+      setCookie("isSubscribed", true, {
+        ...cookieOptions,
+        expires: getExpiryFromToken(token),
+      });
+      setPrice("")
+      push("/dashboard/profile")
+    }
+  });
+
+  const { trigger: verifyTrigger } = usePostMutation<any, any>("/razorpay/verify", {
+    onSuccess() {
+      subscriptionTrigger({
+        userId,
+        selectedPlan,
+        price,
+        paymentId: data?.orderId,
+        planDuration: duration,
+      })
+    }
+  });
+
+  const { trigger, data } = usePostMutation<IOrderReq, IOrderRes>("/razorpay/order", {
     onSuccess(data) {
       const orderId = data.orderId
-      setPrice("")
       try {
         const options = {
           key: process.env.RAZORPAY_KEY_SECRET,
@@ -42,16 +72,7 @@ export default function Checkout() {
               razorpayOrderId: response.razorpay_order_id,
               razorpaySignature: response.razorpay_signature,
             };
-
-            const result = await fetch("/api/razorpay/verify", {
-              method: "POST",
-              body: JSON.stringify(data),
-              headers: { "Content-Type": "application/json" },
-            });
-
-            const res = await result.json();
-            if (res.isOk) message.success("Payment is successfully done");
-            else message.error(res.message);
+            verifyTrigger(data)
           },
           theme: {
             color: "#3F51B5",
@@ -145,7 +166,10 @@ export default function Checkout() {
                 {items?.text}
               </p>
               <div className="mt-4">
-                <Button onClick={() => setPrice(String(duration === "monthly" ? items?.monthly : items?.annual))} type="primary" size="large" className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <Button onClick={() => {
+                  setPrice(String(duration === "monthly" ? items?.monthly : items?.annual));
+                  setSelectedPlan(items?.name);
+                }} type="primary" size="large" className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   Get started
                 </Button>
               </div>

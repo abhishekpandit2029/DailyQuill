@@ -5,14 +5,12 @@ import { Image } from "antd";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import SidebarMenu from "@/components/Drawers/SidebarMenu";
-import { Dropdown, } from 'antd';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import type { MenuProps } from 'antd';
 import { Button } from "@mui/base/Button";
 import { buttonClassName, defaultProfileImage } from "@/constants/strings";
 import useMe from "@/hooks/useMe";
 import { useAuth } from "@/context/AuthProvider";
-
+import { TbLogout } from "react-icons/tb";
+import { useCookies } from "react-cookie";
 export interface IMeResponse {
   data: {
     username: string
@@ -24,6 +22,7 @@ function Navbar() {
   const isHome = useSelectedLayoutSegment()?.includes("home");
 
   const { userData } = useMe()
+  const [{ isSubscribed }] = useCookies(["isSubscribed"]);
 
   return (
     <nav
@@ -62,11 +61,16 @@ function Navbar() {
             Subscribe
           </p>
         </Link>
-        <Link href={"/dashboard/profile"} passHref>
+        {isSubscribed ? <Link href={"/dashboard/profile"} passHref>
           <p className="text-base font-semibold leading-6 text-gray-900">
             Workspace
           </p>
-        </Link>
+        </Link> :
+          <Link href={"/payment/checkout"} passHref>
+            <p className="text-base font-semibold leading-6 text-gray-900">
+              Unlock
+            </p>
+          </Link>}
 
         {auth?.isLoggedIn ?
           <div className="flex space-x-1 items-center cursor-pointer">
@@ -76,6 +80,9 @@ function Navbar() {
               {(userData?.data?.username ?
                 userData.data.username.charAt(0).toUpperCase() + userData.data.username.slice(1).toLowerCase()
                 : "User")}
+            </p>
+            <p onClick={auth?.logOut} className="whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2">
+              <span className="text-2xl"><TbLogout /> </span>
             </p>
           </div>
           :

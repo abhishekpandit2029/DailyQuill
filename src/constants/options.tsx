@@ -41,7 +41,7 @@ export const pronouns = [
 export const mapPaymentCard = [
   {
     id: 1,
-    name: "Starter",
+    name: "Basic",
     icon: <LuSignalLow className="text-2xl" />,
     monthly: "199",
     annual: "1000",
@@ -49,7 +49,7 @@ export const mapPaymentCard = [
   },
   {
     id: 2,
-    name: "Pro",
+    name: "Premium",
     icon: <LuSignalMedium className="text-2xl" />,
     monthly: "499",
     annual: "4000",
@@ -57,7 +57,7 @@ export const mapPaymentCard = [
   },
   {
     id: 3,
-    name: "Advance",
+    name: "Pro",
     icon: <LuSignalHigh className="text-2xl" />,
     monthly: "1999",
     annual: "10000",

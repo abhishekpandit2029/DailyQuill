@@ -17,6 +17,7 @@ interface ILoginResponse {
   message: string
   error: string
   token: string
+  userId: string
 }
 
 export const AuthContext = createContext({
@@ -31,13 +32,21 @@ type AuthProviderProps = {
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const { push } = useRouter();
-  const [{ token }, setCookie, removeCookie] = useCookies(["token"]);
+  const [{ token }, setCookie, removeCookie] = useCookies(["token", "userId", "isSubscribed"]);
 
   const { trigger } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
     onSuccess(data) {
       const accessToken = data.token;
       if (accessToken) {
         setCookie("token", accessToken, {
+          ...cookieOptions,
+          expires: getExpiryFromToken(accessToken),
+        });
+        setCookie("userId", data?.userId, {
+          ...cookieOptions,
+          expires: getExpiryFromToken(accessToken),
+        });
+        setCookie("isSubscribed", false, {
           ...cookieOptions,
           expires: getExpiryFromToken(accessToken),
         });
