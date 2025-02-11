@@ -82,7 +82,7 @@ function Navbar() {
                 : "User")}
             </p>
             <p onClick={auth?.logOut} className="whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2">
-              <span className="text-2xl"><TbLogout /> </span>
+              <span className="text-2xl ml-1"><TbLogout /> </span>
             </p>
           </div>
           :

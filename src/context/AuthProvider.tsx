@@ -3,7 +3,7 @@
 import React, { createContext, ReactElement, ReactNode, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { message } from "antd";
-import { usePostMutation } from "@/lib/fetcher";
+import { useGetQuery, usePostMutation } from "@/lib/fetcher";
 import { useCookies } from "react-cookie";
 import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
 import revalidate from "@/lib/revalidate";
@@ -32,9 +32,9 @@ type AuthProviderProps = {
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const { push } = useRouter();
-  const [{ token }, setCookie, removeCookie] = useCookies(["token", "userId", "isSubscribed"]);
+  const [{ token, userId }, setCookie, removeCookie] = useCookies(["token", "userId", "isSubscribed"]);
 
-  const { trigger } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
+  const { data: loggedInData, trigger } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
     onSuccess(data) {
       const accessToken = data.token;
       if (accessToken) {
@@ -46,17 +46,27 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           ...cookieOptions,
           expires: getExpiryFromToken(accessToken),
         });
-        setCookie("isSubscribed", false, {
-          ...cookieOptions,
-          expires: getExpiryFromToken(accessToken),
-        });
         message.success("Login successful");
-        push("/dashboard/profile");
         revalidate("/users/me");
       }
     },
     onError: () => {
       message.error("Something went wrong");
+    },
+  });
+
+  const { isLoading } = useGetQuery<{ subscription: { isSubscribed: Boolean } }>(userId ? `/users/subscription/${userId}` : null, {
+    onSuccess(data) {
+      setCookie("isSubscribed", data?.subscription?.isSubscribed, {
+        ...cookieOptions,
+        expires: getExpiryFromToken(loggedInData?.token),
+      });
+
+      if (data?.subscription?.isSubscribed) {
+        push("/dashboard/profile");
+      } else {
+        push("/home");
+      }
     },
   });
 
@@ -68,6 +78,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   const logOut = () => {
     removeCookie("token", cookieOptions);
+    removeCookie("userId", cookieOptions);
+    removeCookie("isSubscribed", cookieOptions);
     push("/login");
   };
 

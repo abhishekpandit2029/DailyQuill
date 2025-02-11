@@ -13,7 +13,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
         const subscription = await Subscriptions.findOne({ userId });
 
         if (!subscription) {
-            return NextResponse.json({ isSubscribed: false, status: "expired", message: "No active subscription" }, { status: 200 });
+            return NextResponse.json({ subscription: { isSubscribed: false, status: "expired", message: "No active subscription" } }, { status: 200 });
         }
 
         // ✅ Check if subscription is expired
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
             if (subscription.status !== "expired") {
                 await Subscriptions.updateOne({ userId }, { status: "expired", isSubscribed: false, });
             }
-            return NextResponse.json({ status: "expired", message: "Subscription expired", isSubscribed: false }, { status: 200 });
+            return NextResponse.json({ subscription: { isSubscribed: false, status: "expired", message: "No active subscription" } }, { status: 200 });
         }
 
         return NextResponse.json({ subscription }, { status: 200 });
