@@ -248,7 +248,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
             <div
                 style={{ backgroundColor: '#FEFEFE' }}
                 className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                    } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[24rem]`}
+                    } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[20rem]`}
             >
                 <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? profileData?.users[0]?.followersLists : profileData?.users[0]?.followingsLists) || []} emptyMessage="No activity yet! Be the first to start the journey and make new friends. 🚀" />
             </div>

@@ -53,16 +53,16 @@ export default function SearchUserSidebar() {
                                         className="flex items-center bg-white p-3 rounded-2xl justify-between"
                                         style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
                                     >
-                                        <div className='flex space-x-3 items-center'>
+                                        <div className='flex space-x-3 items-center cursor-pointer' onClick={() => handleClick(item)}>
                                             <Image src={item?.userprofile_image || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
                                             <div>
                                                 <p className='text-[0.9rem]'>{item?.username}</p>
                                                 <p className='text-[0.8rem]'>{item?.full_name}</p>
                                             </div>
                                         </div>
-                                        <div onClick={() => handleClick(item)}>
+                                        {/* <div onClick={() => handleClick(item)}>
                                             <HiMiniArrowTopRightOnSquare style={{ color: "grey", fontSize: "1.2rem" }} className='cursor-pointer' />
-                                        </div>
+                                        </div> */}
                                     </div>
                                 );
                             })

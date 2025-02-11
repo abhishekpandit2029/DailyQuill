@@ -271,7 +271,7 @@ export default function ProfilePage() {
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
                     className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[24rem]`}
+                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-screen w-[20rem]`}
                 >
                     <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? userData?.data?.followersLists : userData?.data?.followingsLists) || []} />
                 </div>
