@@ -3,14 +3,14 @@
 import ChatSearchUserSidebar from "@/components/Dashboard/ChatSearchUserSidebar"
 import MainInbox from "@/components/Main/Chat/MainInbox"
 import { useGetQuery } from "@/lib/fetcher"
+import { defaultProfileImage } from "@/constants/strings"
+import useParams from "@/hooks/useParams"
+import { pusherClient } from "@/helpers/getInitiatedPusher"
 import { Splitter } from "antd"
 import { useEffect, useState } from "react"
 import { useCookies } from "react-cookie"
 import { MdOutlinePersonSearch } from "react-icons/md"
 import { Image } from 'antd';
-import { defaultProfileImage } from "@/constants/strings"
-import useParams from "@/hooks/useParams"
-import { pusherClient } from "@/helpers/getInitiatedPusher"
 
 interface Chat {
     chatId: string; // Unique chat identifier (e.g., "user123-user456")
