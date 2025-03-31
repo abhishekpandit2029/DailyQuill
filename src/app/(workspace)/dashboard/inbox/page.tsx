@@ -47,7 +47,7 @@ interface ChatFiltered {
 
 export default function InboxPage() {
     const [open, setOpen] = useState<boolean>(false);
-    const { get, updateSearchParams } = useParams();
+    const [chatid, setChatid] = useState<string | undefined>();
     const [{ userId }] = useCookies(["userId"]);
 
     const { data } = useGetQuery<ChatFiltered>(`/chat/user?userId=${userId}`);
@@ -70,7 +70,7 @@ export default function InboxPage() {
     const CombinedChatData = [...PrimaryData, ...SencondaryData]?.filter((item) => item?.id !== userId);
 
     const handleClick = (values: string) => {
-        updateSearchParams({ cid: `${userId}-${values}` });
+        setChatid(values);
     };
 
     useEffect(() => {
@@ -164,9 +164,8 @@ export default function InboxPage() {
                 >
                     <ChatSearchUserSidebar />
                 </div>
-
                 <div className="rounded-2xl ring-1 ring-gray-200 w-full p-3 tab:p-4">
-                    <MainInbox />
+                    <MainInbox cid={chatid as string} />
                 </div>
             </div>
         </>

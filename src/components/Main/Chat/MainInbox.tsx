@@ -16,10 +16,12 @@ interface IGetUserData {
     users: IUserData[]
 }
 
-export default function MainInbox() {
-    const { get } = useParams()
+interface MainInboxProps {
+    cid: string;
+}
 
-    const { data } = useGetQuery<IGetUserData>(`/users/getUsers?searchQuery=${get("cid")?.split("-")?.[1]}`);
+export default function MainInbox({ cid }: MainInboxProps) {
+    const { data } = useGetQuery<IGetUserData>(`/users/getUsers?searchQuery=${cid?.split("-")?.[1]}`);
     return (
         <div>
             <div

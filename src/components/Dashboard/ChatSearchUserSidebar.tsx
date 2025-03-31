@@ -20,7 +20,6 @@ interface IChatResponse {
 
 export default function ChatSearchUserSidebar() {
     const [searchItems, setSearchItems] = useState<string>("")
-    const { updateSearchParams } = useParams()
 
     const { userData } = useMe()
 
@@ -31,7 +30,6 @@ export default function ChatSearchUserSidebar() {
     const { trigger: chatTrigger } = usePostMutation<IChatRequest, IChatResponse>("/chat/create");
 
     const handleClick = (values: string) => {
-        updateSearchParams({ cid: `${userData?.data?._id}-${values}` })
         chatTrigger({
             sender: userData?.data?._id || '',
             receiver: values
