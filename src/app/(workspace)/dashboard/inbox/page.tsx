@@ -47,7 +47,7 @@ interface ChatFiltered {
 
 export default function InboxPage() {
     const [open, setOpen] = useState<boolean>(false);
-    const [chatid, setChatid] = useState<string | undefined>();
+    const [chatData, setChatData] = useState<IChats | undefined>();
     const [{ userId }] = useCookies(["userId"]);
 
     const { data } = useGetQuery<ChatFiltered>(`/chat/user?userId=${userId}`);
@@ -69,8 +69,8 @@ export default function InboxPage() {
 
     const CombinedChatData = [...PrimaryData, ...SencondaryData]?.filter((item) => item?.id !== userId);
 
-    const handleClick = (values: string) => {
-        setChatid(values);
+    const handleClick = (values: IChats) => {
+        setChatData(values);
     };
 
     useEffect(() => {
@@ -116,8 +116,8 @@ export default function InboxPage() {
 
     return (
         <>
-            <div className="bg-white w-full flex space-x-4 ml-0 lap:ml-4 lg:flex p-1 h-full">
-                <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-[25rem] p-3 tab:p-4 h-full">
+            <div className="bg-white w-full flex space-x-2 ml-0 lap:ml-4 lg:flex p-1 h-full">
+                <div className="rounded-2xl ring-1 w-1/5 ring-gray-200 lg:flex p-3 tab:p-4 h-full">
                     <Splitter layout="vertical">
                         <Splitter.Panel defaultSize="80%" min="20%" max="80%">
                             <div className="w-full flex flex-col space-y-4">
@@ -134,7 +134,7 @@ export default function InboxPage() {
                                                     key={item?.id}
                                                     className="flex items-center cursor-pointer bg-white p-3 rounded-2xl justify-between"
                                                     style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
-                                                    onClick={() => handleClick(item?.id)}
+                                                    onClick={() => handleClick(item)}
                                                 >
                                                     <div className='flex space-x-3 items-center'>
                                                         <Image src={item?.picture || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
@@ -159,13 +159,14 @@ export default function InboxPage() {
                 </div>
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
-                    className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
+                    className={`transition-all duration-700 ease-in-out ${open ? 'opacity-100 w-1/5' : 'w-0 opacity-0'
                         }`}
                 >
                     <ChatSearchUserSidebar />
                 </div>
-                <div className="rounded-2xl ring-1 ring-gray-200 w-full p-3 tab:p-4">
-                    <MainInbox cid={chatid as string} />
+                <div className={`rounded-2xl ring-1 transition-all duration-700 ease-in-out ring-gray-200 ${open ? 'w-3/5' : "w-4/5"
+                    } p-3 tab:p-4`}>
+                    <MainInbox chatRecord={chatData || CombinedChatData[0] as IChats} />
                 </div>
             </div>
         </>
