@@ -13,6 +13,7 @@ import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useAuth } from "@/context/AuthProvider";
+import { TbMessageChatbot } from "react-icons/tb";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -72,12 +73,12 @@ export default function DashboardLayout({
                                     <span>Moments</span>
                                 </p>
                             </Link>
-                            {/* <Link href="/dashboard/inbox" passHref prefetch>
+                            <Link href="/dashboard/inbox" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/inbox' ? 'text-indigo-500' : 'text-gray-900')}>
-                                    <span><MailOutlinedIcon /> </span>
+                                    <span><TbMessageChatbot className="text-xl" /> </span>
                                     <span>Inbox</span>
                                 </p>
-                            </Link> */}
+                            </Link>
                             <Link href="/dashboard/bin" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/bin' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span className="text-lg"><DeleteOutlineIcon /> </span>
