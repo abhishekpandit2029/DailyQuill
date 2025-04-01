@@ -1,11 +1,13 @@
 import { connect } from "@/dbConfig/dbConfig";
 import Message from "@/models/messagesModel";
+import { NextRequest } from "next/server";
 
 connect();
 
-export async function GET({ params }: { params: { chatId: string } }) {
+export async function GET(req: NextRequest) {
     try {
-        const { chatId } = params;
+        const { searchParams } = new URL(req.url);
+        const chatId = searchParams.get("chatId");
 
         if (!chatId) {
             return Response.json({ error: "Chat ID is required" }, { status: 400 });
