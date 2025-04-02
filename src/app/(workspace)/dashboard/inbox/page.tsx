@@ -117,7 +117,7 @@ export default function InboxPage() {
     return (
         <>
             <div className="bg-white w-full flex space-x-2 pl-0 lap:pl-4 p-1">
-                <div className="rounded-2xl ring-1 w-1/5 ring-gray-200 lg:flex p-3 tab:p-4 h-full">
+                <div className="rounded-xl ring-1 w-1/5 ring-gray-200 lg:flex p-3 tab:p-4 h-full">
                     <Splitter layout="vertical">
                         <Splitter.Panel defaultSize="80%" min="20%" max="80%">
                             <div className="w-full flex flex-col space-y-4">
@@ -132,7 +132,7 @@ export default function InboxPage() {
                                             return (
                                                 <div
                                                     key={item?.id}
-                                                    className="flex items-center cursor-pointer bg-white p-3 rounded-2xl justify-between"
+                                                    className="flex items-center cursor-pointer bg-white p-3 rounded-xl justify-between"
                                                     style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
                                                     onClick={() => handleClick(item)}
                                                 >
@@ -164,7 +164,7 @@ export default function InboxPage() {
                 >
                     <ChatSearchUserSidebar />
                 </div>
-                <div className={`rounded-2xl ring-1 transition-all duration-700 ease-in-out ring-gray-200 ${open ? 'w-3/5' : "w-4/5"
+                <div className={`rounded-xl ring-1 transition-all duration-700 ease-in-out ring-gray-200 ${open ? 'w-3/5' : "w-4/5"
                     } p-3 tab:p-4`}>
                     <MainInbox chatRecord={chatData || CombinedChatData[0] as IChats} />
                 </div>

@@ -38,7 +38,7 @@ export default function ChatSearchUserSidebar() {
 
     return (
         <div className="w-full flex-col space-y-4 p-1 flex">
-            <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-2">
+            <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-2">
                 <div className="w-full flex flex-row space-x-4 items-center">
                     <Input
                         variant="borderless"
@@ -49,14 +49,14 @@ export default function ChatSearchUserSidebar() {
                 </div>
             </div>
             <div className="w-full flex-col space-y-4 flex">
-                <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 min-h-screen">
+                <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 min-h-screen">
                     <div className='flex flex-col space-y-3 w-full'>
                         {
                             userData?.data?.followingsLists?.map((item) => {
                                 return (
                                     <div
                                         key={item?.follower_id}
-                                        className="flex items-center cursor-pointer bg-white p-3 rounded-2xl justify-between"
+                                        className="flex items-center cursor-pointer bg-white p-3 rounded-xl justify-between"
                                         style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
                                         onClick={() => handleClick(item?.follower_id)}
                                     >

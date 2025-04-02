@@ -144,7 +144,7 @@ export default function ProfilePage() {
                 )}
 
                 <div className="flex flex-col space-y-4 w-full h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
-                    <div className="rounded-3xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
+                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
                         {isMeLoading ? (
                             <ProfileSkeleton />
                         ) : (
@@ -174,7 +174,7 @@ export default function ProfilePage() {
 
                     <div
                         className={clsx(
-                            "cursor-pointer border-dashed border-2 border-gray-200 flex justify-center rounded-2xl p-3",
+                            "cursor-pointer border-dashed border-2 border-gray-200 flex justify-center rounded-xl p-3",
                             filteredData && filteredData.length > 0 ? "block" : "hidden"
                         )}
                         onClick={() => {
@@ -184,9 +184,9 @@ export default function ProfilePage() {
                         <AddIcon /> Add New
                     </div>
 
-                    <div className="bg-white flex flex-col space-y-1 rounded-3xl ring-1 ring-gray-200">
+                    <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200">
                         {isLoading ? (
-                            <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200">
+                            <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200">
                                 <Grid container wrap="wrap" gap={3} justifyContent={"start"} padding={2}>
                                     {Array.from({ length: 3 }).map((_, index) => (
                                         <CardSkeleton key={index} />
@@ -197,7 +197,7 @@ export default function ProfilePage() {
                             (
                                 filteredData && filteredData?.length <= 0 ?
                                     <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3">
-                                        <div className="cursor-pointer border-dashed border-2 border-gray-200 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-[16rem] justify-center items-center text-center" onClick={() => {
+                                        <div className="cursor-pointer border-dashed border-2 border-gray-200 p-4 rounded-xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-[16rem] justify-center items-center text-center" onClick={() => {
                                             setIsAddNewModalOpen(true);
                                         }}>
                                             <AddIcon /> Add Your First One From Here.
@@ -209,7 +209,7 @@ export default function ProfilePage() {
                                     >
                                         {Array.isArray(filteredData) &&
                                             filteredData?.map((items, index) => (
-                                                <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 min-w-fit">
+                                                <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-xl flex flex-col space-y-3 min-w-fit">
                                                     <div className="flex justify-between items-center">
                                                         <p className="font-bold text-lg">{items?.title}</p>
                                                         <Dropdown

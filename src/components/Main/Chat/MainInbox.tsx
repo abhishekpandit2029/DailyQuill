@@ -60,7 +60,7 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
     return (
         <div className="flex flex-col justify-between h-full">
             <div
-                className="bg-white p-3 rounded-2xl w-full"
+                className="bg-white p-3 rounded-xl w-full"
                 style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
             >
                 <div className='flex space-x-3 items-center w-full'>

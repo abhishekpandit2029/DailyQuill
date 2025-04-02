@@ -56,8 +56,8 @@ export default function DashboardLayout({
 
             <div className="flex h-full">
                 <div className="flex flex-col space-y-4">
-                    <div className="rounded-2xl ring-1 ring-gray-200 lg:flex h-fit p-3 min-w-[12rem]">
-                        <div className="flex items-center ">
+                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-fit p-3 min-w-[12rem]">
+                        <div className="flex items-center">
                             <a href="/" className="flex space-x-1">
                                 <Image className="max-w-[5rem] h-auto" src={defaultProfileImage} alt="logo" preview={false} />
                                 <span className="self-center text-2xl font-semibold whitespace-nowrap">
@@ -66,7 +66,7 @@ export default function DashboardLayout({
                             </a>
                         </div>
                     </div>
-                    <div className="rounded-3xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
+                    <div className="rounded-xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
                         <div className="w-full flex-col space-y-5 p-4 hidden lap:flex">
                             <Link href="/dashboard/profile" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/profile' ? 'text-indigo-500' : 'text-gray-900')}>

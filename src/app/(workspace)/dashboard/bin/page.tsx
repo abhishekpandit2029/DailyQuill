@@ -30,7 +30,7 @@ export default function BinPage() {
     const BinData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === true) || [];
 
     return (
-        <div className="bg-white flex flex-col space-y-4  my-3 tab:my-1 ml-0 lap:ml-4 lg:flex rounded-2xl ring-1 ring-gray-200">
+        <div className="bg-white flex flex-col space-y-4  my-3 tab:my-1 ml-0 lap:ml-4 lg:flex rounded-xl ring-1 ring-gray-200">
             <div className="">
                 {BinData?.length === 0 ? (
                     <div className="flex flex-col items-center justify-center">
@@ -41,7 +41,7 @@ export default function BinPage() {
                     <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3 tab:p-4">
                         {Array.isArray(data?.thoughtCards) &&
                             data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === true).map((items, index) => (
-                                <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
+                                <div key={index} className="ring-1 ring-inset ring-gray-300 p-4 rounded-xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-fit">
                                     <div>
                                         <p className="font-bold text-lg">{items?.title}</p>
                                     </div>

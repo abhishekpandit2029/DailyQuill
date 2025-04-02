@@ -157,7 +157,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                 />
             )}
             <div className="flex flex-col space-y-4 w-full h-fit">
-                <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
+                <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
                     {isLoading ? (
                         <ProfileSkeleton />
                     ) : (
@@ -200,9 +200,9 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                     )}
                 </div>
 
-                <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex min-h-full">
+                <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 lg:flex min-h-full">
                     {isLoading ? (
-                        <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
+                        <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 lg:flex h-full ">
                             <Grid container wrap="wrap" gap={3} justifyContent={"start"} padding={2}>
                                 {Array.from({ length: 3 }).map((_, index) => (
                                     <CardSkeleton key={index} />
@@ -213,7 +213,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                         (
                             filteredData && filteredData?.length <= 0 ?
                                 <div className="grid grid-cols-1 tab:grid-cols-3 lap:grid-cols-4 desk:grid-cols-5 gap-3 tab:gap-4 p-3">
-                                    <div className="cursor-pointer border-dashed border-2 border-gray-200 p-4 rounded-2xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-[16rem] justify-center items-center text-center">
+                                    <div className="cursor-pointer border-dashed border-2 border-gray-200 p-4 rounded-xl flex flex-col space-y-3 w-full tab:max-w-[18rem] h-[16rem] justify-center items-center text-center">
                                         Their story hasn’t started yet. Be patient, good things take time! ⏳
                                     </div>
                                 </div> :
@@ -223,7 +223,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                                 >
                                     {Array.isArray(filteredData) &&
                                         filteredData.map((items, index) => (
-                                            <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 min-w-fit h-fit">
+                                            <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-xl flex flex-col space-y-3 min-w-fit h-fit">
                                                 <div>
                                                     <p className="font-bold text-lg">{items?.title}</p>
                                                 </div>

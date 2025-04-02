@@ -148,7 +148,7 @@ export default function Checkout() {
 
         <div className="flex justify-center items-center flex-wrap gap-6 w-[90%] lap:w-[80%] mx-auto">
           {mapPaymentCard?.map((items) => (
-            <div key={items?.id} className="max-w-[18rem] rounded-2xl overflow-hidden shadow-lg p-4">
+            <div key={items?.id} className="max-w-[18rem] rounded-xl overflow-hidden shadow-lg p-4">
               <div className="flex items-center justify-between">
                 <div className="flex">
                   {items?.icon}
@@ -185,7 +185,7 @@ export default function Checkout() {
         </p>
         <div className="grid grid-cols-1 lap:grid-cols-2 gap-6">
           {mapProcessFlow?.map((items) => (
-            <div key={items?.text} className="flex w-full lap:w-[30rem] flex-col space-y-2 ring-1 ring-gray-200 p-4 rounded-2xl">
+            <div key={items?.text} className="flex w-full lap:w-[30rem] flex-col space-y-2 ring-1 ring-gray-200 p-4 rounded-xl">
               <p className="flex items-center text-lg font-semibold">{items?.icon}{items?.title}</p>
               <p className="text-gray-600">{items?.text}</p>
             </div>

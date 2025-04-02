@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={clsx(oppins.className, "min-h-screen box-border p-4")}>
+      <body className={clsx(oppins.className, "min-h-screen")}>
         <AuthProvider>
           {children}
         </AuthProvider>
