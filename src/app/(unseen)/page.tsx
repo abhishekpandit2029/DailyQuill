@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useLayoutEffect } from "react";
 import { useAuth } from "@/context/AuthProvider";
 
-export default function IndexPage() {
+export default function UnseenPage() {
     const { isLoggedIn } = useAuth();
     const { replace } = useRouter();
     useLayoutEffect(() => {
