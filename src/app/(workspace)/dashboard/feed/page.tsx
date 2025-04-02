@@ -23,7 +23,7 @@ export default function FeedPage() {
     return (
         <>
             <div className={clsx("flex", open ? "space-x-4" : "space-x-0")}>
-                <div className="bg-white w-full flex flex-col space-y-4 place-content-center ml-0 lap:ml-4 lg:flex h-fit">
+                <div className="bg-white place-content-center ml-0 lap:ml-4 lg:flex     flex flex-col space-y-4 w-full h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
                     <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3">
                         <div className="w-full flex flex-row space-x-4 items-center justify-between">
                             <p className="font-semibold text-[1.5rem]">Feed</p>
@@ -75,7 +75,7 @@ export default function FeedPage() {
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
                     className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } overflow-y-scroll scrollbar-hide overflow-x-auto h-screen w-[20rem]`}
+                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full w-[20rem]`}
                 >
                     <SearchUserSidebar />
                 </div>

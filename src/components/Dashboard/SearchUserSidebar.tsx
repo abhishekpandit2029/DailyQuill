@@ -31,7 +31,7 @@ export default function SearchUserSidebar() {
     }
 
     return (
-        <div className="w-full flex-col space-y-4 flex p-[0.1rem]">
+        <div className="w-full flex-col space-y-4 flex h-full p-[0.1rem]">
             <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-1">
                 <div className="w-full flex flex-row space-x-4 items-center">
                     <Input

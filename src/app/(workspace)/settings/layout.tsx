@@ -32,7 +32,7 @@ export default function SettingsLayout({
 
     return (
         <section>
-            <div className="rounded-3xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 mx-3 tab:mx-4 min-h-screen">
+            <div className="rounded-xl ring-1 ring-gray-200 lg:flex p-4">
                 <div className="flex flex-col space-y-4">
                     <div className="rounded-2xl ring-1 ring-inset ring-gray-900/5 min-w-[12rem]">
                         <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">

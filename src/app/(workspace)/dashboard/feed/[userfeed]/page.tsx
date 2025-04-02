@@ -146,7 +146,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
     }
 
     return (
-        <div className={clsx("bg-white flex my-3 tab:my-1 ml-0 lap:ml-4 h-fit", open ? "space-x-4" : "space-x-0")}>
+        <div className={clsx("bg-white flex my-3 tab:my-1 ml-0 lap:ml-4", open ? "space-x-4" : "space-x-0")}>
             {isCardModalOpen && (
                 <CardViewModel
                     handleCancel={() => {

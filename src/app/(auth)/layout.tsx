@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={oppins.className}>
         <AuthProvider>
-          {children}
+          <Dashboardlayout>{children}</Dashboardlayout>
         </AuthProvider>
       </body>
     </html>

@@ -30,7 +30,7 @@ export default function BinPage() {
     const BinData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === true) || [];
 
     return (
-        <div className="bg-white flex flex-col space-y-4  my-3 tab:my-1 ml-0 lap:ml-4 lg:flex min-h-screen rounded-2xl ring-1 ring-gray-200">
+        <div className="bg-white flex flex-col space-y-4  my-3 tab:my-1 ml-0 lap:ml-4 lg:flex rounded-2xl ring-1 ring-gray-200">
             <div className="">
                 {BinData?.length === 0 ? (
                     <div className="flex flex-col items-center justify-center">

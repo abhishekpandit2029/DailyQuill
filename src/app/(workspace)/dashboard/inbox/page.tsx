@@ -116,7 +116,7 @@ export default function InboxPage() {
 
     return (
         <>
-            <div className="bg-white w-full flex space-x-2 pl-0 lap:pl-4 p-1 h-full">
+            <div className="bg-white w-full flex space-x-2 pl-0 lap:pl-4 p-1">
                 <div className="rounded-2xl ring-1 w-1/5 ring-gray-200 lg:flex p-3 tab:p-4 h-full">
                     <Splitter layout="vertical">
                         <Splitter.Panel defaultSize="80%" min="20%" max="80%">
