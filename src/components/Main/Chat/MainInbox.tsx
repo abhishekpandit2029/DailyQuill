@@ -1,13 +1,13 @@
 "use client"
 
 import { defaultProfileImage } from "@/constants/strings";
-import useParams from "@/hooks/useParams";
-import { useGetQuery } from "@/lib/fetcher";
+import { useGetQuery, usePostMutation } from "@/lib/fetcher";
 import { Image, Input } from 'antd';
 import { LuSend } from "react-icons/lu";
 import Messages from "./Messages";
 import { useCookies } from "react-cookie";
 import useMe from "@/hooks/useMe";
+import { useEffect, useState } from "react";
 
 interface IUserData {
     _id?: string,
@@ -27,36 +27,56 @@ interface MainInboxProps {
     chatRecord: IUserData;
 }
 
-const chatData = [
-    {
-        "id": "f9dDueR0JbLPWrrMgUtmL",
-        "senderId": "6749c25042287b45549efc4c",
-        "text": "im fine.",
-        "timestamp": 1743263222889
-    },
-    {
-        "id": "Rl-XrdvyzLaS2kjeUIHX_",
-        "senderId": "6705525ac5d04e0eb88eb0e8",
-        "text": "how are you",
-        "timestamp": 1743263208186
-    },
-    {
-        "id": "qLQnOv2t-GRd6lua5oDDD",
-        "senderId": "6705525ac5d04e0eb88eb0e8",
-        "text": "hiii",
-        "timestamp": 1743263198347
-    },
-    {
-        "id": "PIFT-T-vC92n5J0UArXRQ",
-        "senderId": "6749c25042287b45549efc4c",
-        "text": "hello",
-        "timestamp": 1743263143730
-    }
-]
+interface IMessageRequest {
+    chatId: string
+    senderId: string
+    receiverId: string | undefined
+    text: string
+    participants: string[]
+}
+
+interface IMessageResponse {
+    success: string
+    error: string
+}
+
+interface IMessageData {
+    chats: {
+        _id: string
+        text: string,
+        timestamp: string,
+        senderId: string,
+    }[]
+}
 
 export default function MainInbox({ chatRecord }: MainInboxProps) {
     const [{ userId }] = useCookies(["userId"]);
     const { userData } = useMe()
+    const [sendMessage, setSendMessage] = useState<string>("")
+
+    const { trigger: messageTrigger } = usePostMutation<IMessageRequest, IMessageResponse>("/message/send");
+
+    const { data } = useGetQuery<IMessageData>(`/message/chat?senderId=${userId}&receiverId=${chatRecord?.id}`);
+
+    function handlerSendMessage() {
+        if (sendMessage?.length > 0) {
+            messageTrigger({
+                chatId: `${userId}-${chatRecord?.id}`,
+                senderId: userId,
+                receiverId: chatRecord?.id,
+                text: sendMessage,
+                participants: [userId, chatRecord?.id]
+            })
+        }
+    }
+
+    const chatData = data?.chats?.map((item) => ({
+        text: item?.text,
+        timestamp: item?.timestamp,
+        id: item?._id,
+        senderId: item?.senderId,
+    })) || [];
+
     return (
         <div className="flex flex-col justify-between h-full">
             <div
@@ -73,7 +93,7 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
             </div>
             <Messages initialMessages={chatData} sessionId={userId} chatId={`${userId}-${chatRecord?.id}`} sessionImg={userData?.data?.userprofile_image || defaultProfileImage} chatPartner={chatRecord} />
             <div className="mt-auto">
-                <Input className="w-full rounded-lg p-3" placeholder="Write something..." suffix={<LuSend className="text-xl cursor-pointer" />} />
+                <Input className="w-full rounded-lg p-3" onChange={(e) => setSendMessage(e.target.value)} placeholder="Write something..." suffix={<LuSend onClick={handlerSendMessage} className="text-xl cursor-pointer" />} />
             </div>
         </div>
 

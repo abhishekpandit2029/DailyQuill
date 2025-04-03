@@ -7,16 +7,17 @@ connect();
 export async function GET(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
-        const chatId = searchParams.get("chatId");
+        const senderId = searchParams.get("senderId");
+        const receiverId = searchParams.get("receiverId");
 
-        if (!chatId) {
+        if (!receiverId || !senderId) {
             return Response.json({ error: "Chat ID is required" }, { status: 400 });
         }
 
-        // Find all messages in the chat
-        const messages = await Message.find({ chatId }).sort({ timestamp: 1 });
+        const chats = await Message.find({ participants: { $all: [senderId, receiverId] } })
+            .sort({ lastMessageTime: -1 });
 
-        return Response.json({ success: true, messages }, { status: 200 });
+        return Response.json({ success: true, chats }, { status: 200 });
     } catch (error) {
         return Response.json({ error: "Server error" }, { status: 500 });
     }

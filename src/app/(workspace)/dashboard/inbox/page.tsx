@@ -79,8 +79,6 @@ export default function InboxPage() {
         pusherClient.subscribe(`chat-collection`);
 
         pusherClient.bind("new-chat", (newChat: Chat) => {
-            console.log("New chat received:", newChat);
-
             setChats((prev) => [
                 ...prev,
                 {
@@ -112,12 +110,10 @@ export default function InboxPage() {
         }
     }, [data]);
 
-    console.log("/chats/", chats)
-
     return (
         <>
             <div className="bg-white w-full flex space-x-2 pl-0 lap:pl-4 p-1">
-                <div className="rounded-xl ring-1 w-1/5 ring-gray-200 lg:flex p-3 tab:p-4 h-full">
+                <div className="rounded-xl ring-1 w-1/5 ring-gray-200 lg:flex p-3 tab:p-4">
                     <Splitter layout="vertical">
                         <Splitter.Panel defaultSize="80%" min="20%" max="80%">
                             <div className="w-full flex flex-col space-y-4">
