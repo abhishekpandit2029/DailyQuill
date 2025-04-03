@@ -6,7 +6,7 @@ import { CiLocationArrow1 } from "react-icons/ci";
 export default function AccountPage() {
     return (
         <div className='flex flex-col space-y-4 items-center'>
-            <div className=" rounded-2xl ring-1 ring-gray-200 lg:flex h-full bg-white flex flex-col space-y-4 place-content-center my-3 tab:my-1 ml-0 lap:ml-4 p-3 tab:p-4 w-[80%]">
+            <div className=" rounded-xl ring-1 ring-gray-200 lg:flex h-full bg-white flex flex-col space-y-4 place-content-center my-3 tab:my-1 ml-0 lap:ml-4 p-3 tab:p-4 w-[80%]">
                 <p className='font-semibold text-xl'>Display</p>
                 <div className='flex flex-col space-y-2'>
                     <Link href="/settings/appearance/display" passHref>

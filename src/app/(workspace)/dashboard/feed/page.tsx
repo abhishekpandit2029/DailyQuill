@@ -23,17 +23,17 @@ export default function FeedPage() {
     return (
         <>
             <div className={clsx("flex", open ? "space-x-4" : "space-x-0")}>
-                <div className="bg-white w-full flex flex-col space-y-4 place-content-center ml-0 lap:ml-4 lg:flex h-fit">
-                    <div className="rounded-2xl ring-1 ring-gray-200 lg:flex w-full p-3">
+                <div className="bg-white place-content-center ml-0 lap:ml-4 lg:flex     flex flex-col space-y-4 w-full h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
+                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3">
                         <div className="w-full flex flex-row space-x-4 items-center justify-between">
                             <p className="font-semibold text-[1.5rem]">Feed</p>
                             <MdOutlinePersonSearch className="text-2xl cursor-pointer" onClick={() => setOpen(!open)} />
                         </div>
                     </div>
 
-                    <div className="bg-white flex flex-col space-y-1 rounded-3xl ring-1 ring-gray-200 lg:flex min-h-screen">
+                    <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 lg:flex min-h-screen">
                         {isLoading ? (
-                            <div className="bg-white flex flex-col space-y-1 rounded-2xl ring-1 ring-gray-200 lg:flex h-full ">
+                            <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 lg:flex h-full ">
                                 <Grid container wrap="wrap" gap={2} justifyContent={"start"} padding={1.5}>
                                     {Array.from({ length: 3 }).map((_, index) => (
                                         <CardSkeleton key={index} />
@@ -47,7 +47,7 @@ export default function FeedPage() {
                                 >
                                     {Array.isArray(filteredData) &&
                                         filteredData?.map((items, index) => (
-                                            <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-2xl flex flex-col space-y-3 min-w-fit h-fit">
+                                            <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-xl flex flex-col space-y-3 min-w-fit h-fit">
                                                 <div className='flex space-x-3 items-center cursor-pointer' onClick={() => push(`/dashboard/feed/${items?.username}?id=${items?.userID}`)}>
                                                     <Image src={items?.userprofileImage || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
                                                     <div>
@@ -75,7 +75,7 @@ export default function FeedPage() {
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
                     className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } overflow-y-scroll scrollbar-hide overflow-x-auto h-screen w-[20rem]`}
+                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full w-[20rem]`}
                 >
                     <SearchUserSidebar />
                 </div>

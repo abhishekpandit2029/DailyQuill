@@ -35,7 +35,7 @@ export default function FollowersFollowingsSidebar(props: ISidebarProps) {
 
     return (
         <div className="w-full flex-col space-y-4 flex h-full p-[0.1rem]">
-            <div className="rounded-3xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 h-full flex flex-col space-y-4">
+            <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 h-full flex flex-col space-y-4">
                 <p className='font-semibold text-xl'>{type}</p>
                 <div className='flex flex-col space-y-3 w-full h-full'>
                     {
@@ -45,7 +45,7 @@ export default function FollowersFollowingsSidebar(props: ISidebarProps) {
                                     return (
                                         <div
                                             key={item?.follower_id}
-                                            className="flex items-center bg-white p-3 rounded-2xl justify-between"
+                                            className="flex items-center bg-white p-3 rounded-xl justify-between"
                                             style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
                                         >
                                             <div className='flex space-x-3 items-center cursor-pointer' onClick={() => handleClick(item?.follower_id, item?.follower_username)}>

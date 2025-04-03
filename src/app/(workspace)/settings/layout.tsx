@@ -32,17 +32,17 @@ export default function SettingsLayout({
 
     return (
         <section>
-            <div className="rounded-3xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 mx-3 tab:mx-4 min-h-screen">
+            <div className="rounded-xl ring-1 ring-gray-200 lg:flex p-4">
                 <div className="flex flex-col space-y-4">
-                    <div className="rounded-2xl ring-1 ring-inset ring-gray-900/5 min-w-[12rem]">
-                        <div className="rounded-2xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">
+                    <div className="rounded-xl ring-1 ring-inset ring-gray-900/5 min-w-[12rem]">
+                        <div className="rounded-xl ring-1 ring-gray-200 lg:flex p-3 tab:p-4 min-w-[12rem]">
                             <div className="w-full flex flex-row items-baseline space-x-2">
                                 <RiArrowGoBackFill onClick={() => back()} className="text-lg cursor-pointer" />
                                 <p className="font-semibold text-[1.4rem]">Adjustments</p>
                             </div>
                         </div>
                     </div>
-                    <div className="rounded-2xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[12rem] h-full">
+                    <div className="rounded-xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[12rem] h-full">
                         <div className="w-full flex-col space-y-5 p-4 hidden lap:flex">
                             <Link href="/settings/account" passHref>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/settings/account' ? 'text-indigo-500' : 'text-gray-900')}>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import "@/app/globals.css";
+import "../../../src/app/globals.css";
 import { Poppins } from "next/font/google";
-import Dashboardlayout from "@/components/Main/Layout/Dashboardlayout";
 import AuthProvider from "@/context/AuthProvider";
+import clsx from "clsx";
 
 const oppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={oppins.className}>
+      <body className={clsx(oppins.className, "min-h-screen")}>
         <AuthProvider>
           {children}
         </AuthProvider>
