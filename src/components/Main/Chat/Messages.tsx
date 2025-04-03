@@ -1,6 +1,7 @@
 "use client";
 
 import { defaultProfileImage } from "@/constants/strings";
+import { pusherClient } from "@/helpers/getInitiatedPusher";
 import clsx from "clsx";
 import Image from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
@@ -13,6 +14,13 @@ interface MessagesProps {
   chatPartner: any;
 }
 
+interface IMessageData {
+  _id: string
+  text: string,
+  timestamp: string,
+  senderId: string,
+}
+
 const Messages: FC<MessagesProps> = ({
   initialMessages,
   sessionId,
@@ -21,26 +29,25 @@ const Messages: FC<MessagesProps> = ({
   sessionImg,
 }) => {
   const [messages, setMessages] = useState<any[]>(initialMessages);
-  console.log("initialMessages", initialMessages);
-  console.log(initialMessages,
-    sessionId,
-    chatId,
-    chatPartner,
-    sessionImg,)
-  // useEffect(() => {
-  //   pusherClient.subscribe(toPusherKey(`chat:${chatId}`));
 
-  //   const messageHandler = (message: Message) => {
-  //     setMessages((prev) => [message, ...prev]);
-  //   };
+  useEffect(() => {
+    if (!sessionId || !chatId) return;
 
-  //   pusherClient.bind("incoming-message", messageHandler);
+    const channelName = `message-collection`;
+    pusherClient.subscribe(channelName);
 
-  //   return () => {
-  //     pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`));
-  //     pusherClient.unbind("incoming-message", messageHandler);
-  //   };
-  // }, [chatId]);
+    const handleNewMessage = (messageData: IMessageData) => {
+      setMessages((prev) => [...prev, messageData]);
+    };
+
+    pusherClient.bind("message-chat", handleNewMessage);
+
+    return () => {
+      pusherClient.unbind("message-chat", handleNewMessage);
+      pusherClient.unsubscribe(channelName);
+    };
+  }, [sessionId, chatId]);
+
 
   const scrollDownRef = useRef<HTMLDivElement | null>(null);
 
@@ -61,16 +68,16 @@ const Messages: FC<MessagesProps> = ({
     >
       <div ref={scrollDownRef} />
 
-      {messages?.map((message, index) => {
-        const isCurrentUser = message.senderId === sessionId;
+      {initialMessages?.map((message, index) => {
+        const isCurrentUser = message?.senderId === sessionId;
 
         const hasNextMessageFromSameUser =
-          messages[index - 1]?.senderId === messages[index].senderId;
+          messages[index - 1]?.senderId === messages[index]?.senderId;
 
         return (
           <div
             className="chat-message"
-            key={`${message.id}-${message.timestamp}`}
+            key={`${message?.id}-${message?.timestamp}`}
           >
             <div
               className={clsx("flex items-end", {
@@ -96,9 +103,9 @@ const Messages: FC<MessagesProps> = ({
                       !hasNextMessageFromSameUser && !isCurrentUser,
                   })}
                 >
-                  {message.text}{" "}
+                  {message?.text}{" "}
                   <span className="ml-2 text-xs text-gray-400">
-                    {formatTime(message.timestamp)}
+                    {formatTime(message?.timestamp)}
                   </span>
                 </span>
               </div>
