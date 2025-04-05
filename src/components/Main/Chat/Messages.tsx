@@ -98,30 +98,10 @@ const Messages: FC<MessagesProps> = ({
     return `${hours}:${minutes} ${ampm}`;
   }
 
-  function getDateLabel(timestamp: string) {
-    const messageDate = new Date(timestamp);
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-
-    const isToday = messageDate.toDateString() === today.toDateString();
-    const isYesterday = messageDate.toDateString() === yesterday.toDateString();
-
-    if (isToday) return "Today";
-    if (isYesterday) return "Yesterday";
-
-    return messageDate.toLocaleDateString(undefined, {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  }
-
-
   return (
     <div
       id="messages"
-      className="flex flex-col gap-4 p-3 overflow-y-scroll overflow-x-auto scrollbar-hide"
+      className="flex flex-col gap-4 p-3 overflow-y-scroll overflow-x-auto h-full scrollbar-hide"
     >
       {messages?.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())?.map((message, index) => {
         const isCurrentUser = message?.senderId === sessionId;
