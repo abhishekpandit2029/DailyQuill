@@ -98,13 +98,31 @@ const Messages: FC<MessagesProps> = ({
     return `${hours}:${minutes} ${ampm}`;
   }
 
+  function getDateLabel(timestamp: string) {
+    const messageDate = new Date(timestamp);
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const isToday = messageDate.toDateString() === today.toDateString();
+    const isYesterday = messageDate.toDateString() === yesterday.toDateString();
+
+    if (isToday) return "Today";
+    if (isYesterday) return "Yesterday";
+
+    return messageDate.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+
   return (
     <div
       id="messages"
-      className="flex h-full flex-1 flex-col gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
-      ref={scrollDownRef}
+      className="flex flex-col gap-4 p-3 overflow-y-scroll overflow-x-auto scrollbar-hide"
     >
-
       {messages?.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())?.map((message, index) => {
         const isCurrentUser = message?.senderId === sessionId;
 
@@ -145,7 +163,7 @@ const Messages: FC<MessagesProps> = ({
 
               <div
                 className={clsx(
-                  "flex flex-col space-y-2 text-base max-w-xs mx-2",
+                  "flex flex-col space-y-2 text-sm max-w-xs mx-2",
                   {
                     "order-1 items-end": isCurrentUser,
                     "order-2 items-start": !isCurrentUser,
@@ -172,6 +190,7 @@ const Messages: FC<MessagesProps> = ({
           </div>
         );
       })}
+      <div ref={scrollDownRef} />
     </div>
   );
 };

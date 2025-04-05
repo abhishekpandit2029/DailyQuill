@@ -23,7 +23,7 @@ export default function FeedPage() {
     return (
         <>
             <div className={clsx("flex", open ? "space-x-4" : "space-x-0")}>
-                <div className="bg-white place-content-center ml-0 lap:ml-4 lg:flex     flex flex-col space-y-4 w-full h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
+                <div className="bg-white ml-0 lap:ml-4 flex flex-col space-y-4 w-full h-[calc(100vh-4rem)] p-[0.1rem]">
                     <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3">
                         <div className="w-full flex flex-row space-x-4 items-center justify-between">
                             <p className="font-semibold text-[1.5rem]">Feed</p>
@@ -31,9 +31,9 @@ export default function FeedPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 lg:flex min-h-screen">
+                    <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 overflow-y-scroll scrollbar-hide overflow-x-auto">
                         {isLoading ? (
-                            <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 lg:flex h-full ">
+                            <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200 lg:flex h-full">
                                 <Grid container wrap="wrap" gap={2} justifyContent={"start"} padding={1.5}>
                                     {Array.from({ length: 3 }).map((_, index) => (
                                         <CardSkeleton key={index} />
@@ -74,8 +74,8 @@ export default function FeedPage() {
                 </div>
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
-                    className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full w-[20rem]`}
+                    className={`transition-all duration-700 h-[calc(100vh-4rem)] ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
+                        } w-[20rem]`}
                 >
                     <SearchUserSidebar />
                 </div>

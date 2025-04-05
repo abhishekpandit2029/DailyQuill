@@ -73,7 +73,7 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
 
 
     return (
-        <div className="flex flex-col justify-between h-full">
+        <div className="bg-white flex-col flex space-y-2 w-full h-[calc(100vh-6rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
             <div
                 className="bg-white p-3 rounded-xl w-full"
                 style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}

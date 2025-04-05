@@ -2,10 +2,8 @@ import { useGetQuery } from '@/lib/fetcher';
 import { Input } from 'antd'
 import { Image } from 'antd';
 import React, { useState } from 'react'
-import { HiMiniArrowTopRightOnSquare } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
 import { defaultProfileImage } from '@/constants/strings';
-
 
 interface IUserData {
     _id: string,
@@ -17,6 +15,7 @@ interface IUserData {
 interface IGetUserData {
     users: IUserData[]
 }
+
 export default function SearchUserSidebar() {
     const [searchItems, setSearchItems] = useState<string>("")
     const { push } = useRouter()
@@ -42,9 +41,9 @@ export default function SearchUserSidebar() {
                     />
                 </div>
             </div>
-            <div className="w-full flex-col space-y-4 flex">
-                <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 min-h-screen">
-                    <div className='flex flex-col space-y-3 w-full'>
+
+            <div className="w-full flex-col space-y-4 flex overflow-y-scroll scrollbar-hide overflow-x-auto p-[0.1rem]  rounded-xl ring-1 ring-gray-200 lg:flex">
+                <div className='flex flex-col space-y-3 w-full p-4'>
                         {
                             data?.users?.map((item) => {
                                 return (
@@ -60,16 +59,12 @@ export default function SearchUserSidebar() {
                                                 <p className='text-[0.8rem]'>{item?.full_name}</p>
                                             </div>
                                         </div>
-                                        {/* <div onClick={() => handleClick(item)}>
-                                            <HiMiniArrowTopRightOnSquare style={{ color: "grey", fontSize: "1.2rem" }} className='cursor-pointer' />
-                                        </div> */}
                                     </div>
                                 );
                             })
                         }
                     </div>
                 </div>
-            </div>
-        </div >
+        </div>
     )
 }
