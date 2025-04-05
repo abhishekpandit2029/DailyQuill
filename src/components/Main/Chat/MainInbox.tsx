@@ -70,12 +70,7 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
         }
     }
 
-    const chatData = data?.chats?.map((item) => ({
-        text: item?.text,
-        timestamp: item?.timestamp,
-        id: item?._id,
-        senderId: item?.senderId,
-    })) || [];
+
 
     return (
         <div className="flex flex-col justify-between h-full">
@@ -91,7 +86,7 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
                     </div>
                 </div>
             </div>
-            <Messages initialMessages={chatData} sessionId={userId} chatId={`${userId}-${chatRecord?.id}`} sessionImg={userData?.data?.userprofile_image || defaultProfileImage} chatPartner={chatRecord} />
+            <Messages sessionId={userId} chatId={`${userId}-${chatRecord?.id}`} sessionImg={userData?.data?.userprofile_image || defaultProfileImage} chatPartner={chatRecord} />
             <div className="mt-auto">
                 <Input className="w-full rounded-lg p-3" onChange={(e) => setSendMessage(e.target.value)} placeholder="Write something..." suffix={<LuSend onClick={handlerSendMessage} className="text-xl cursor-pointer" />} />
             </div>

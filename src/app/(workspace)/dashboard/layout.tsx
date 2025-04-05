@@ -67,7 +67,7 @@ export default function DashboardLayout({
                         </div>
                     </div>
                     <div className="rounded-xl bg-gray-50 ring-1 ring-inset ring-gray-900/5 min-w-[10rem] h-full">
-                        <div className="w-full flex-col space-y-5 p-4 hidden lap:flex">
+                        <div className="w-full flex-col space-y-5 p-4 flex">
                             <Link href="/dashboard/profile" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/profile' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span className="text-lg"><Person4OutlinedIcon /> </span>

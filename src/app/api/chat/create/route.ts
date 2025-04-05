@@ -62,7 +62,6 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ success: true, chat }, { status: 200 });
     } catch (error) {
-        console.error("Error creating chat:", error);
         return NextResponse.json({ error: "Server error" }, { status: 500 });
     }
 }
