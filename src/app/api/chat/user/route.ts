@@ -18,7 +18,6 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({ success: true, chats: chats }, { status: 200 });
     } catch (error) {
-        console.error("Error fetching chats:", error);
         return NextResponse.json({ error: "Server error" }, { status: 500 });
     }
 }
