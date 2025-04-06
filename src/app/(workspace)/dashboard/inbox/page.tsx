@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { useCookies } from "react-cookie"
 import { MdOutlinePersonSearch } from "react-icons/md"
 import { Image } from 'antd';
+import { formatTime } from "@/components/Main/Chat/Messages"
 
 interface Chat {
     chatId: string; // Unique chat identifier (e.g., "user123-user456")
@@ -39,6 +40,8 @@ interface IChats {
     username: string;
     fullName: string;
     picture: string | undefined;
+    lastMessage: string | undefined;
+    lastMessageTime: string | undefined | Date;
 }
 
 interface ChatFiltered {
@@ -58,6 +61,8 @@ export default function InboxPage() {
         username: item?.senderUsername,
         fullName: item?.senderFullName,
         picture: item?.senderPicture,
+        lastMessage: item?.lastMessage,
+        lastMessageTime: item?.lastMessageTime,
     })) || [])
 
     const SencondaryData: IChats[] = (chats?.map((item) => ({
@@ -65,6 +70,8 @@ export default function InboxPage() {
         username: item?.receiverUsername,
         fullName: item?.receiverFullName,
         picture: item?.receiverPicture,
+        lastMessage: item?.lastMessage,
+        lastMessageTime: item?.lastMessageTime,
     })) || [])
 
     const CombinedChatData = [...PrimaryData, ...SencondaryData]?.filter((item) => item?.id !== userId);
@@ -110,10 +117,12 @@ export default function InboxPage() {
         }
     }, [data]);
 
+    console.log("CombinedChatData", CombinedChatData);
+    console.log("chats", data?.chats);
     return (
         <>
             <div className="bg-white pl-4 flex space-x-2 w-full h-[calc(100vh-4rem)] p-[0.1rem]">
-                <div className="rounded-xl ring-1 w-1/5 ring-gray-200 lg:flex p-3 tab:p-4">
+                <div className="rounded-xl ring-1 w-2/6 ring-gray-200 lg:flex p-3 tab:p-4">
                     <Splitter layout="vertical">
                         <Splitter.Panel defaultSize="80%" min="20%" max="80%">
                             <div className="w-full flex flex-col space-y-4">
@@ -132,11 +141,15 @@ export default function InboxPage() {
                                                     style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
                                                     onClick={() => handleClick(item)}
                                                 >
-                                                    <div className='flex space-x-3 items-center'>
+                                                    <div className='flex space-x-3 w-full items-center'>
                                                         <Image src={item?.picture || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
-                                                        <div>
+                                                        <div className="w-full">
                                                             <p className='text-[0.9rem]'>{item?.fullName}</p>
-                                                            <p className='text-[0.8rem]'>{item?.username}</p>
+                                                            <div className="flex justify-between items-center">
+                                                                <p className='text-[0.8rem]'>{item?.lastMessage || "Say hii!!"}</p>
+                                                                <p className='text-[0.7rem]'>{item?.lastMessageTime ? formatTime(item?.lastMessageTime as string) : ""}</p>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -155,12 +168,12 @@ export default function InboxPage() {
                 </div>
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
-                    className={`transition-all duration-700 ease-in-out ${open ? 'opacity-100 w-1/5' : 'w-0 opacity-0'
+                    className={`transition-all duration-700 ease-in-out ${open ? 'opacity-100 w-2/6' : 'w-0 opacity-0'
                         }`}
                 >
                     <ChatSearchUserSidebar />
                 </div>
-                <div className={`rounded-xl ring-1 transition-all duration-700 ease-in-out ring-gray-200 ${open ? 'w-3/5' : "w-4/5"
+                <div className={`rounded-xl ring-1 transition-all duration-700 ease-in-out ring-gray-200 ${open ? 'w-4/6' : "w-4/6"
                     } p-3 tab:p-4`}>
                     <MainInbox chatRecord={chatData || CombinedChatData[0] as IChats} />
                 </div>

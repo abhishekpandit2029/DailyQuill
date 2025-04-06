@@ -1,12 +1,9 @@
-import { useGetQuery, usePostMutation } from '@/lib/fetcher';
+import { usePostMutation } from '@/lib/fetcher';
 import { Input } from 'antd'
 import { Image } from 'antd';
 import React, { useState } from 'react'
-import { HiMiniArrowTopRightOnSquare } from "react-icons/hi2";
-import { useRouter } from 'next/navigation';
 import { defaultProfileImage } from '@/constants/strings';
 import useMe from '@/hooks/useMe';
-import useParams from '@/hooks/useParams';
 
 interface IChatRequest {
     sender: string

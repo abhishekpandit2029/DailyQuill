@@ -5,7 +5,7 @@ const chatSchema = new mongoose.Schema(
         chatId: { type: String, required: true, unique: true }, // Unique chat identifier (e.g., "user123-user456")
         participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }], // Users in the chat
         lastMessage: { type: String, default: "" }, // Stores the last message text
-        lastMessageTime: { type: Date, default: Date.now }, // Timestamp of the last message
+        lastMessageTime: { type: Date, default: "" }, // Timestamp of the last message
 
         receiverId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
         receiverUsername: { type: String, required: true },

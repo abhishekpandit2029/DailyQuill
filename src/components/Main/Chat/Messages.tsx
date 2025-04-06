@@ -30,6 +30,16 @@ interface IData {
   }[]
 }
 
+export function formatTime(timestamp: string) {
+  const date = new Date(timestamp);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  minutes = parseInt(minutes.toString().padStart(2, '0'), 10);
+  return `${hours}:${minutes} ${ampm}`;
+}
+
 const Messages: FC<MessagesProps> = ({
   sessionId,
   chatId,
@@ -88,19 +98,9 @@ const Messages: FC<MessagesProps> = ({
     scrollDownRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  function formatTime(timestamp: string) {
-    const date = new Date(timestamp);
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    minutes = parseInt(minutes.toString().padStart(2, '0'), 10);
-    return `${hours}:${minutes} ${ampm}`;
-  }
-
   return (
     <div
-      className="flex flex-col gap-4 p-3 overflow-y-scroll overflow-x-auto h-full scrollbar-hide bg-bottom bg-no-repeat"
+      className="flex flex-col gap-4 py-3 overflow-y-scroll overflow-x-auto h-full scrollbar-hide bg-bottom bg-no-repeat"
       style={{ backgroundImage: `url(${defaultProfileImage})` }}
     >
       {messages?.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())?.map((message, index) => {

@@ -38,7 +38,7 @@ export default function DashboardLayout({
     const auth = useAuth();
 
     return (
-        <section className="p-4 rounded-xl ring-1 ring-gray-200 max-h-fit m-4">
+        <section className="p-4 rounded-xl ring-1 ring-gray-200 max-h-fit mx-4 mt-4">
             {isAddNewModalOpen && (
                 <AddToDairyModel
                     handleCancel={() => {
@@ -56,7 +56,7 @@ export default function DashboardLayout({
 
             <div className="flex h-full">
                 <div className="flex flex-col space-y-4">
-                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-fit p-3 min-w-[12rem]">
+                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-fit p-3 min-w-[12rem] m-[0.1rem]">
                         <div className="flex items-center">
                             <a href="/" className="flex space-x-1">
                                 <Image className="max-w-[5rem] h-auto" src={defaultProfileImage} alt="logo" preview={false} />
