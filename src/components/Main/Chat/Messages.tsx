@@ -100,8 +100,8 @@ const Messages: FC<MessagesProps> = ({
 
   return (
     <div
-      id="messages"
-      className="flex flex-col gap-4 p-3 overflow-y-scroll overflow-x-auto h-full scrollbar-hide"
+      className="flex flex-col gap-4 p-3 overflow-y-scroll overflow-x-auto h-full scrollbar-hide bg-bottom bg-no-repeat"
+      style={{ backgroundImage: `url(${defaultProfileImage})` }}
     >
       {messages?.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())?.map((message, index) => {
         const isCurrentUser = message?.senderId === sessionId;

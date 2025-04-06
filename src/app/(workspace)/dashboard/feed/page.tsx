@@ -75,7 +75,7 @@ export default function FeedPage() {
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
                     className={`transition-all duration-700 h-[calc(100vh-4rem)] ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } w-[20rem]`}
+                        }`}
                 >
                     <SearchUserSidebar />
                 </div>

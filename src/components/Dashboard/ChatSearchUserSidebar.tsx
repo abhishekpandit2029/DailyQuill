@@ -37,7 +37,7 @@ export default function ChatSearchUserSidebar() {
     }
 
     return (
-        <div className="w-full flex-col space-y-4 p-1 flex">
+        <div className="w-full flex-col space-y-4 flex h-full p-[0.1rem]">
             <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-2">
                 <div className="w-full flex flex-row space-x-4 items-center">
                     <Input
@@ -48,9 +48,8 @@ export default function ChatSearchUserSidebar() {
                     />
                 </div>
             </div>
-            <div className="w-full flex-col space-y-4 flex">
-                <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4 min-h-screen">
-                    <div className='flex flex-col space-y-3 w-full'>
+            <div className="w-full flex-col space-y-4 flex overflow-y-scroll scrollbar-hide overflow-x-auto p-[0.1rem]  rounded-xl ring-1 ring-gray-200 lg:flex">
+                <div className='flex flex-col space-y-3 w-full p-4'>
                         {
                             userData?.data?.followingsLists?.map((item) => {
                                 return (
@@ -73,7 +72,6 @@ export default function ChatSearchUserSidebar() {
                         }
                     </div>
                 </div>
-            </div>
-        </div >
+        </div>
     )
 }
