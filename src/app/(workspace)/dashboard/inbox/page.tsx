@@ -117,8 +117,6 @@ export default function InboxPage() {
         }
     }, [data]);
 
-    console.log("CombinedChatData", CombinedChatData);
-    console.log("chats", data?.chats);
     return (
         <>
             <div className="bg-white pl-4 flex space-x-2 w-full h-[calc(100vh-4rem)] p-[0.1rem]">
