@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MdOutlinePersonSearch } from "react-icons/md";
 import SearchUserSidebar from "@/components/Dashboard/SearchUserSidebar";
 import CardSkeleton from "@/components/Dashboard/CardSkeleton";

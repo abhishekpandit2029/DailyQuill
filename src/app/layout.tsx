@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
-import Dashboardlayout from "@/components/Main/Layout/Dashboardlayout";
 import AuthProvider from "@/context/AuthProvider";
+import { defaultProfileImage } from "@/constants/strings";
 
 const oppins = Poppins({
   subsets: ["latin"],
@@ -13,6 +13,9 @@ const oppins = Poppins({
 export const metadata: Metadata = {
   title: "DailyQuill",
   description: "Home page of DailyQuill",
+  icons: {
+    icon: { url: defaultProfileImage, sizes: "84x84", type: "image/png" },
+  },
 };
 
 export default function RootLayout({
