@@ -17,17 +17,6 @@ import { TbMessageChatbot } from "react-icons/tb";
 import { Image } from "antd";
 import { defaultProfileImage } from "@/constants/strings";
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    display: "swap",
-    weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-// export const metadata: Metadata = {
-//   title: "DailyQuill",
-//   description: "Home page of DailyQuill",
-// };
-
 export default function DashboardLayout({
     children,
 }: Readonly<{

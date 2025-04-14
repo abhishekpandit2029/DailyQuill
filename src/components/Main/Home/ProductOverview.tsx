@@ -1,7 +1,6 @@
 import {
   ArrowPathIcon,
   CloudArrowUpIcon,
-  FingerPrintIcon,
   LockClosedIcon,
   CubeTransparentIcon,
 } from "@heroicons/react/24/outline";

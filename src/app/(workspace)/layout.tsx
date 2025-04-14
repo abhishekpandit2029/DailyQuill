@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "../../../src/app/globals.css";
 import { Poppins } from "next/font/google";
 import AuthProvider from "@/context/AuthProvider";
-import clsx from "clsx";
 
 const oppins = Poppins({
   subsets: ["latin"],

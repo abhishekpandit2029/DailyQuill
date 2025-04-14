@@ -4,7 +4,7 @@ import * as React from "react";
 import Script from "next/script";
 import { Button, message, Segmented, Tag } from "antd";
 import { useEffect, useState } from "react";
-import { useGetQuery, usePostMutation } from "@/lib/fetcher";
+import { usePostMutation } from "@/lib/fetcher";
 import { mapPaymentCard, mapProcessFlow } from "@/constants/options";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";

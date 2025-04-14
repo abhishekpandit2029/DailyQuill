@@ -1,23 +1,10 @@
-import { useGetQuery } from '@/lib/fetcher';
-import { Empty, Input } from 'antd'
+import { Empty } from 'antd'
 import { Image } from 'antd';
-import React, { useState } from 'react'
-import { HiMiniArrowTopRightOnSquare } from "react-icons/hi2";
+import React from 'react'
 import { useRouter } from 'next/navigation';
 import { buttonClassName, defaultProfileImage } from '@/constants/strings';
 import { IFollowersFollowings } from '@/hooks/useMe';
 import { Button } from "@mui/base/Button";
-
-interface IUserData {
-    _id: any;
-    username: string,
-    full_name: string,
-    userprofile_image: string
-}
-
-interface IGetUserData {
-    users: IUserData[]
-}
 
 interface ISidebarProps {
     type: string

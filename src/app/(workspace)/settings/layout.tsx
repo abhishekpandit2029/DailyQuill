@@ -4,23 +4,10 @@ import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
-import { TfiBackLeft } from "react-icons/tfi";
 import { CgDarkMode } from "react-icons/cg";
 import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 import { RiArrowGoBackFill } from "react-icons/ri";
-
-
-const poppins = Poppins({
-    subsets: ["latin"],
-    display: "swap",
-    weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-// export const metadata: Metadata = {
-//   title: "DailyQuill",
-//   description: "Home page of DailyQuill",
-// };
 
 export default function SettingsLayout({
     children,

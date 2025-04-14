@@ -19,10 +19,6 @@ interface IUserData {
     picture?: string | undefined;
 }
 
-interface IGetUserData {
-    users: IUserData[]
-}
-
 interface MainInboxProps {
     chatRecord: IUserData;
 }
@@ -38,15 +34,6 @@ interface IMessageRequest {
 interface IMessageResponse {
     success: string
     error: string
-}
-
-interface IMessageData {
-    chats: {
-        _id: string
-        text: string,
-        timestamp: string,
-        senderId: string,
-    }[]
 }
 
 export default function MainInbox({ chatRecord }: MainInboxProps) {
