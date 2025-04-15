@@ -45,11 +45,11 @@ export default function DashboardLayout({
 
             <div className="flex h-full">
                 <div className="flex flex-col space-y-4">
-                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-fit p-3 min-w-[12rem] m-[0.1rem]">
+                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-fit p-3 m-[0.1rem]">
                         <div className="flex items-center">
-                            <a href="/" className="flex space-x-1">
-                                <Image className="max-w-[5rem] h-auto" src={defaultProfileImage} alt="logo" preview={false} />
-                                <span className="self-center text-2xl font-semibold whitespace-nowrap">
+                            <a href="/" className="flex items-center space-x-1">
+                                <Image className="max-w-[80px] h-auto" src={defaultProfileImage} alt="logo" preview={false} />
+                                <span className="self-centr text-[1.5rem] font-semibold whitespace-nowrap">
                                     DailyQuill
                                 </span>
                             </a>
@@ -82,7 +82,7 @@ export default function DashboardLayout({
                                 </p>
                             </Link>
                             <Link href="/dashboard/settings" passHref prefetch>
-                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/settings/account' ? 'text-indigo-500' : 'text-gray-900')}>
+                                <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/dashboard/settings' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span className="text-lg"><LuSettings /> </span>
                                     <span>Adjustments</span>
                                 </p>

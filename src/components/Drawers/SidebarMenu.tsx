@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Drawer } from "antd";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import { useSelectedLayoutSegment } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import DailyQuill from "@/stuff/Red_Illustrated_Bull_Stock_Broker_Logo__1_-removebg-preview.png";
@@ -10,7 +10,6 @@ import useMe from "@/hooks/useMe";
 import { useAuth } from "@/context/AuthProvider";
 
 export default function SidebarMenu() {
-  const { push } = useRouter();
   const auth = useAuth();
   const [open, setOpen] = useState(false);
   const isHome = useSelectedLayoutSegment()?.includes("home");

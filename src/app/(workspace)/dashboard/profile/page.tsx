@@ -24,6 +24,9 @@ import { MdOutlineModeComment } from "react-icons/md";
 import CardInfoShareModal from "@/components/Modals/CardInfoShareModal";
 import { SlShare } from "react-icons/sl";
 import { defaultProfileImage } from "@/constants/strings";
+import { TbUserEdit } from "react-icons/tb";
+import { useRouter } from "next/navigation";
+
 
 export interface IThoughtCards {
     title: string,
@@ -48,6 +51,8 @@ export default function ProfilePage() {
     const [sidebarType, setSidebarType] = useState<string>("Followers")
 
     const { userData, isLoading: isMeLoading } = useMe()
+
+    const { push } = useRouter()
 
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?userID=${userData?.data?._id}`);
 
@@ -125,7 +130,7 @@ export default function ProfilePage() {
                 )}
 
                 <div className="flex flex-col space-y-4 w-4/5 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
-                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
+                    <div className="rounded-xl ring-1 flex justify-between ring-gray-200 lg:flex w-full p-3 tab:p-4">
                         {isMeLoading ? (
                             <ProfileSkeleton />
                         ) : (
@@ -151,6 +156,9 @@ export default function ProfilePage() {
                                 </div>
                             </div>
                         )}
+                        <div className="relative right-0">
+                            <TbUserEdit className="text-2xl ring-1 ring-gray-500 rounded-xl p-1 cursor-pointer" onClick={() => push("/dashboard/settings/profile-details")} />
+                        </div>
                     </div>
 
                     <div
