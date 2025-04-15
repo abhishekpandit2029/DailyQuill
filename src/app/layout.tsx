@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 import AuthProvider from "@/context/AuthProvider";
-import { defaultProfileImage } from "@/constants/strings";
+import { favIconProduct } from "@/constants/strings";
 
 const oppins = Poppins({
   subsets: ["latin"],
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "DailyQuill",
   description: "Home page of DailyQuill",
   icons: {
-    icon: { url: defaultProfileImage, sizes: "84x84", type: "image/png" },
+    icon: { url: favIconProduct, sizes: "512x512", type: "image/png" },
   },
 };
 
