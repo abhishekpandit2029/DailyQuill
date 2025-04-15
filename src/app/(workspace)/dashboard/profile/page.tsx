@@ -46,7 +46,6 @@ export default function ProfilePage() {
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [isCardInfoShareModalOpen, setIsCardInfoShareModalOpenOpen] = useState(false);
     const [sidebarType, setSidebarType] = useState<string>("Followers")
-    const [open, setOpen] = useState<boolean>(true)
 
     const { userData, isLoading: isMeLoading } = useMe()
 
@@ -72,29 +71,11 @@ export default function ProfilePage() {
         message.success("Content copied successfully");
     };
 
-    function handleclickFollowers() {
-        if (sidebarType === "Followers" && open) {
-            setOpen(false);
-        } else {
-            setSidebarType("Followers");
-            setOpen(true);
-        }
-    }
-
-    function handleclickFollowings() {
-        if (sidebarType === "Followings" && open) {
-            setOpen(false);
-        } else {
-            setSidebarType("Followings");
-            setOpen(true);
-        }
-    }
-
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
 
     return (
         <div className="flex space-x-4">
-            <div className={clsx("bg-white flex w-full ml-0 lap:ml-4", open ? "space-x-4" : "space-x-0")}>
+            <div className={clsx("bg-white flex w-full ml-0 lap:ml-4 space-x-4")}>
                 {isAddNewModalOpen && (
                     <AddToDairyModel
                         handleCancel={() => {
@@ -143,7 +124,7 @@ export default function ProfilePage() {
                     />
                 )}
 
-                <div className="flex flex-col space-y-4 w-full h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
+                <div className="flex flex-col space-y-4 w-4/5 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
                     <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3 tab:p-4">
                         {isMeLoading ? (
                             <ProfileSkeleton />
@@ -156,9 +137,9 @@ export default function ProfilePage() {
                                     <div className="flex space-x-4">
                                         <div className="flex flex-col items-center"><p className="font-semibold text-[1.2rem]">{filteredData?.length || 0}</p><p className="font-medium text-base">Posts</p></div>
 
-                                        <div className="flex flex-col items-center cursor-pointer" onClick={handleclickFollowers}><p className="font-semibold text-[1.2rem]">{userData?.data?.followersLists?.length || 0}</p><p className="font-medium text-base">Followers</p></div>
+                                            <div className="flex flex-col items-center cursor-pointer" onClick={() => setSidebarType("Followers")}><p className="font-semibold text-[1.2rem]">{userData?.data?.followersLists?.length || 0}</p><p className="font-medium text-base">Followers</p></div>
 
-                                        <div className="flex flex-col items-center cursor-pointer" onClick={handleclickFollowings}><p className="font-semibold text-[1.2rem]">{userData?.data?.followingsLists?.length || 0}</p><p className="font-medium text-base">Followings</p></div>
+                                            <div className="flex flex-col items-center cursor-pointer" onClick={() => setSidebarType("Followings")}><p className="font-semibold text-[1.2rem]">{userData?.data?.followingsLists?.length || 0}</p><p className="font-medium text-base">Followings</p></div>
                                     </div>
                                 </div>
 
@@ -270,8 +251,7 @@ export default function ProfilePage() {
                 </div>
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
-                    className={`transition-all duration-700 ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        } overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full`}
+                    className={`transition-all duration-700 ease-in-out w-1/5 opacity-100 overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full`}
                 >
                     <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? userData?.data?.followersLists : userData?.data?.followingsLists) || []} />
                 </div>

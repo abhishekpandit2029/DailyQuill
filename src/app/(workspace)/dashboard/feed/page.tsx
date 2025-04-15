@@ -1,8 +1,5 @@
 "use client"
 
-import clsx from "clsx";
-import { useState } from "react";
-import { MdOutlinePersonSearch } from "react-icons/md";
 import SearchUserSidebar from "@/components/Dashboard/SearchUserSidebar";
 import CardSkeleton from "@/components/Dashboard/CardSkeleton";
 import Grid from "@mui/material/Grid";
@@ -14,7 +11,6 @@ import { IGetCardsData } from "../bin/page";
 import { useRouter } from "next/navigation";
 
 export default function FeedPage() {
-    const [open, setOpen] = useState<boolean>(true)
     const { push } = useRouter()
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata`);
 
@@ -22,12 +18,11 @@ export default function FeedPage() {
 
     return (
         <>
-            <div className={clsx("flex", open ? "space-x-4" : "space-x-0")}>
-                <div className="bg-white ml-0 lap:ml-4 flex flex-col space-y-4 w-full h-[calc(100vh-4rem)] p-[0.1rem]">
+            <div className="flex space-x-4">
+                <div className="bg-white ml-4 flex flex-col space-y-4 w-4/5 h-[calc(100vh-4rem)] p-[0.1rem]">
                     <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3">
                         <div className="w-full flex flex-row space-x-4 items-center justify-between">
                             <p className="font-semibold text-[1.5rem]">Feed</p>
-                            <MdOutlinePersonSearch className="text-2xl cursor-pointer" onClick={() => setOpen(!open)} />
                         </div>
                     </div>
 
@@ -74,8 +69,7 @@ export default function FeedPage() {
                 </div>
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
-                    className={`transition-all duration-700 h-[calc(100vh-4rem)] ease-in-out ${open ? 'max-w-lg opacity-100' : 'max-w-0 opacity-0'
-                        }`}
+                    className={`transition-all duration-700 h-[calc(100vh-4rem)] ease-in-out w-1/5 opacity-100`}
                 >
                     <SearchUserSidebar />
                 </div>

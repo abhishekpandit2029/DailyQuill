@@ -68,34 +68,35 @@ export default function ProfileDetailsPage() {
     };
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="bg-white flex flex-col space-x-2 h-[calc(100vh-4rem)] p-[0.1rem] rounded-xl ring-1 ring-gray-200 ml-4 overflow-y-scroll scrollbar-hide overflow-x-auto py-4">
+            <div className="flex flex-col items-center">
+                <div className="w-[80%] flex flex-col space-y-3">
+                    <p onClick={() => back()} className="flex space-x-4 items-center cursor-pointer"><IoIosArrowBack /> Go back</p>
+                    <div className='flex flex-col space-y-4 items-center'>
+                        <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-full bg-white flex flex-col place-content-center my-3 tab:my-1 ml-0 lap:ml-4 p-3 tab:p-4 w-full space-y-8">
+                            <p className='font-semibold text-xl'>Profile Information</p>
+                            <div className='flex flex-col space-y-4'>
+                                <div>
+                                    <input
+                                        onChange={uploadImage}
+                                        type="file"
+                                        ref={fileInputRef}
+                                        style={{ display: "none" }}
+                                    />
+                                    <Image onClick={handleIconClick} src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className={clsx("max-w-[9rem] h-auto rounded-[100rem] ring-2 ring-indigo-400 cursor-pointer", ispdateProfile ? " animate-pulse" : " animate-none")} preview={false} referrerPolicy="no-referrer" loading="lazy" />
+                                </div>
 
-            <div className="w-[80%] flex flex-col space-y-3">
-                <p onClick={() => back()} className="flex space-x-4 items-center cursor-pointer"><IoIosArrowBack /> Go back</p>
-                <div className='flex flex-col space-y-4 items-center'>
-                    <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-full bg-white flex flex-col place-content-center my-3 tab:my-1 ml-0 lap:ml-4 p-3 tab:p-4 w-full space-y-8">
-                        <p className='font-semibold text-xl'>Profile Information</p>
-                        <div className='flex flex-col space-y-4'>
-                            <div>
-                                <input
-                                    onChange={uploadImage}
-                                    type="file"
-                                    ref={fileInputRef}
-                                    style={{ display: "none" }}
-                                />
-                                <Image onClick={handleIconClick} src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className={clsx("max-w-[9rem] h-auto rounded-[100rem] ring-2 ring-indigo-400 cursor-pointer", ispdateProfile ? " animate-pulse" : " animate-none")} preview={false} referrerPolicy="no-referrer" loading="lazy" />
+                                <ProfileInfoForm formRef={formRef} record={userData} />
+                                <Button
+                                    key="save-button"
+                                    size="large"
+                                    loading={isMutating && true}
+                                    onClick={onSubmit}
+                                    className="!rounded-md !bg-indigo-500 w-full lap:w-[8rem] !text-white !hover:bg-indigo-500 outline-none"
+                                >
+                                    Save
+                                </Button>
                             </div>
-
-                            <ProfileInfoForm formRef={formRef} record={userData} />
-                            <Button
-                                key="save-button"
-                                size="large"
-                                loading={isMutating && true}
-                                onClick={onSubmit}
-                                className="!rounded-md !bg-indigo-500 w-full lap:w-[8rem] !text-white !hover:bg-indigo-500 outline-none"
-                            >
-                                Save
-                            </Button>
                         </div>
                     </div>
                 </div>

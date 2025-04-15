@@ -81,7 +81,7 @@ export default function DashboardLayout({
                                     <span>Recycle</span>
                                 </p>
                             </Link>
-                            <Link href="/settings/account" passHref prefetch>
+                            <Link href="/dashboard/settings" passHref prefetch>
                                 <p className={clsx("whitespace-nowrap text-base font-semibold leading-6 cursor-pointer flex items-center space-x-2", pathname === '/settings/account' ? 'text-indigo-500' : 'text-gray-900')}>
                                     <span className="text-lg"><LuSettings /> </span>
                                     <span>Adjustments</span>
