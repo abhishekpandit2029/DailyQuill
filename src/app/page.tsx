@@ -9,7 +9,7 @@ export default function IndexPage() {
     const { replace } = useRouter();
     useLayoutEffect(() => {
         if (isLoggedIn) {
-            replace("/login");
+            replace("/auth/login");
         }
     }, [replace, isLoggedIn]);
     return null;

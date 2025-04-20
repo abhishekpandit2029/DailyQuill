@@ -29,7 +29,7 @@ export default function RegisterForm() {
     try {
       const response = await axios.post<ISignupResponse>("/api/users/signup", user);
       message.success(response.data.message);
-      push("/login");
+      push("/auth/login");
     } catch (error: any) {
       message.error(error.response.data.error);
     }
@@ -101,7 +101,7 @@ export default function RegisterForm() {
           </button>
         </div>
         <div>
-          <Link href="/login">
+          <Link href="/auth/login">
             <button className="rounded-lg border-2 py-2 px-3 text-sm">
               Login{" "}
             </button>

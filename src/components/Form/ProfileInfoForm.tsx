@@ -170,7 +170,6 @@ export default function ProfileInfoForm(props: IAddToDairyFormProps) {
                         placeholder="Please Enter Last Update Date"
                     />
                 </Form.Item>
-
             </div>
         </Form>
     );

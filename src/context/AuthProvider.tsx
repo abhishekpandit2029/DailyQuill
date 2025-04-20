@@ -34,7 +34,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const { push } = useRouter();
   const [{ token, userId }, setCookie, removeCookie] = useCookies(["token", "userId", "isSubscribed"]);
 
-  const { data: loggedInData, trigger } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
+  const { data: subscriptionData } = useGetQuery<{ subscription: { isSubscribed: Boolean } }>(userId ? `/users/subscription/${userId}` : null);
+
+  const { trigger } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
     onSuccess(data) {
       const accessToken = data.token;
       if (accessToken) {
@@ -46,27 +48,23 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           ...cookieOptions,
           expires: getExpiryFromToken(accessToken),
         });
+        setCookie("isSubscribed", subscriptionData?.subscription?.isSubscribed, {
+          ...cookieOptions,
+          expires: getExpiryFromToken(accessToken),
+        });
+
         message.success("Login successful");
         revalidate("/users/me");
+
+        if (subscriptionData?.subscription?.isSubscribed) {
+          push("/dashboard/profile");
+        } else {
+          push("/auth/home");
+        }
       }
     },
     onError: () => {
       message.error("Something went wrong");
-    },
-  });
-
-  const { isLoading } = useGetQuery<{ subscription: { isSubscribed: Boolean } }>(userId ? `/users/subscription/${userId}` : null, {
-    onSuccess(data) {
-      setCookie("isSubscribed", data?.subscription?.isSubscribed, {
-        ...cookieOptions,
-        expires: getExpiryFromToken(loggedInData?.token),
-      });
-
-      if (data?.subscription?.isSubscribed) {
-        push("/dashboard/profile");
-      } else {
-        push("/home");
-      }
     },
   });
 
@@ -80,7 +78,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     removeCookie("token", cookieOptions);
     removeCookie("userId", cookieOptions);
     removeCookie("isSubscribed", cookieOptions);
-    push("/login");
+    push("/auth/login");
   };
 
   return (

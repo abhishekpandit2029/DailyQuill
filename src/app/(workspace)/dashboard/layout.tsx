@@ -1,10 +1,9 @@
 "use client";
 
 import "@/app/globals.css";
-import { Poppins } from "next/font/google";
 import Link from "next/link";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import { LuSettings } from "react-icons/lu";
@@ -16,6 +15,8 @@ import { useAuth } from "@/context/AuthProvider";
 import { TbMessageChatbot } from "react-icons/tb";
 import { Image } from "antd";
 import { defaultProfileImage } from "@/constants/strings";
+import { io } from "socket.io-client";
+import { useCookies } from "react-cookie";
 
 export default function DashboardLayout({
     children,
@@ -25,6 +26,30 @@ export default function DashboardLayout({
     const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
     const pathname = usePathname();
     const auth = useAuth();
+    const socket = useRef<ReturnType<typeof io> | null>(null);
+    const [{ userId }] = useCookies(["userId"]);
+
+    useEffect(() => {
+        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);;
+
+        if (pathname?.includes("dashboard")) {
+            socket.current?.emit("userOnline", {
+                userId: userId,
+                isOnline: pathname
+            });
+        } else {
+            socket.current?.emit("userOnline", {
+                userId: userId,
+                isOnline: pathname
+            });
+        }
+
+        return () => {
+            if (socket.current) {
+                socket?.current.disconnect();
+            }
+        };
+    }, [userId, pathname]);
 
     return (
         <section className="p-4 rounded-xl ring-1 ring-gray-200 max-h-fit mx-4 mt-4">

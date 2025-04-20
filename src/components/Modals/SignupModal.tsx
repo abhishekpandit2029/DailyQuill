@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Modal } from "antd";
-import { Button } from "@mui/base/Button";
+import { Button } from "@mui/material";
 import LoginForm from "../Form/LoginForm";
 import google from "@/stuff/google.svg";
 import facebook from "@/stuff/facebook.svg";

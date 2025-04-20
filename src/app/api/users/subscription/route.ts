@@ -31,18 +31,6 @@ export async function POST(req: NextRequest) {
       { upsert: true, new: true }
     );
 
-    // const subscription = await Subscription.create({
-    //   userId,
-    //   selectedPlan,
-    //   price,
-    //   planDuration,
-    //   startDate,
-    //   endDate,
-    //   paymentId,
-    //   status: "active",
-    //   isSubscribed: true
-    // });
-
     return NextResponse.json({ message: "Subscription activated", subscription }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ message: "Server error" }, { status: 500 });

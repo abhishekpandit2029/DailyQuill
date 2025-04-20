@@ -6,7 +6,7 @@ import { usePatchMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import { buttonClassName } from "@/constants/strings";
 import useMe from "@/hooks/useMe";
-import { Button } from "@mui/base/Button";
+import { Button } from "@mui/material";
 
 interface ICardModel {
     handleCancel: () => void;

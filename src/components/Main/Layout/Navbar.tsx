@@ -5,12 +5,13 @@ import { Image } from "antd";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import SidebarMenu from "@/components/Drawers/SidebarMenu";
-import { Button } from "@mui/base/Button";
 import { buttonClassName, defaultProfileImage } from "@/constants/strings";
 import useMe from "@/hooks/useMe";
 import { useAuth } from "@/context/AuthProvider";
 import { TbLogout } from "react-icons/tb";
 import { useCookies } from "react-cookie";
+import { Button } from "@mui/material";
+
 export interface IMeResponse {
   data: {
     username: string
@@ -41,22 +42,22 @@ function Navbar() {
         <SidebarMenu />
       </div>
       <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-6">
-        <Link href={isHome ? "#ProductOverview" : "/home#ProductOverview"} passHref>
+        <Link href={isHome ? "#ProductOverview" : "/auth/home#ProductOverview"} passHref>
           <p className="text-base font-semibold leading-6 text-gray-900">
             Features
           </p>
         </Link>
-        <Link href={isHome ? "#Endorsements" : "/home#Endorsements"} passHref>
+        <Link href={isHome ? "#Endorsements" : "/auth/home#Endorsements"} passHref>
           <p className="text-base font-semibold leading-6 text-gray-900">
             Endorsements
           </p>
         </Link>
-        <Link href={isHome ? "#Pricing" : "/home#Pricing"} passHref>
+        <Link href={isHome ? "#Pricing" : "/auth/home#Pricing"} passHref>
           <p className="text-base font-semibold leading-6 text-gray-900">
             Pricing
           </p>
         </Link>
-        <Link href={isHome ? "#Subscribe" : "/home#Subscribe"} passHref>
+        <Link href={isHome ? "#Subscribe" : "/auth/home#Subscribe"} passHref>
           <p className="text-base font-semibold leading-6 text-gray-900">
             Subscribe
           </p>
@@ -66,7 +67,7 @@ function Navbar() {
             Workspace
           </p>
         </Link> :
-          <Link href={"/payment/checkout"} passHref>
+          <Link href={"/auth/payment/checkout"} passHref>
             <p className="text-base font-semibold leading-6 text-gray-900">
               Unlock
             </p>
@@ -86,7 +87,7 @@ function Navbar() {
             </p>
           </div>
           :
-          <Link href="/login">
+          <Link href="/auth/login">
             <Button
               className={buttonClassName}
             >
