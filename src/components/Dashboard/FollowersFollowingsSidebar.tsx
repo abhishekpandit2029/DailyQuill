@@ -4,7 +4,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation';
 import { buttonClassName, defaultProfileImage } from '@/constants/strings';
 import { IFollowersFollowings } from '@/hooks/useMe';
-import { Button } from "@mui/base/Button";
+import { Button } from "@mui/material";
 
 interface ISidebarProps {
     type: string

@@ -5,7 +5,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import DailyQuill from "@/stuff/Red_Illustrated_Bull_Stock_Broker_Logo__1_-removebg-preview.png";
-import { Button } from "@mui/base/Button";
+import { Button } from "@mui/material";
 import useMe from "@/hooks/useMe";
 import { useAuth } from "@/context/AuthProvider";
 
@@ -79,7 +79,7 @@ export default function SidebarMenu() {
             </p>
           </Link>
           {!auth?.isLoggedIn ?
-            <Link onClick={onClose} href="/login">
+            <Link onClick={onClose} href="/auth/login">
               <Button
                 className="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-base font-semibold text-white w-24"
               >

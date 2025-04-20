@@ -42,7 +42,7 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
         onSuccess() {
             message.success("Passwords update successfully")
             removeCookie("rpfp_token", cookieOptions);
-            push("/login")
+            push("/auth/login")
         }
     });
 

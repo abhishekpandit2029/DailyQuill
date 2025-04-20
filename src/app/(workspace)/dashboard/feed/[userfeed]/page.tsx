@@ -12,7 +12,7 @@ import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { MdOutlineModeComment } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
-import { Button } from "@mui/base/Button";
+import { Button } from "antd";
 import { buttonClassName, defaultProfileImage } from "@/constants/strings";
 import useParams from "@/hooks/useParams";
 import { useUpdateMe } from "@/hooks/useUpdateMe";
@@ -63,7 +63,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
     const [sidebarType, setSidebarType] = useState<string>("Followings")
     const [open, setOpen] = useState<boolean>(true)
     const [cardViewData, setCardViewData] = useState<IThoughtCards>();
-    const { update: followTrigger } = useUpdateMe()
+    const { update: followTrigger, isMutating: isFollowTrigger } = useUpdateMe()
     const { userData } = useMe()
     const { get } = useParams()
     const ID = get('id')
@@ -75,7 +75,7 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
     const { data: profileData } = useGetQuery<IGetUserData>(`/users/getUsers?searchQuery=${ID}`
     );
 
-    const { trigger: unfollowTrigger } = usePatchMutation("/users/unfollowuser", {
+    const { trigger: unfollowTrigger, isMutating: isUnfollowTrigger } = usePatchMutation("/users/unfollowuser", {
         onSuccess: () => {
             revalidate("/users/me");
             revalidate("/users/getUsers");
@@ -184,17 +184,16 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                             </div>
 
                             <div className="flex space-x-4">
-                                <Button
-                                    className={buttonClassName}
-                                    onClick={handleChange}
-                                >
-                                    {isFollow ? "Unfollow" : "Follow"}
-                                </Button >
-                                {/* <Button
-                                className={buttonClassName}
-                            >
-                                Message
-                            </Button > */}
+                                    <Button
+                                        key="save-button"
+                                        size="large"
+                                        loading={isFollowTrigger || isUnfollowTrigger}
+                                        disabled={isFollowTrigger || isUnfollowTrigger}
+                                        onClick={handleChange}
+                                        className="!rounded-md !bg-indigo-500 w-auto !text-white !hover:bg-indigo-500 outline-none"
+                                    >
+                                        {isFollow ? "Unfollow" : "Follow"}
+                                    </Button>
                             </div>
                         </div>
                     )}

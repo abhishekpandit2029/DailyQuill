@@ -1,9 +1,11 @@
 import { usePostMutation } from '@/lib/fetcher';
 import { Input } from 'antd'
 import { Image } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { defaultProfileImage } from '@/constants/strings';
 import useMe from '@/hooks/useMe';
+import { io } from 'socket.io-client';
+import { useCookies } from 'react-cookie';
 
 interface IChatRequest {
     sender: string

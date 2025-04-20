@@ -19,7 +19,7 @@ export default function LearnMoreModel() {
     };
 
     function handleStart() {
-        return auth?.isLoggedIn ? push("/dashboard/profile") : push("/login");
+        return auth?.isLoggedIn ? push("/dashboard/profile") : push("/auth/login");
     }
 
     return (

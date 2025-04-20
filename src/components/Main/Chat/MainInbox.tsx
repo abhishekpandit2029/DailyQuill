@@ -2,13 +2,13 @@
 
 import { defaultProfileImage } from "@/constants/strings";
 import { usePostMutation } from "@/lib/fetcher";
-import { Image, Input, message } from 'antd';
+import { Image, Input } from 'antd';
 import { LuSend } from "react-icons/lu";
 import Messages from "./Messages";
 import { useCookies } from "react-cookie";
 import useMe from "@/hooks/useMe";
-import { SetStateAction, useEffect, useRef, useState } from "react";
-import { pusherClient } from "@/helpers/getInitiatedPusher";
+import { useEffect, useRef, useState } from "react";
+import { io } from "socket.io-client";
 
 interface IUserData {
     _id?: string;
@@ -37,12 +37,18 @@ interface IMessageResponse {
     error: string;
 }
 
+interface OnlineUser {
+    userId: string;
+    isOnline: string;
+}
+
 export default function MainInbox({ chatRecord }: MainInboxProps) {
     const [{ userId }] = useCookies(["userId"]);
     const { userData } = useMe();
     const [sendMessage, setSendMessage] = useState<string>("");
-    const [isTyping, setIsTyping] = useState(false);
-    const timeoutRef = useRef<any>(null);
+    const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
+    const [isTyping, setIsTyping] = useState<boolean>(false);
+    const socket = useRef<ReturnType<typeof io> | null>(null);
 
     const { trigger: messageTrigger } = usePostMutation<IMessageRequest, IMessageResponse>(
         "/message/send",
@@ -65,42 +71,56 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
         }
     }
 
-    const handleTyping = async (e: { target: { value: SetStateAction<string>; }; }) => {
-        setSendMessage(e.target.value);
+    const handleTyping = (e: { target: { value: React.SetStateAction<string> } }) => {
+        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);
 
-        try {
-            await fetch("/api/pusherauth", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    fromUserId: userId,
-                    toUserId: chatRecord?.id,
-                }),
-            });
-        } catch (error) {
-            message.error("Typing error");
-        }
+        socket.current.emit("typing", {
+            fromUserId: userId,
+            toUserId: chatRecord?.id,
+        });
+
+        setSendMessage(e.target.value);
     };
 
+
+
     useEffect(() => {
-        pusherClient.subscribe(`chat-indicator`);
-        pusherClient.bind("user-typing", (data: { fromUserId: string }) => {
+        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);
+
+        socket.current.on("typing-status", (data) => {
+            console.log("typing status from --", data)
             if (data.fromUserId !== userId) {
                 setIsTyping(true);
-                clearTimeout(timeoutRef.current);
-                timeoutRef.current = setTimeout(() => {
-                    setIsTyping(false);
+                setTimeout(() => {
+                    setIsTyping(false)
                 }, 2000);
             }
         });
 
         return () => {
-            pusherClient.unbind("user-typing");
-            pusherClient.unsubscribe(`chat-indicator`);
+            if (socket.current) {
+                socket.current.disconnect();
+            }
         };
     }, [chatRecord?.id, userId]);
+
+
+
+    useEffect(() => {
+        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);;
+
+        socket.current.on("userOnline", (e) => {
+            setOnlineUsers(e)
+        });
+
+        return () => {
+            if (socket.current) {
+                socket?.current.disconnect();
+            }
+        };
+    }, [userId, chatRecord?.id]);
+
+    const isOnline = onlineUsers?.filter((item) => item?.userId === chatRecord?.id)?.[0]?.isOnline?.includes("dashboard")
 
     return (
         <div className="bg-white flex-col flex space-y-2 w-full h-[calc(100vh-6rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
@@ -108,14 +128,17 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
                 className="bg-white p-3 rounded-xl w-full"
                 style={{ boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px" }}
             >
-                <div className="flex space-x-3 items-center w-full">
-                    <Image
-                        src={chatRecord?.picture || defaultProfileImage}
-                        alt={"profile_img"}
-                        className="rounded-full max-w-11 max-h-11"
-                        preview={false}
-                    />
-                    <div>
+                <div className="flex space-x-3 items-center">
+                    <div className="relative w-11 h-11">
+                        <Image
+                            src={chatRecord?.picture || defaultProfileImage}
+                            alt={"profile_img"}
+                            className="rounded-full max-w-11 max-h-11"
+                            preview={false}
+                        />
+                        {isOnline && <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
+                    </div>
+                    <div className="w-full">
                         <p className="text-[0.9rem]">{chatRecord?.fullName}</p>
                         <p className="text-[0.8rem]">{chatRecord?.username}</p>
                     </div>

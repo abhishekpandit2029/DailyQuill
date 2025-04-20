@@ -88,15 +88,16 @@ const userSchema = new mongoose.Schema(
     followingsLists: {
       type: [
         {
-          follower_id: { type: String, required: false, unique: true },
-          follower_username: { type: String, required: false, unique: true },
-          follower_full_name: { type: String, required: false, unique: true },
-          follower_profile_image: { type: String, required: false, unique: true },
+          follower_id: { type: String, required: false },
+          follower_username: { type: String, required: false },
+          follower_full_name: { type: String, required: false },
+          follower_profile_image: { type: String, required: false },
         },
         { timestamps: true },
       ],
       required: false,
     },
+
   },
   { timestamps: true },
 );

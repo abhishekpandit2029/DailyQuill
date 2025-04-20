@@ -7,7 +7,7 @@ import { buttonClassName } from "@/constants/strings";
 import { usePostMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import useMe from "@/hooks/useMe";
-import { Button } from "@mui/base/Button";
+import Button from "@mui/material/Button";
 
 interface ICardModel {
     handleCancel: () => void;
@@ -73,7 +73,6 @@ export default function AddToDairyModel(props: ICardModel) {
                     <AddToDairyForm record={undefined} onSave={onSave} onCancel={onCancel} edit={false} formRef={formRef} />
                 </div>
             </Modal>
-
         </>
     );
 }

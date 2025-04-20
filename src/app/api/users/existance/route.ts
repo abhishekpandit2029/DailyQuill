@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
             <p style="font-size: 16px;">Hey ${user?.username},</p>
             <p style="font-size: 15px;">We received a request to ${type} your password on DailyQuill.</p>
             <p style="font-size: 15px;">If you ${type} your password, don't worry! We've got you covered. Simply click
-                <span><a href="https://dailyquill.vercel.app/redirect-rpfp?token=${token}">here</a></span> to ${type} it.
+                <span><a href="https://dailyquill.vercel.app/auth/redirect-rpfp?token=${token}">here</a></span> to ${type} it.
             </p>
             <p style="font-size: 15px;">If you didn't request this, please ignore this email or contact us if you have
                 any concerns.</p>
