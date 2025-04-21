@@ -7,7 +7,6 @@ import { buttonClassName } from "@/constants/strings";
 import { usePostMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import useMe from "@/hooks/useMe";
-import Button from "@mui/material/Button";
 
 interface ICardModel {
     handleCancel: () => void;
@@ -49,20 +48,20 @@ export default function AddToDairyModel(props: ICardModel) {
                 closable={false}
                 footer={[
                     <Space key="button-space" className="p-4">
-                        <Button
+                        <button
                             key="cancel-button"
                             onClick={onCancel}
                             className={buttonClassName}
                         >
                             Cancel
-                        </Button>
-                        <Button
+                        </button>
+                        <button
                             key="save-button"
                             onClick={onSubmit}
                             className={buttonClassName}
                         >
                             Save
-                        </Button>
+                        </button>
                     </Space>
                 ]}
             >

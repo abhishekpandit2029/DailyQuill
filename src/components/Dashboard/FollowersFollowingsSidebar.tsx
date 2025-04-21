@@ -4,7 +4,6 @@ import React from 'react'
 import { useRouter } from 'next/navigation';
 import { buttonClassName, defaultProfileImage } from '@/constants/strings';
 import { IFollowersFollowings } from '@/hooks/useMe';
-import { Button } from "@mui/material";
 
 interface ISidebarProps {
     type: string
@@ -60,7 +59,14 @@ export default function FollowersFollowingsSidebar(props: ISidebarProps) {
                                     </p>
                                 }
                             >
-                                {!emptyMessage && <Button className={buttonClassName} onClick={() => push(`/dashboard/feed`)}>Make new Friends</Button>}
+                                {!emptyMessage &&
+                                    <button
+                                        onClick={() => push(`/dashboard/feed`)}
+                                        className={buttonClassName}
+                                    >
+                                        Make new Friends
+                                    </button>
+                                } 
                             </Empty>
                     }
                 </div>

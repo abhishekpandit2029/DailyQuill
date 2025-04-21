@@ -6,7 +6,6 @@ import { usePatchMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import { buttonClassName } from "@/constants/strings";
 import useMe from "@/hooks/useMe";
-import { Button } from "@mui/material";
 
 interface ICardModel {
     handleCancel: () => void;
@@ -53,16 +52,16 @@ export default function EditCardContentModel(props: ICardModel) {
                 onCancel={handleCancel}
                 footer={[
                     <Space key="modal-footer" className="p-4">
-                        <Button key="cancel-button" onClick={onCancel} className={buttonClassName}>
+                        <button key="cancel-button" onClick={onCancel} className={buttonClassName}>
                             Cancel
-                        </Button>
-                        <Button
+                        </button>
+                        <button
                             key="update-button"
                             onClick={onSubmit}
                             className={buttonClassName}
                         >
                             Update
-                        </Button>
+                        </button>
                     </Space>
                 ]}
             >

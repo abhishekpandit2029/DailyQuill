@@ -3,7 +3,7 @@
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import React, { useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
-import { Button, message } from "antd";
+import { message } from "antd";
 import { buttonClassName } from "@/constants/strings";
 import { useCookies } from "react-cookie";
 import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
@@ -66,9 +66,9 @@ export default function ForgotPasswordForm() {
         </div>
       </div>
       <div className="flex space-x-4">
-        <Button type="primary" onClick={() => trigger(user)} loading={isMutating} size="large" className={buttonClassName}>
+        <button onClick={() => trigger(user)} className={buttonClassName}>
           Submit
-        </Button>
+        </button>
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ import ProfileSkeleton from "@/components/Dashboard/ProfileSkeleton";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { MdOutlineModeComment } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
-import { Button } from "antd";
 import { buttonClassName, defaultProfileImage } from "@/constants/strings";
 import useParams from "@/hooks/useParams";
 import { useUpdateMe } from "@/hooks/useUpdateMe";
@@ -184,16 +183,14 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                             </div>
 
                             <div className="flex space-x-4">
-                                    <Button
+                                    <button
                                         key="save-button"
-                                        size="large"
-                                        loading={isFollowTrigger || isUnfollowTrigger}
                                         disabled={isFollowTrigger || isUnfollowTrigger}
                                         onClick={handleChange}
-                                        className="!rounded-md !bg-indigo-500 w-auto !text-white !hover:bg-indigo-500 outline-none"
+                                        className={buttonClassName}
                                     >
                                         {isFollow ? "Unfollow" : "Follow"}
-                                    </Button>
+                                    </button>
                             </div>
                         </div>
                     )}

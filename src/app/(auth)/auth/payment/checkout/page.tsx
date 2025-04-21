@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Script from "next/script";
-import { Button, message, Segmented, Tag } from "antd";
+import { message, Segmented, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
 import { mapPaymentCard, mapProcessFlow } from "@/constants/options";
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import revalidate from "@/lib/revalidate";
 import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
+import { buttonClassName } from "@/constants/strings";
 
 interface IOrderRes {
   orderId: string
@@ -166,12 +167,12 @@ export default function Checkout() {
                 {items?.text}
               </p>
               <div className="mt-4">
-                <Button onClick={() => {
+                <button onClick={() => {
                   setPrice(String(duration === "monthly" ? items?.monthly : items?.annual));
                   setSelectedPlan(items?.name);
-                }} type="primary" size="large" className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                }} className={buttonClassName}>
                   Get started
-                </Button>
+                </button>
               </div>
             </div>
           ))}

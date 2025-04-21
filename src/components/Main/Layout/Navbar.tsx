@@ -10,7 +10,6 @@ import useMe from "@/hooks/useMe";
 import { useAuth } from "@/context/AuthProvider";
 import { TbLogout } from "react-icons/tb";
 import { useCookies } from "react-cookie";
-import { Button } from "@mui/material";
 
 export interface IMeResponse {
   data: {
@@ -88,11 +87,11 @@ function Navbar() {
           </div>
           :
           <Link href="/auth/login">
-            <Button
+            <button
               className={buttonClassName}
             >
               Log in
-            </Button>
+            </button>
           </Link>
         }
       </div>

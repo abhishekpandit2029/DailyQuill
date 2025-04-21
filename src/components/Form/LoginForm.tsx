@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useAuth } from "@/context/AuthProvider";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
+import { buttonClassName } from "@/constants/strings";
 
 export default function LoginForm() {
   const auth = useAuth();
@@ -90,14 +91,14 @@ export default function LoginForm() {
         <div>
           <button
             onClick={() => auth?.logIn(user)}
-            className="rounded-lg border-2 py-2 px-3 text-sm"
+            className={buttonClassName}
           >
             Login Now
           </button>
         </div>
         <div>
           <Link href="signup">
-            <button className="rounded-lg border-2 py-2 px-3 text-sm">
+            <button className={buttonClassName}>
               Create Account
             </button>
           </Link>

@@ -5,7 +5,7 @@ import { usePostMutation } from "@/lib/fetcher";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Button, message } from "antd";
+import { message } from "antd";
 import { buttonClassName } from "@/constants/strings";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
@@ -81,7 +81,7 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
                         <button
                             type="button"
                             onClick={() => setShowPassword((prev) => !prev)}
-                            className="absolute right-2 top-2"
+                            className={buttonClassName}
                         >
                             {showPassword ? (
                                 <BiShowAlt
@@ -108,7 +108,7 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
                         <button
                             type="button"
                             onClick={() => setShowReenterPassword((prev) => !prev)}
-                            className="absolute right-2 top-2"
+                            className={buttonClassName}
                         >
                             {showReenterPassword ? (
                                 <BiShowAlt
@@ -121,9 +121,9 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
                 </div>
             </div>
             <div className="flex space-x-4">
-                <Button type="primary" onClick={handleTrigger} loading={isMutating} size="large" className={buttonClassName}>
+                <button onClick={handleTrigger} className={buttonClassName}>
                     Submit
-                </Button>
+                </button>
             </div>
         </div>
     );

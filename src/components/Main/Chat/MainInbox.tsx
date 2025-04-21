@@ -8,7 +8,7 @@ import Messages from "./Messages";
 import { useCookies } from "react-cookie";
 import useMe from "@/hooks/useMe";
 import { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
+import { getSocket } from "@/lib/socket";
 
 interface IUserData {
     _id?: string;
@@ -48,7 +48,8 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
     const [sendMessage, setSendMessage] = useState<string>("");
     const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
     const [isTyping, setIsTyping] = useState<boolean>(false);
-    const socket = useRef<ReturnType<typeof io> | null>(null);
+    const socket = useRef(getSocket());
+    const currentSocket = socket.current
 
     const { trigger: messageTrigger } = usePostMutation<IMessageRequest, IMessageResponse>(
         "/message/send",
@@ -72,23 +73,15 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
     }
 
     const handleTyping = (e: { target: { value: React.SetStateAction<string> } }) => {
-        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);
-
-        socket.current.emit("typing", {
+        currentSocket.emit("typing", {
             fromUserId: userId,
             toUserId: chatRecord?.id,
         });
-
         setSendMessage(e.target.value);
     };
 
-
-
     useEffect(() => {
-        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);
-
-        socket.current.on("typing-status", (data) => {
-            console.log("typing status from --", data)
+        currentSocket.on("typing-status", (data) => {
             if (data.fromUserId !== userId) {
                 setIsTyping(true);
                 setTimeout(() => {
@@ -98,27 +91,20 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
         });
 
         return () => {
-            if (socket.current) {
-                socket.current.disconnect();
-            }
+            currentSocket.off("typing-status");
         };
-    }, [chatRecord?.id, userId]);
-
-
+    }, [userId, currentSocket]);
 
     useEffect(() => {
-        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);;
-
-        socket.current.on("userOnline", (e) => {
+        currentSocket.on("userOnline", (e) => {
             setOnlineUsers(e)
         });
 
         return () => {
-            if (socket.current) {
-                socket?.current.disconnect();
-            }
+            currentSocket.off("userOnline");
         };
-    }, [userId, chatRecord?.id]);
+    }, [currentSocket]);
+
 
     const isOnline = onlineUsers?.filter((item) => item?.userId === chatRecord?.id)?.[0]?.isOnline?.includes("dashboard")
 

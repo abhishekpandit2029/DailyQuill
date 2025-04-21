@@ -3,12 +3,12 @@
 import ProfileInfoForm from "@/components/Form/ProfileInfoForm";
 import useMe from "@/hooks/useMe";
 import { useUpdateMe } from "@/hooks/useUpdateMe";
-import { Button, FormInstance, message } from "antd";
+import { FormInstance, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Image } from "antd";
-import { defaultProfileImage } from "@/constants/strings";
+import { buttonClassName, defaultProfileImage } from "@/constants/strings";
 import { usePatchMutation } from "@/lib/fetcher";
 import revalidate from "@/lib/revalidate";
 import clsx from "clsx";
@@ -85,15 +85,13 @@ export default function ProfileDetailsPage() {
                         </div>
 
                         <ProfileInfoForm formRef={formRef} record={userData} />
-                        <Button
+                        <button
                             key="save-button"
-                            size="large"
-                            loading={isMutating && true}
                             onClick={onSubmit}
-                            className="!rounded-md !bg-indigo-500 w-full lap:w-[8rem] !text-white !hover:bg-indigo-500 outline-none"
+                            className={buttonClassName}
                         >
                             Save
-                        </Button>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Modal } from "antd";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthProvider";
+import { buttonClassName } from "@/constants/strings";
 
 export default function LearnMoreModel() {
     const { push } = useRouter();
@@ -49,7 +50,7 @@ export default function LearnMoreModel() {
                         <li><strong>Accessible Anywhere:</strong> Write from anywhere, anytime. Our platform is accessible on all devices, so you can journal on the go or from the comfort of your home.</li>
                     </ul>
                     <div className="mt-6 flex justify-end">
-                        <button className="bg-indigo-600 font-semibold text-white px-4 py-2 rounded-md hover:bg-indigo-700 mr-2" onClick={handleStart}>Start Writing Today</button>
+                        <button className={buttonClassName} onClick={handleStart}>Start Writing Today</button>
                     </div>
                 </div>
 

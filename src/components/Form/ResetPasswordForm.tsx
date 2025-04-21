@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { usePostMutation } from "@/lib/fetcher";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
-import { Button, message } from "antd";
+import { message } from "antd";
 import { buttonClassName } from "@/constants/strings";
 import { useCookies } from "react-cookie";
 import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
@@ -98,9 +98,9 @@ export default function ResetPasswordForm() {
                 </div>
             </div>
             <div className="flex space-x-4">
-                <Button type="primary" onClick={() => trigger(user)} loading={isMutating} size="large" className={buttonClassName}>
+                <button onClick={() => trigger(user)} className={buttonClassName}>
                     Submit
-                </Button>
+                </button>
             </div>
         </div>
     );

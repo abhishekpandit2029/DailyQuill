@@ -6,12 +6,12 @@ import { useGetQuery } from "@/lib/fetcher"
 import { defaultProfileImage } from "@/constants/strings"
 import { pusherClient } from "@/helpers/getInitiatedPusher"
 import { Splitter } from "antd"
-import { useEffect, useReducer, useRef, useState } from "react"
+import { useCallback, useEffect, useReducer, useRef, useState } from "react"
 import { useCookies } from "react-cookie"
 import { MdOutlinePersonSearch } from "react-icons/md"
 import { Image } from 'antd';
 import { formatTime } from "@/components/Main/Chat/Messages"
-import { io } from "socket.io-client"
+import { getSocket } from "@/lib/socket";
 
 interface Chat {
     chatId: string; // Unique chat identifier (e.g., "user123-user456")
@@ -53,7 +53,8 @@ export default function InboxPage() {
     const [chatData, setChatData] = useState<IChats | undefined>();
     const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
 
-    const socket = useRef<ReturnType<typeof io> | null>(null);
+    const socket = useRef(getSocket());
+    const currentSocket = socket.current
     const [{ userId }] = useCookies(["userId"]);
     const { data } = useGetQuery<ChatFiltered>(`/chat/user?userId=${userId}`);
     const [chats, setChats] = useState<Chat[]>(data?.chats || []);
@@ -90,18 +91,14 @@ export default function InboxPage() {
     }));
 
     useEffect(() => {
-        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);;
-
-        socket.current.on("userOnline", (e) => {
+        currentSocket.on("userOnline", (e) => {
             setOnlineUsers(e)
         });
 
         return () => {
-            if (socket.current) {
-                socket?.current.disconnect();
-            }
+            currentSocket.off("userOnline");
         };
-    }, [userId]);
+    }, [currentSocket]);
 
 
     useEffect(() => {
@@ -171,7 +168,7 @@ export default function InboxPage() {
                                                                 className="rounded-full min-w-11 min-h-11 object-cover"
                                                                 preview={false}
                                                             />
-                                                            {item?.isOnline?.includes("dashboard") && <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
+                                                            {onlineUsers.some(user => user?.userId === item?.id) && <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
                                                         </div>
                                                         <div className="w-full">
                                                             <p className="text-[0.9rem]">{item?.fullName}</p>

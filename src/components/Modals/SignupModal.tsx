@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Modal } from "antd";
-import { Button } from "@mui/material";
 import LoginForm from "../Form/LoginForm";
 import google from "@/stuff/google.svg";
 import facebook from "@/stuff/facebook.svg";
@@ -28,12 +27,12 @@ export default function SignupModal() {
 
   return (
     <>
-      <Button
+      <button
         onClick={showModal}
         className={buttonClassName}
       >
         Get started
-      </Button >
+      </button >
       <Modal footer={null} open={isModalOpen} onCancel={handleCancel}>
         <div className="flex flex-col space-y-4 justify-center items-center">
           <LoginForm />

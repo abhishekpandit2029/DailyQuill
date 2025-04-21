@@ -17,6 +17,7 @@ import { Image } from "antd";
 import { defaultProfileImage } from "@/constants/strings";
 import { io } from "socket.io-client";
 import { useCookies } from "react-cookie";
+import { getSocket } from "@/lib/socket";
 
 export default function DashboardLayout({
     children,
@@ -26,30 +27,20 @@ export default function DashboardLayout({
     const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
     const pathname = usePathname();
     const auth = useAuth();
-    const socket = useRef<ReturnType<typeof io> | null>(null);
+    const socket = useRef(getSocket());
+    const currentSocket = socket.current
     const [{ userId }] = useCookies(["userId"]);
 
     useEffect(() => {
-        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);;
-
-        if (pathname?.includes("dashboard")) {
-            socket.current?.emit("userOnline", {
-                userId: userId,
-                isOnline: pathname
-            });
-        } else {
-            socket.current?.emit("userOnline", {
-                userId: userId,
-                isOnline: pathname
-            });
-        }
+        currentSocket?.emit("userOnline", {
+            userId: userId,
+            isOnline: pathname
+        });
 
         return () => {
-            if (socket.current) {
-                socket?.current.disconnect();
-            }
+            currentSocket.off("userOnline");
         };
-    }, [userId, pathname]);
+    }, [pathname, userId, currentSocket]);
 
     return (
         <section className="p-4 rounded-xl ring-1 ring-gray-200 max-h-fit mx-4 mt-4">

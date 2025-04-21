@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { io } from "socket.io-client";
 import { useCookies } from "react-cookie";
+import { getSocket } from "@/lib/socket";
 
 export default function AuthLayout({
     children,
@@ -12,30 +13,20 @@ export default function AuthLayout({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
-    const socket = useRef<ReturnType<typeof io> | null>(null);
+    const socket = useRef(getSocket());
+    const currentSocket = socket.current
     const [{ userId }] = useCookies(["userId"]);
 
     useEffect(() => {
-        socket.current = io(process.env.NEXT_PUBLIC_DAILYQUILL_SERVER!);;
-
-        if (pathname?.includes("dashboard")) {
-            socket.current?.emit("userOnline", {
-                userId: userId,
-                isOnline: pathname
-            });
-        } else {
-            socket.current?.emit("userOnline", {
-                userId: userId,
-                isOnline: pathname
-            });
-        }
+        currentSocket?.emit("userOnline", {
+            userId: userId,
+            isOnline: pathname
+        });
 
         return () => {
-            if (socket.current) {
-                socket?.current.disconnect();
-            }
+            currentSocket.off("userOnline");
         };
-    }, [userId, pathname]);
+    }, [pathname, userId, currentSocket]);
 
     return (
         <div>

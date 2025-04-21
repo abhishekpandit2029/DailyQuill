@@ -10,6 +10,7 @@ import Link from "next/link";
 import { message } from "antd";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
+import { buttonClassName } from "@/constants/strings";
 
 interface ISignupResponse {
   message: string
@@ -95,14 +96,14 @@ export default function RegisterForm() {
         <div>
           <button
             onClick={onSignup}
-            className="rounded-lg border-2 py-2 px-3 text-sm"
+            className={buttonClassName}
           >
             Signup
           </button>
         </div>
         <div>
           <Link href="/auth/login">
-            <button className="rounded-lg border-2 py-2 px-3 text-sm">
+            <button className={buttonClassName}>
               Login{" "}
             </button>
           </Link>
