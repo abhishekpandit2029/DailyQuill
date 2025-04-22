@@ -80,7 +80,7 @@ export default function ProfilePage() {
 
     return (
         <div className="flex space-x-4">
-            <div className={clsx("bg-white flex w-full ml-0 lap:ml-4 space-x-4")}>
+            <div className={clsx("bg-white flex w-full ml-0 lap:ml-4 space-x-0 lap:space-x-4")}>
                 {isAddNewModalOpen && (
                     <AddToDairyModel
                         handleCancel={() => {
@@ -129,13 +129,13 @@ export default function ProfilePage() {
                     />
                 )}
 
-                <div className="flex flex-col space-y-4 w-4/5 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
+                <div className="flex flex-col space-y-4 w-full tab:w-4/5 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
                     <div className="rounded-xl ring-1 flex justify-between ring-gray-200 lg:flex w-full p-3 tab:p-4">
                         {isMeLoading ? (
                             <ProfileSkeleton />
                         ) : (
                             <div className="w-full lap:w-4/5 flex flex-col space-y-4">
-                                <div className="flex space-x-8 items-center">
+                                    <div className="flex flex-col lap:flex-row space-x-0 lap:space-x-8 items-center">
                                     <div className="flex tab:space-x-12 space-y-4 tab:space-y-0 space-x-0 items-center flex-col tab:flex-row rounded-full ring-2 ring-indigo-400">
                                         <Image src={userData?.data?.userprofile_image || defaultProfileImage} alt="profile-pic" className="rounded-full max-w-[8rem]" preview={false} />
                                     </div>
@@ -259,7 +259,8 @@ export default function ProfilePage() {
                 </div>
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
-                    className={`transition-all duration-700 ease-in-out w-1/5 opacity-100 overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full`}
+                    className={`transition-all duration-700 ease-in-out w-0 tab:w-1/5 opacity-100 overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full`}
+                    // className={`transition-all duration-700 ease-in-out w-0 tab:w-1/5 opacity-100 overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full tab:flex hidden`}
                 >
                     <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? userData?.data?.followersLists : userData?.data?.followingsLists) || []} />
                 </div>

@@ -43,7 +43,7 @@ export default function DashboardLayout({
     }, [pathname, userId, currentSocket]);
 
     return (
-        <section className="p-4 rounded-xl ring-1 ring-gray-200 max-h-fit mx-4 mt-4">
+        <section className="p-3 lap:p-4 rounded-xl ring-1 ring-gray-200 max-h-fit mx-3 lap:mx-4 mt-3 lap:mt-4">
             {isAddNewModalOpen && (
                 <AddToDairyModel
                     handleCancel={() => {
@@ -60,7 +60,7 @@ export default function DashboardLayout({
             )}
 
             <div className="flex h-full">
-                <div className="flex flex-col space-y-4">
+                <div className="tab:flex flex-col space-y-4 hidden">
                     <div className="rounded-xl ring-1 ring-gray-200 lg:flex h-fit p-3 m-[0.1rem]">
                         <div className="flex items-center">
                             <a href="/" className="flex items-center space-x-1">
