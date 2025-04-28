@@ -5,7 +5,7 @@ import { FaRegCopy, FaRegHeart } from "react-icons/fa6";
 import AddToDairyModel from "@/components/Modals/AddToDairyModel";
 import EditCardContentModel from "@/components/Modals/EditCardContentModel";
 import { FaRegEdit } from "react-icons/fa";
-import { Divider, Dropdown, message } from "antd";
+import { Divider, Dropdown, message, Popover } from "antd";
 import { SoftDeleteAction } from "@/components/Dashboard/CardActions";
 import { truncateString } from "@/constants/format";
 import CardViewModel from "@/components/Modals/CardViewModel";
@@ -38,6 +38,32 @@ export interface IThoughtCards {
 
 interface IGetCardsData {
     thoughtCards: IThoughtCards[]
+}
+
+const reactions = [
+    { emoji: "❤️", label: "Loved" },
+    { emoji: "✨", label: "Inspired" },
+    { emoji: "🤔", label: "Thoughtful" },
+    { emoji: "😌", label: "Peaceful" },
+    { emoji: "📝", label: "Well-written" },
+];
+
+
+function Reaction() {
+    return (
+        <div className="flex gap-2 bg-gray-50 rounded-md -m-2" >
+            {
+                reactions.map((reaction, index) => (
+                    <button
+                        key={index}
+                        className="flex flex-col items-center justify-center p-1 rounded-md hover:bg-gray-200 transition duration-200"
+                    >
+                        <span className="text-lg">{reaction.emoji}</span>
+                    </button>
+                ))
+            }
+        </div>
+    )
 }
 
 export default function ProfilePage() {
@@ -247,8 +273,11 @@ export default function ProfilePage() {
                                                     </div>
                                                     <Divider />
                                                     <div className="flex space-x-4 justify-end items-center">
-                                                        <p className="flex items-center"><FaRegHeart className="font-bold text-xl" /></p>
-                                                        <p className="flex items-center"><MdOutlineModeComment className="font-bold text-xl" /></p>
+                                                        <Popover placement="topRight" content={<Reaction />}>
+                                                            <p className="flex items-center"><FaRegHeart className="font-bold text-xl" /></p>
+                                                        </Popover>
+
+                                                        <p className="flex items-center"><MdOutlineModeComment onClick={() => handleClickCardView(items)} className="font-bold text-xl cursor-pointer" /></p>
                                                     </div>
                                                 </div>
                                             ))
@@ -260,7 +289,6 @@ export default function ProfilePage() {
                 <div
                     style={{ backgroundColor: '#FEFEFE' }}
                     className={`transition-all duration-700 ease-in-out w-0 tab:w-1/5 opacity-100 overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full`}
-                    // className={`transition-all duration-700 ease-in-out w-0 tab:w-1/5 opacity-100 overflow-y-scroll scrollbar-hide overflow-x-auto min-h-full tab:flex hidden`}
                 >
                     <FollowersFollowingsSidebar type={sidebarType} data={(sidebarType === "Followers" ? userData?.data?.followersLists : userData?.data?.followingsLists) || []} />
                 </div>

@@ -17,8 +17,16 @@ export default function LoginForm() {
     password: "",
   });
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    auth?.logIn(user);
+  };
+
   return (
-    <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
+    <form
+      className="flex flex-col space-y-4 w-full tab:w-[25rem]"
+      onSubmit={handleSubmit}
+    >
       <div>
         <p className="text-[2.5rem]">Welcome</p>
         <p className="text-[2.5rem]">Scribe :)</p>
@@ -62,8 +70,7 @@ export default function LoginForm() {
               className="absolute right-2 top-2"
             >
               {showPassword ? (
-                <BiShowAlt
-                  className="text-gray-500 text-xl" />
+                <BiShowAlt className="text-gray-500 text-xl" />
               ) : (
                 <GrFormViewHide className="text-gray-500 text-xl" />
               )}
@@ -71,6 +78,7 @@ export default function LoginForm() {
           </div>
         </div>
       </div>
+
       <div className="flex justify-between">
         <div>
           <Link href="/auth/forgot-password">
@@ -87,23 +95,24 @@ export default function LoginForm() {
           </Link>
         </div>
       </div>
+
       <div className="flex space-x-4">
         <div>
           <button
-            onClick={() => auth?.logIn(user)}
+            type="submit" // Important: make this button type submit
             className={buttonClassName}
           >
             Login Now
           </button>
         </div>
         <div>
-          <Link href="signup">
-            <button className={buttonClassName}>
+          <Link href="/signup">
+            <button type="button" className={buttonClassName}>
               Create Account
             </button>
           </Link>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
