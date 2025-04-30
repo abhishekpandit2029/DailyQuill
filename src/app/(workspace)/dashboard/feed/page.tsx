@@ -5,20 +5,49 @@ import CardSkeleton from "@/components/Dashboard/CardSkeleton";
 import Grid from "@mui/material/Grid";
 import { useGetQuery } from "@/lib/fetcher";
 import { truncateString } from "@/constants/format";
-import { Image } from "antd"
+import { Divider, Image, Popover } from "antd"
 import { defaultProfileImage } from "@/constants/strings";
 import { IGetCardsData } from "../bin/page";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { MdOutlineModeComment } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa6";
+import { Reaction } from "../profile/page";
+import CardViewModel from "@/components/Modals/CardViewModel";
+
+export interface IThoughtCards {
+    title: string,
+    content: string,
+    tags: string[],
+    _id: string;
+    userprofile_image: string
+}
 
 export default function FeedPage() {
+    const [isCardModalOpen, setCardModalOpen] = useState(false);
+    const [cardViewData, setCardViewData] = useState<IThoughtCards>();
     const { push } = useRouter()
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata`);
 
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
 
+    const handleClickCardView = (entry: any) => {
+        setCardModalOpen(true);
+        setCardViewData(entry)
+    };
+
     return (
         <>
             <div className="flex space-x-4">
+                {isCardModalOpen && (
+                    <CardViewModel
+                        handleCancel={() => {
+                            setCardModalOpen(false);
+                        }}
+                        isModalOpen={isCardModalOpen}
+                        initialData={cardViewData}
+                    />
+                )}
                 <div className="bg-white ml-4 flex flex-col space-y-4 w-4/5 h-[calc(100vh-4rem)] p-[0.1rem]">
                     <div className="rounded-xl ring-1 ring-gray-200 lg:flex w-full p-3">
                         <div className="w-full flex flex-row space-x-4 items-center justify-between">
@@ -54,11 +83,19 @@ export default function FeedPage() {
                                                 <div>
                                                     <p className="font-bold text-lg">{items?.title}</p>
                                                 </div>
-                                                <div className="cursor-pointer min-w-full">
+                                                <div className="cursor-pointer min-w-full" onClick={() => handleClickCardView(items)}>
                                                     <p>{truncateString(items?.content, 200)}</p>
                                                 </div>
                                                 <div>
                                                     <p className="text-xs text-gray-500">{items?.tags?.join(" ")}</p>
+                                                </div>
+                                                <Divider />
+                                                <div className="flex space-x-4 justify-end items-center">
+                                                    <Popover placement="topRight" content={<Reaction />}>
+                                                        <p className="flex items-center"><FaRegHeart className="font-bold text-xl" /></p>
+                                                    </Popover>
+
+                                                    <p className="flex items-center"><MdOutlineModeComment onClick={() => handleClickCardView(items)} className="font-bold text-xl cursor-pointer" /></p>
                                                 </div>
                                             </div>
                                         ))

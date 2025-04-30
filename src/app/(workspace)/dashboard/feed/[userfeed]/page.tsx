@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { Divider, message } from "antd";
+import { Divider, message, Popover } from "antd";
 import { truncateString } from "@/constants/format";
 import CardViewModel from "@/components/Modals/CardViewModel";
 import { useGetQuery, usePatchMutation } from "@/lib/fetcher";
@@ -19,6 +19,7 @@ import useMe from "@/hooks/useMe";
 import FollowersFollowingsSidebar from "@/components/Dashboard/FollowersFollowingsSidebar";
 import clsx from "clsx";
 import revalidate from "@/lib/revalidate";
+import { Reaction } from "../../profile/page";
 
 export interface IThoughtCards {
     title: string,
@@ -231,8 +232,10 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
                                                 </div>
                                                 <Divider />
                                                 <div className="flex space-x-4 justify-end items-center">
-                                                    <FaRegHeart className="font-bold text-xl" />
-                                                    <MdOutlineModeComment className="font-bold text-xl" />
+                                                    <Popover placement="topRight" content={<Reaction />}>
+                                                        <p className="flex items-center"><FaRegHeart className="font-bold text-xl" /></p>
+                                                    </Popover>
+                                                    <p className="flex items-center"><MdOutlineModeComment onClick={() => handleClickCardView(items)} className="font-bold text-xl cursor-pointer" /></p>
                                                 </div>
                                             </div>
                                         ))

@@ -87,3 +87,11 @@ export const mapProcessFlow = [
     text: "Elevate your presence, track progress, and stay ahead with premium features."
   }
 ]
+
+export const reactions = [
+  { emoji: "❤️", label: "Loved" },
+  { emoji: "✨", label: "Inspired" },
+  { emoji: "🤔", label: "Thoughtful" },
+  { emoji: "😌", label: "Peaceful" },
+  { emoji: "📝", label: "Well-written" },
+];

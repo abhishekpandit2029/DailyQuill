@@ -26,6 +26,7 @@ import { SlShare } from "react-icons/sl";
 import { defaultProfileImage } from "@/constants/strings";
 import { TbUserEdit } from "react-icons/tb";
 import { useRouter } from "next/navigation";
+import { reactions } from "@/constants/options";
 
 
 export interface IThoughtCards {
@@ -40,16 +41,7 @@ interface IGetCardsData {
     thoughtCards: IThoughtCards[]
 }
 
-const reactions = [
-    { emoji: "❤️", label: "Loved" },
-    { emoji: "✨", label: "Inspired" },
-    { emoji: "🤔", label: "Thoughtful" },
-    { emoji: "😌", label: "Peaceful" },
-    { emoji: "📝", label: "Well-written" },
-];
-
-
-function Reaction() {
+export function Reaction() {
     return (
         <div className="flex gap-2 bg-gray-50 rounded-md -m-2" >
             {
