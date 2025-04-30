@@ -19,7 +19,7 @@ import useMe from "@/hooks/useMe";
 import FollowersFollowingsSidebar from "@/components/Dashboard/FollowersFollowingsSidebar";
 import clsx from "clsx";
 import revalidate from "@/lib/revalidate";
-import { Reaction } from "../../profile/page";
+import { Reaction } from "@/constants/utils";
 
 export interface IThoughtCards {
     title: string,

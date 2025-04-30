@@ -12,8 +12,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdOutlineModeComment } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
-import { Reaction } from "../profile/page";
 import CardViewModel from "@/components/Modals/CardViewModel";
+import { Reaction } from "@/constants/utils";
 
 export interface IThoughtCards {
     title: string,

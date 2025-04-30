@@ -27,6 +27,7 @@ import { defaultProfileImage } from "@/constants/strings";
 import { TbUserEdit } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import { reactions } from "@/constants/options";
+import { Reaction } from "@/constants/utils";
 
 
 export interface IThoughtCards {
@@ -39,23 +40,6 @@ export interface IThoughtCards {
 
 interface IGetCardsData {
     thoughtCards: IThoughtCards[]
-}
-
-export function Reaction() {
-    return (
-        <div className="flex gap-2 bg-gray-50 rounded-md -m-2" >
-            {
-                reactions.map((reaction, index) => (
-                    <button
-                        key={index}
-                        className="flex flex-col items-center justify-center p-1 rounded-md hover:bg-gray-200 transition duration-200"
-                    >
-                        <span className="text-lg">{reaction.emoji}</span>
-                    </button>
-                ))
-            }
-        </div>
-    )
 }
 
 export default function ProfilePage() {
