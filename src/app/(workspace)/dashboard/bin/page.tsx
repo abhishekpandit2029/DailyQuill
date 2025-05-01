@@ -18,6 +18,8 @@ export interface IThoughtCards {
     createdAt: string,
     updatedAt: string,
     userID: string
+    _id: string,
+    userprofile_image: string
 }
 
 export interface IGetCardsData {

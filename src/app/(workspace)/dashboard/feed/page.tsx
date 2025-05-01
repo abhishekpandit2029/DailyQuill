@@ -14,8 +14,11 @@ import { MdOutlineModeComment } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
 import CardViewModel from "@/components/Modals/CardViewModel";
 import { Reaction } from "@/constants/utils";
+import { useCookies } from "react-cookie";
 
 export interface IThoughtCards {
+    userID: string;
+    username: string;
     title: string,
     content: string,
     tags: string[],
@@ -27,14 +30,19 @@ export default function FeedPage() {
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [cardViewData, setCardViewData] = useState<IThoughtCards>();
     const { push } = useRouter()
+    const [{ userId }] = useCookies(["userId"]);
     const { data, isLoading } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata`);
 
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
 
-    const handleClickCardView = (entry: any) => {
+    const handleClickCardView = (entry: IThoughtCards) => {
         setCardModalOpen(true);
         setCardViewData(entry)
     };
+
+    function handleRedirect(entry: IThoughtCards) {
+        entry?.userID === userId ? push(`/dashboard/profile`) : push(`/dashboard/feed/${entry?.username}?id=${entry?.userID}`)
+    }
 
     return (
         <>
@@ -72,7 +80,7 @@ export default function FeedPage() {
                                     {Array.isArray(filteredData) &&
                                         filteredData?.map((items, index) => (
                                             <div key={index} className="break-inside-avoid ring-1 ring-inset ring-gray-300 p-4 rounded-xl flex flex-col space-y-3 min-w-fit h-fit">
-                                                <div className='flex space-x-3 items-center cursor-pointer' onClick={() => push(`/dashboard/feed/${items?.username}?id=${items?.userID}`)}>
+                                                <div className='flex space-x-3 items-center cursor-pointer' onClick={() => handleRedirect(items)}>
                                                     <Image src={items?.userprofileImage || defaultProfileImage} alt={'profile_img'} className="rounded-full max-w-11 max-h-11" preview={false} />
                                                     <div>
                                                         <p className='text-[0.9rem]'>{items?.username.charAt(0).toUpperCase() + items?.username.slice(1).toLowerCase()}</p>
