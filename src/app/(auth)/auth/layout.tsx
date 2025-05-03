@@ -3,7 +3,6 @@
 import "@/app/globals.css";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { io } from "socket.io-client";
 import { useCookies } from "react-cookie";
 import { getSocket } from "@/lib/socket";
 

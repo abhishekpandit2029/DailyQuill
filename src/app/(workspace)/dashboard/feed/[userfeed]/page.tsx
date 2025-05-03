@@ -19,7 +19,7 @@ import useMe from "@/hooks/useMe";
 import FollowersFollowingsSidebar from "@/components/Dashboard/FollowersFollowingsSidebar";
 import clsx from "clsx";
 import revalidate from "@/lib/revalidate";
-import { Reaction } from "@/constants/utils";
+import { reactions } from "@/constants/options";
 
 export interface IThoughtCards {
     title: string,
@@ -143,6 +143,23 @@ export default function UserFeedPage({ params }: { params: { userfeed: string } 
             setSidebarType("Followings");
             setOpen(true);
         }
+    }
+
+    function Reaction() {
+        return (
+            <div className="flex gap-2 bg-gray-50 rounded-md -m-2" >
+                {
+                    reactions.map((reaction, index) => (
+                        <button
+                            key={index}
+                            className="flex flex-col items-center justify-center p-1 rounded-md hover:bg-gray-200 transition duration-200"
+                        >
+                            <span className="text-lg">{reaction.emoji}</span>
+                        </button>
+                    ))
+                }
+            </div>
+        )
     }
 
     return (

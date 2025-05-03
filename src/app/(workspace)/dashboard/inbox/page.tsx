@@ -6,12 +6,11 @@ import { useGetQuery } from "@/lib/fetcher"
 import { defaultProfileImage } from "@/constants/strings"
 import { pusherClient } from "@/helpers/getInitiatedPusher"
 import { Splitter } from "antd"
-import { useCallback, useEffect, useReducer, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useCookies } from "react-cookie"
 import { MdOutlinePersonSearch } from "react-icons/md"
 import { Image } from 'antd';
 import { formatTime } from "@/components/Main/Chat/Messages"
-import { getSocket } from "@/lib/socket";
 
 interface Chat {
     chatId: string; // Unique chat identifier (e.g., "user123-user456")
@@ -33,6 +32,7 @@ interface Chat {
 interface IChats {
     id: string;
     username: string;
+    isOnline?: string
     fullName: string;
     picture: string | undefined;
     lastMessage: string | undefined;
@@ -53,8 +53,6 @@ export default function InboxPage() {
     const [chatData, setChatData] = useState<IChats | undefined>();
     const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
 
-    const socket = useRef(getSocket());
-    const currentSocket = socket.current
     const [{ userId }] = useCookies(["userId"]);
     const { data } = useGetQuery<ChatFiltered>(`/chat/user?userId=${userId}`);
     const [chats, setChats] = useState<Chat[]>(data?.chats || []);
@@ -91,15 +89,17 @@ export default function InboxPage() {
     }));
 
     useEffect(() => {
-        currentSocket.on("userOnline", (e) => {
-            setOnlineUsers(e)
+        pusherClient.subscribe(`online-user-collection`);
+
+        pusherClient.bind("is-user-online", (userOnlineData: OnlineUser[]) => {
+            setOnlineUsers([...userOnlineData])
         });
 
         return () => {
-            currentSocket.off("userOnline");
+            pusherClient.unbind("is-user-online");
+            pusherClient.unsubscribe(`online-user-collection`);
         };
-    }, [currentSocket]);
-
+    }, [userId]);
 
     useEffect(() => {
         if (!userId) return;
@@ -168,7 +168,7 @@ export default function InboxPage() {
                                                                 className="rounded-full min-w-11 min-h-11 object-cover"
                                                                 preview={false}
                                                             />
-                                                            {onlineUsers.some(user => user?.userId === item?.id) && <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
+                                                            {item?.isOnline?.includes("dashboard") && <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
                                                         </div>
                                                         <div className="w-full">
                                                             <p className="text-[0.9rem]">{item?.fullName}</p>
@@ -201,7 +201,7 @@ export default function InboxPage() {
                 </div>
                 <div className={`rounded-xl ring-1 transition-all duration-700 ease-in-out ring-gray-200 ${open ? 'w-4/6' : "w-4/6"
                     } p-3 tab:p-4`}>
-                    <MainInbox chatRecord={chatData || CombinedChatData[0] as IChats} />
+                    <MainInbox chatRecord={chatData || updatedUsers[0] as IChats} />
                 </div>
             </div>
         </>

@@ -36,6 +36,10 @@ const thoughtCardSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please provide a userprofileImage"],
         },
+        likes: {
+            type: [String],
+            require: false,
+        },
     },
     { timestamps: true }
 );

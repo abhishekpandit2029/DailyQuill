@@ -1,4 +1,5 @@
-import { Empty } from 'antd'
+import { reactions } from '@/constants/options'
+import { Empty, Segmented } from 'antd'
 import React from 'react'
 
 function LikesSection() {
@@ -15,6 +16,8 @@ function LikesSection() {
                 }
             >
             </Empty>
+
+            {/* <Segmented options={reactions.map((item) => item.emoji)} block defaultValue={reactions[0].emoji} /> */}
         </div>
     )
 }

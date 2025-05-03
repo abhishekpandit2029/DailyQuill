@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { getSocket } from "@/lib/socket";
 
 interface IUserData {
+    isOnline?: string;
     _id?: string;
     username?: string;
     full_name?: string;
@@ -37,19 +38,14 @@ interface IMessageResponse {
     error: string;
 }
 
-interface OnlineUser {
-    userId: string;
-    isOnline: string;
-}
-
 export default function MainInbox({ chatRecord }: MainInboxProps) {
     const [{ userId }] = useCookies(["userId"]);
     const { userData } = useMe();
     const [sendMessage, setSendMessage] = useState<string>("");
-    const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
     const [isTyping, setIsTyping] = useState<boolean>(false);
     const socket = useRef(getSocket());
     const currentSocket = socket.current
+    console.log("chatRecord", chatRecord)
 
     const { trigger: messageTrigger } = usePostMutation<IMessageRequest, IMessageResponse>(
         "/message/send",
@@ -95,19 +91,6 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
         };
     }, [userId, currentSocket]);
 
-    useEffect(() => {
-        currentSocket.on("userOnline", (e) => {
-            setOnlineUsers(e)
-        });
-
-        return () => {
-            currentSocket.off("userOnline");
-        };
-    }, [currentSocket]);
-
-
-    const isOnline = onlineUsers?.filter((item) => item?.userId === chatRecord?.id)?.[0]?.isOnline?.includes("dashboard")
-
     return (
         <div className="bg-white flex-col flex space-y-2 w-full h-[calc(100vh-6rem)] overflow-y-auto scrollbar-hide p-[0.1rem]">
             <div
@@ -122,7 +105,7 @@ export default function MainInbox({ chatRecord }: MainInboxProps) {
                             className="rounded-full max-w-11 max-h-11"
                             preview={false}
                         />
-                        {isOnline && <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
+                        {chatRecord?.isOnline?.includes("dashboard") && <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
                     </div>
                     <div className="w-full">
                         <p className="text-[0.9rem]">{chatRecord?.fullName}</p>

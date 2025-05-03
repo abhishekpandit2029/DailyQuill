@@ -27,8 +27,6 @@ import { defaultProfileImage } from "@/constants/strings";
 import { TbUserEdit } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import { reactions } from "@/constants/options";
-import { Reaction } from "@/constants/utils";
-
 
 export interface IThoughtCards {
     title: string,
@@ -79,6 +77,23 @@ export default function ProfilePage() {
     };
 
     const filteredData = data?.thoughtCards?.filter((items: any) => items?.isSoftDelete === false)
+
+    function Reaction() {
+        return (
+            <div className="flex gap-2 bg-gray-50 rounded-md -m-2" >
+                {
+                    reactions.map((reaction, index) => (
+                        <button
+                            key={index}
+                            className="flex flex-col items-center justify-center p-1 rounded-md hover:bg-gray-200 transition duration-200"
+                        >
+                            <span className="text-lg">{reaction.emoji}</span>
+                        </button>
+                    ))
+                }
+            </div>
+        )
+    }
 
     return (
         <div className="flex space-x-4">

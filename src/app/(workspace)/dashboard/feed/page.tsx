@@ -13,8 +13,8 @@ import { useState } from "react";
 import { MdOutlineModeComment } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
 import CardViewModel from "@/components/Modals/CardViewModel";
-import { Reaction } from "@/constants/utils";
 import { useCookies } from "react-cookie";
+import { reactions } from "@/constants/options";
 
 export interface IThoughtCards {
     userID: string;
@@ -42,6 +42,23 @@ export default function FeedPage() {
 
     function handleRedirect(entry: IThoughtCards) {
         entry?.userID === userId ? push(`/dashboard/profile`) : push(`/dashboard/feed/${entry?.username}?id=${entry?.userID}`)
+    }
+
+    function Reaction() {
+        return (
+            <div className="flex gap-2 bg-gray-50 rounded-md -m-2" >
+                {
+                    reactions.map((reaction, index) => (
+                        <button
+                            key={index}
+                            className="flex flex-col items-center justify-center p-1 rounded-md hover:bg-gray-200 transition duration-200"
+                        >
+                            <span className="text-lg">{reaction.emoji}</span>
+                        </button>
+                    ))
+                }
+            </div>
+        )
     }
 
     return (
@@ -89,7 +106,7 @@ export default function FeedPage() {
                                                 </div>
 
                                                 <div>
-                                                    <p className="font-bold text-lg">{items?.title}</p>
+                                                    <p className="font-bold">{items?.title}</p>
                                                 </div>
                                                 <div className="cursor-pointer min-w-full" onClick={() => handleClickCardView(items)}>
                                                     <p>{truncateString(items?.content, 200)}</p>

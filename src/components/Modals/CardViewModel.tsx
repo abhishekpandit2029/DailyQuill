@@ -6,7 +6,8 @@ import { IThoughtCards } from "@/app/(workspace)/dashboard/profile/page";
 import { Tabs } from 'antd';
 import CommentsSection from "../Main/Profile/CommentsSection";
 import LikesSection from "../Main/Profile/LikesSection";
-
+import { IGetCardsData } from "@/app/(workspace)/dashboard/bin/page";
+import { useGetQuery } from "@/lib/fetcher";
 interface ICardModel {
     handleCancel: () => void;
     isModalOpen: boolean;
@@ -28,6 +29,7 @@ const items = [
 
 export default function CardViewModel(props: ICardModel) {
     const { handleCancel, isModalOpen, initialData } = props;
+    const { data } = useGetQuery<IGetCardsData>(`/thoughtcard/getcardsdata?blogID=${initialData?._id}`);
     return (
         <>
             <Modal width={"50%"} footer={null} open={isModalOpen} onCancel={handleCancel} title={<p className="font-bold text-lg">{initialData?.title}</p>}>
@@ -50,4 +52,4 @@ export default function CardViewModel(props: ICardModel) {
             </Modal>
         </>
     );
-}
+} 
