@@ -106,7 +106,7 @@ export default function LoginForm() {
           </button>
         </div>
         <div>
-          <Link href="/signup">
+          <Link href="/auth/signup">
             <button type="button" className={buttonClassName}>
               Create Account
             </button>
