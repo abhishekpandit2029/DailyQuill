@@ -24,6 +24,7 @@ export const AuthContext = createContext({
   isLoggedIn: false,
   logOut: () => { },
   logIn: (_datas: ILoginRequest) => { },
+  authIsMutating: false
 });
 
 type AuthProviderProps = {
@@ -36,7 +37,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   const { data: subscriptionData } = useGetQuery<{ subscription: { isSubscribed: Boolean } }>(userId ? `/users/subscription/${userId}` : null);
 
-  const { trigger } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
+  const { trigger, isMutating } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
     onSuccess(data) {
       const accessToken = data.token;
       if (accessToken) {
@@ -82,7 +83,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{ isLoggedIn, logIn, logOut, authIsMutating: isMutating }}>
       {children}
     </AuthContext.Provider>
   );

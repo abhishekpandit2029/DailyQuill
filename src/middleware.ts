@@ -24,5 +24,15 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/", "/auth/login", "/auth/signup", "/auth/forgot-password", "/dashboard/:path*", "/settings/:path*", "/profile/:path*"],
+  matcher: [
+    "/",
+    "/auth/login",
+    "/auth/signup/email",
+    "/auth/signup/otp",
+    "/auth/signup/password",
+    "/auth/forgot-password",
+    "/dashboard/:path*",
+    "/settings/:path*",
+    "/profile/:path*",
+  ],
 };

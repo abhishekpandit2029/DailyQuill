@@ -8,6 +8,7 @@ import { useAuth } from "@/context/AuthProvider";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
 import { buttonClassName } from "@/constants/strings";
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function LoginForm() {
   const auth = useAuth();
@@ -21,6 +22,8 @@ export default function LoginForm() {
     e.preventDefault();
     auth?.logIn(user);
   };
+
+  const isDisabled = !user.email || !user.password;
 
   return (
     <form
@@ -99,14 +102,24 @@ export default function LoginForm() {
       <div className="flex space-x-4">
         <div>
           <button
-            type="submit" // Important: make this button type submit
-            className={buttonClassName}
+            type="submit"
+            disabled={isDisabled}
+            className={`${buttonClassName} ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            Login Now
+            <div className="flex space-x-2 items-center justify-center">
+              {auth.authIsMutating ? (
+                <>
+                  <span><LoadingOutlined /></span> <span>Login Now</span>
+                </>
+              ) : (
+                <span>Login Now</span>
+              )}
+            </div>
           </button>
+
         </div>
         <div>
-          <Link href="/auth/signup">
+          <Link href="/auth/signup/email">
             <button type="button" className={buttonClassName}>
               Create Account
             </button>
