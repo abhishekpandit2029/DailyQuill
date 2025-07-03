@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import { buttonClassName } from "@/constants/strings";
 import PersonIcon from "@mui/icons-material/Person";
@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePostMutation } from "@/lib/fetcher";
 import { message } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from "@ant-design/icons";
+import { useAuthStore } from "@/stores/signupStore";
 
 interface IOTPReq {
     email: string
@@ -19,19 +20,26 @@ interface IOTPRes {
 }
 
 export default function SignupEmail() {
-    const [email, setEmail] = useState("")
-    const [name, setName] = useState("")
-    const { push } = useRouter()
+    const { push } = useRouter();
+    const {
+        name,
+        email,
+        setName,
+        setEmail,
+    } = useAuthStore();
 
-    const { trigger, isMutating } = usePostMutation<IOTPReq, IOTPRes>("/users/send-otp", {
-        onSuccess(data) {
-            message.success(data?.message)
-            push(`/auth/signup/otp?name=${name}&email=${email}`)
-        },
-        onError(data) {
-            message.error(data?.message)
+    const { trigger, isMutating } = usePostMutation<IOTPReq, IOTPRes>(
+        "/users/send-otp",
+        {
+            onSuccess(data) {
+                message.success(data?.message);
+                push(`/auth/signup/otp`);
+            },
+            onError(data) {
+                message.error(data?.message);
+            },
         }
-    });
+    );
 
     return (
         <div className="flex flex-col space-y-5 w-screen tab:w-[25rem] px-6 tab:p-0">

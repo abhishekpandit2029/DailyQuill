@@ -7,12 +7,11 @@ import { buttonClassName } from "@/constants/strings";
 import Link from "next/link";
 import { BiShowAlt } from "react-icons/bi";
 import { GrFormViewHide } from "react-icons/gr";
-import useParams from "@/hooks/useParams";
 import { message } from "antd";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { LoadingOutlined } from '@ant-design/icons';
 import { usePostMutation } from "@/lib/fetcher";
+import { useAuthStore } from "@/stores/signupStore";
 
 interface ISignupRequest {
     email: string;
@@ -25,11 +24,16 @@ interface ISignupResponse {
 }
 
 export default function SignupPassword() {
-    const { get } = useParams();
     const { push, back } = useRouter();
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+    const {
+        name,
+        email,
+        reset
+    } = useAuthStore();
 
     const isPasswordMatch = password.length > 0 && confirmPassword.length > 0 && password === confirmPassword;
 
@@ -37,6 +41,7 @@ export default function SignupPassword() {
         onSuccess(data) {
             message.success(data?.message)
             push("/auth/login");
+            reset()
         },
         onError(data) {
             message.error(data?.message)
@@ -46,7 +51,7 @@ export default function SignupPassword() {
 
     return (
         <div className="flex flex-col space-y-5 w-screen tab:w-[25rem] px-6 tab:p-0">
-            <p className="text-[2.5rem] flex space-x-2 items-center"><span className="cursor-pointer" onClick={() => back()}><AiOutlineRollback /></span>  <span>Hi {get("name")} :)</span> </p>
+            <p className="text-[2.5rem] flex space-x-2 items-center"><span className="cursor-pointer" onClick={() => back()}><AiOutlineRollback /></span>  <span>Hi {name} :)</span> </p>
             <p className="text-sm">
                 Create a strong password to secure your DailyQuill account and start writing, sharing, and expressing your thoughts freely.
             </p>
@@ -110,9 +115,9 @@ export default function SignupPassword() {
                 <div className="flex space-x-4">
                     <button
                         onClick={() => trigger({
-                            email: get("email") ?? "",
+                            email: email ?? "",
                             password: password,
-                            username: get("name") ?? "",
+                            username: name ?? "",
                         })}
                         disabled={!isPasswordMatch}
                         className={`${buttonClassName} ${!isPasswordMatch ? "opacity-50 cursor-not-allowed" : ""}`}

@@ -5,11 +5,11 @@ import { AiOutlineRollback } from "react-icons/ai";
 import { buttonClassName } from "@/constants/strings";
 import Link from "next/link";
 import { Input, message } from "antd";
-import useParams from "@/hooks/useParams";
 import { useRouter } from "next/navigation";
 import type { GetProps } from 'antd';
 import { usePostMutation } from "@/lib/fetcher";
 import { LoadingOutlined } from '@ant-design/icons';
+import { useAuthStore } from "@/stores/signupStore";
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
@@ -24,8 +24,12 @@ interface IOTPRes {
 
 export default function SignupOTP() {
     const [otp, setOTP] = useState<string>()
-    const { get } = useParams()
     const { push, back } = useRouter()
+
+    const {
+        name,
+        email
+    } = useAuthStore();
 
     const isValidOtp = /^\d{6}$/.test(otp as string);
 
@@ -40,7 +44,7 @@ export default function SignupOTP() {
     const { trigger, isMutating } = usePostMutation<IOTPReq, IOTPRes>("/users/verify-otp", {
         onSuccess(data) {
             message.success(data?.message)
-            push(`/auth/signup/password?name=${get("name")}&email=${get("email")}`)
+            push(`/auth/signup/password`)
         },
         onError(data) {
             message.error(data?.message)
@@ -49,9 +53,9 @@ export default function SignupOTP() {
 
     return (
         <div className="flex flex-col space-y-5 w-screen tab:w-[25rem] px-6 tab:p-0">
-            <p className="text-[2.5rem] flex space-x-2 items-center"><span className="cursor-pointer" onClick={() => back()}><AiOutlineRollback /></span>  <span>Hi {get("name")} :)</span> </p>
+            <p className="text-[2.5rem] flex space-x-2 items-center"><span className="cursor-pointer" onClick={() => back()}><AiOutlineRollback /></span>  <span>Hi {name} :)</span> </p>
             <p className="text-sm">
-                We’ve sent an OTP to {get("email")}. Please enter it below to verify your email address.
+                We’ve sent an OTP to {email}. Please enter it below to verify your email address.
             </p>
 
             <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
@@ -65,10 +69,10 @@ export default function SignupOTP() {
                     <div>
                         <button
                             onClick={() => {
-                                const email = get("email") ?? "";
+                                const emailValue = email ?? "";
                                 const otpValue = otp ?? "";
                                 trigger({
-                                    email,
+                                    email: emailValue,
                                     otp: otpValue
                                 });
                             }}
