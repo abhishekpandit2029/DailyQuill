@@ -9,6 +9,8 @@ export type SearchParams =
     | "id"
     | "token"
     | "cid"
+    | "email"
+    | "name"
 
 export type IUpdateSearchParams = Partial<
     Record<SearchParams, string | number | null>
