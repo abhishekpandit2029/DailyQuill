@@ -47,7 +47,7 @@ export default function LoginForm() {
           </div>
           <div className="flex flex-col w-full">
             <input
-              placeholder="example@gmail.com"
+              placeholder="johndoe@gmail.com"
               value={user.email}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               type="text"
