@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Modal } from "antd";
-import LoginForm from "../Form/LoginForm";
+// import LoginForm from "../Form/LoginForm";
 import google from "@/stuff/google.svg";
 import facebook from "@/stuff/facebook.svg";
 import twitter from "@/stuff/twitter.svg";
@@ -35,7 +35,7 @@ export default function SignupModal() {
       </button >
       <Modal footer={null} open={isModalOpen} onCancel={handleCancel}>
         <div className="flex flex-col space-y-4 justify-center items-center">
-          <LoginForm />
+          {/* <LoginForm /> */}
           <hr className="w-[50%] self-center" />
           <div className="flex flex-col justify-between items-center space-y-2">
             <p className="text-sm">Or you can join with</p>

@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import Creative from "../../../stuff/Creative.svg";
-import SignupModal from "@/components/Modals/SignupModal";
 import LearnMoreModel from "@/components/Modals/LearnMoreModel";
+import { buttonClassName } from "@/constants/strings";
+import Link from "next/link";
 
 export default function CTASection() {
   return (
@@ -30,7 +31,11 @@ export default function CTASection() {
             personal journaling companion, making every day memorable.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-            <SignupModal />
+            <Link href="/auth/signup/email">
+              <button className={buttonClassName}>
+                Get started
+              </button>
+            </Link>
             <LearnMoreModel />
           </div>
         </div>

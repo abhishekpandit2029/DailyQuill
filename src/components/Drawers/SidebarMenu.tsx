@@ -79,7 +79,7 @@ export default function SidebarMenu() {
             </p>
           </Link>
           {!auth?.isLoggedIn ?
-            <Link onClick={onClose} href="/auth/login">
+            <Link onClick={onClose} href="/auth/login/email">
               <button
                 className={buttonClassName}
               >

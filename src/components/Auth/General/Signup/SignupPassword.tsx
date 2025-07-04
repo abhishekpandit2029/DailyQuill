@@ -40,7 +40,7 @@ export default function SignupPassword() {
     const { trigger, isMutating } = usePostMutation<ISignupRequest, ISignupResponse>("/users/signup", {
         onSuccess(data) {
             message.success(data?.message)
-            push("/auth/login");
+            push("/auth/login/email");
             reset()
         },
         onError(data) {
@@ -127,7 +127,7 @@ export default function SignupPassword() {
                         </div>
                     </button>
 
-                    <Link href="/auth/login">
+                    <Link href="/auth/login/email">
                         <button className={buttonClassName}>
                             Login
                         </button>
