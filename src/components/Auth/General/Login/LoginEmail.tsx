@@ -3,7 +3,6 @@
 import React from "react";
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import { buttonClassName } from "@/constants/strings";
-import PersonIcon from "@mui/icons-material/Person";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePostMutation } from "@/lib/fetcher";
@@ -13,18 +12,20 @@ import { useAuthStore } from "@/stores/signupStore";
 
 interface IOTPReq {
     email: string
+    hasUser: boolean
 }
 
 interface IOTPRes {
     message: string
+    name: string
+    email: string
 }
 
-export default function SignupEmail() {
+export default function LoginEmail() {
     const { push } = useRouter();
     const {
-        name,
-        email,
         setName,
+        email,
         setEmail,
     } = useAuthStore();
 
@@ -33,7 +34,8 @@ export default function SignupEmail() {
         {
             onSuccess(data) {
                 message.success(data?.message);
-                push(`/auth/signup/otp`);
+                setName(data?.name)
+                push(`/auth/login/otp`);
             },
             onError(data) {
                 message.error(data?.message);
@@ -44,30 +46,17 @@ export default function SignupEmail() {
     return (
         <div className="flex flex-col space-y-5 w-screen tab:w-[25rem] px-6 tab:p-0">
             <div>
-                <p className="text-[2.5rem]">Register newbie :)</p>
+                <p className="text-[2.5rem]">Welcome</p>
+                <p className="text-[2.5rem]">Scribe :)</p>
             </div>
             <div>
                 <p className="text-sm">
-                    Enter your email address to begin your DailyQuill journey. We’ll send a one-time password (OTP) for verification.
+                    To begin, please enter your email address. This helps us identify your account and start the login process.
                 </p>
             </div>
 
 
             <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
-                <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
-                    <div>
-                        <PersonIcon />
-                    </div>
-                    <div className="flex flex-col w-full">
-                        <input
-                            placeholder="John Doe"
-                            type="text"
-                            className="border-2 h-8 w-full text-sm bg-gray-100 outline-none border-none"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                </div>
                 <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
                     <div>
                         <MailOutlineRoundedIcon />
@@ -86,19 +75,19 @@ export default function SignupEmail() {
                 <div className="flex space-x-4">
                     <div>
                         <button
-                            onClick={() => trigger({ email })}
-                            className={`${buttonClassName} ${(!name || !email) ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            disabled={!name || !email}
+                            onClick={() => trigger({ email, hasUser: true })}
+                            className={`${buttonClassName} ${(!email) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={!email}
                         >
                             <div className="flex space-x-2 items-center justify-center">
-                                {isMutating ? <><span><LoadingOutlined /></span> <span>Verify Email</span></> : <span>Verify Email</span>}
+                                {isMutating ? <><span><LoadingOutlined /></span> <span>Get OTP</span></> : <span>Get OTP</span>}
                             </div>
                         </button>
                     </div>
                     <div>
-                        <Link href="/auth/login/email">
-                            <button className={buttonClassName}>
-                                Login{" "}
+                        <Link href="/auth/signup/email">
+                            <button type="button" className={buttonClassName}>
+                                Create Account
                             </button>
                         </Link>
                     </div>

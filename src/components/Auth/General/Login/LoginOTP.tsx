@@ -22,7 +22,7 @@ interface IOTPRes {
     message: string
 }
 
-export default function SignupOTP() {
+export default function LoginOTP() {
     const [otp, setOTP] = useState<string>()
     const { push, back } = useRouter()
 
@@ -44,7 +44,7 @@ export default function SignupOTP() {
     const { trigger, isMutating } = usePostMutation<IOTPReq, IOTPRes>("/users/verify-otp", {
         onSuccess(data) {
             message.success(data?.message)
-            push(`/auth/signup/password`)
+            push(`/auth/login/password`)
         },
         onError(data) {
             message.error(data?.message)
@@ -55,7 +55,7 @@ export default function SignupOTP() {
         <div className="flex flex-col space-y-5 w-screen tab:w-[25rem] px-6 tab:p-0">
             <p className="text-[2.5rem] flex space-x-2 items-center"><span className="cursor-pointer" onClick={() => back()}><AiOutlineRollback /></span>  <span>Hi {name} :)</span> </p>
             <p className="text-sm">
-                We’ve sent an OTP to {email}. Please enter it below to verify your email address.
+                We’ve sent a one-time password (OTP) to your email {email}. Enter it below to verify your identity and continue.
             </p>
 
             <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
@@ -85,9 +85,9 @@ export default function SignupOTP() {
                         </button>
                     </div>
                     <div>
-                        <Link href="/auth/login/email">
-                            <button className={buttonClassName}>
-                                Login{" "}
+                        <Link href="/auth/signup/email">
+                            <button type="button" className={buttonClassName}>
+                                Create Account
                             </button>
                         </Link>
                     </div>

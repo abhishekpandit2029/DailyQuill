@@ -7,6 +7,7 @@ import { useGetQuery, usePostMutation } from "@/lib/fetcher";
 import { useCookies } from "react-cookie";
 import { cookieOptions, getExpiryFromToken } from "@/lib/jwt";
 import revalidate from "@/lib/revalidate";
+import { useAuthStore } from "@/stores/signupStore";
 
 interface ILoginRequest {
   email: string
@@ -34,7 +35,7 @@ type AuthProviderProps = {
 export default function AuthProvider({ children }: AuthProviderProps) {
   const { push } = useRouter();
   const [{ token, userId }, setCookie, removeCookie] = useCookies(["token", "userId", "isSubscribed"]);
-
+  const { reset } = useAuthStore();
   const { data: subscriptionData } = useGetQuery<{ subscription: { isSubscribed: Boolean } }>(userId ? `/users/subscription/${userId}` : null);
 
   const { trigger, isMutating } = usePostMutation<ILoginRequest, ILoginResponse>("/users/login", {
@@ -62,6 +63,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         } else {
           push("/auth/home");
         }
+        reset()
       }
     },
     onError: () => {
@@ -79,7 +81,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     removeCookie("token", cookieOptions);
     removeCookie("userId", cookieOptions);
     removeCookie("isSubscribed", cookieOptions);
-    push("/auth/login");
   };
 
   return (

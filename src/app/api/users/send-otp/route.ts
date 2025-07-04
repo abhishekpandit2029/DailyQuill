@@ -10,10 +10,10 @@ connect();
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { email } = body;
+  const { email, hasUser = false } = body;
 
   const existingUser = await User.findOne({ email });
-  if (existingUser) {
+  if (existingUser && !hasUser) {
     return NextResponse.json(
       { message: "Email is already in use. Please use another." },
       { status: 409 }
@@ -115,5 +115,8 @@ export async function POST(req: NextRequest) {
       `,
   });
 
-  return NextResponse.json({ message: "OTP sent successfully" });
+  return NextResponse.json({
+    message: "OTP sent successfully",
+    name: existingUser?.username || "",
+  });
 }

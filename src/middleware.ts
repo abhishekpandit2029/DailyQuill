@@ -5,7 +5,9 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   const isPublicPath =
-    path === "/auth/login" ||
+    path === "/auth/login/email" ||
+    path === "/auth/login/otp" ||
+    path === "/auth/login/password" ||
     path === "/auth/signup/email" ||
     path === "/auth/signup/otp" ||
     path === "/auth/signup/password" ||
@@ -23,7 +25,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!isPublicPath && !token) {
-    return NextResponse.redirect(new URL("/auth/login", request.nextUrl));
+    return NextResponse.redirect(new URL("/auth/login/email", request.nextUrl));
   }
 }
 
@@ -31,10 +33,8 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/",
-    "/auth/login",
-    "/auth/signup/email",
-    "/auth/signup/otp",
-    "/auth/signup/password",
+    "/auth/login/:path*",
+    "/auth/signup/:path*",
     "/auth/forgot-password",
     "/dashboard/:path*",
     "/settings/:path*",
