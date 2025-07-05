@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/dbConfig/dbConfig";
-import Otp from "@/models/otpModel"; // ⚠️ Use your OTP model
+import Otp from "@/models/otpModel";
 import User from "@/models/userModel";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 import { defaultProfileImage } from "@/constants/strings";
+import bcrypt from "bcryptjs";
 
 connect();
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { email, hasUser = false } = body;
+  const { email, hasUser, currentPassword, isResetPassword = false } = body;
 
   const existingUser = await User.findOne({ email });
   if (existingUser && !hasUser) {
@@ -18,6 +19,43 @@ export async function POST(req: NextRequest) {
       { message: "Email is already in use. Please use another." },
       { status: 409 }
     );
+  }
+
+  if (hasUser) {
+    if (!existingUser) {
+      return NextResponse.json(
+        { message: "User not found with this email." },
+        { status: 404 }
+      );
+    }
+
+    if (isResetPassword) {
+      if (!currentPassword) {
+        return NextResponse.json(
+          { message: "Current password is wrong." },
+          { status: 400 }
+        );
+      }
+
+      if (!existingUser.password) {
+        return NextResponse.json(
+          { message: "User has no password set." },
+          { status: 400 }
+        );
+      }
+
+      const isPasswordValid = await bcrypt.compare(
+        currentPassword,
+        existingUser.password
+      );
+
+      if (!isPasswordValid) {
+        return NextResponse.json(
+          { message: "Current password is incorrect." },
+          { status: 401 }
+        );
+      }
+    }
   }
 
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -38,13 +76,13 @@ export async function POST(req: NextRequest) {
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "📝 Almost Done! Use This Code to Unlock DailyQuill",
+    subject: "🛡️ Your DailyQuill Verification Code",
     html: `
       <!DOCTYPE html>
       <html lang="en">
         <head>
           <meta charset="UTF-8" />
-          <title>Verify Email</title>
+          <title>DailyQuill's Verification</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </head>
         <body style="margin:0; padding:0; background-color:#f4f4f4; font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;">
@@ -67,8 +105,8 @@ export async function POST(req: NextRequest) {
 
               <tr>
                 <td style="font-size:13px; color:#555; text-align:center; padding-bottom:15px;">
-                  Use this code to sign up to DailyQuill.<br />
-                  This code will expire in <strong>2 minutes</strong>.
+                  Here’s your DailyQuill verification code.<br />
+                  It expires in 2 minutes, so be sure to use it soon.</strong>.
                 </td>
               </tr>
 

@@ -8,8 +8,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { message } from "antd";
 import { buttonClassName } from "@/constants/strings";
 import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
-import { cookieOptions } from "@/lib/jwt";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useAuthStore } from "@/stores/signupStore";
 
 interface IRequest {
     email?: string,
@@ -19,14 +19,11 @@ interface IResponse {
     exists: boolean
 }
 
-interface IRedirectFPRPFormProps {
-    dbemail: string
-    formtype: string
-}
-
-export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFormProps) {
+export default function ResetPassword() {
     const { push } = useRouter()
-    const [{ rpfp_token }, removeCookie] = useCookies(["rpfp_token"]);
+
+    const { email } = useAuthStore();
+
     const [showPassword, setShowPassword] = useState(false);
     const [showReenterPassword, setShowReenterPassword] = useState(false);
     const [passwordFPRP, setPasswordFPRP] = useState({
@@ -34,14 +31,13 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
         reenter_new_password: "",
     });
     const payload = {
-        email: dbemail,
+        email,
         new_password: passwordFPRP?.reenter_new_password,
     }
 
     const { trigger, isMutating } = usePostMutation<IRequest, IResponse>("/users/update-password", {
         onSuccess() {
             message.success("Passwords update successfully")
-            removeCookie("rpfp_token", cookieOptions);
             push("/auth/login/email")
         }
     });
@@ -57,15 +53,13 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
     return (
         <div className="flex flex-col space-y-4 w-full tab:w-[25rem]">
             <div>
-                <p className="text-[2.5rem]">{formtype?.toLowerCase()?.split(" ")?.map(w => w?.charAt(0)?.toUpperCase() + w?.slice(1))?.join(" ")}</p>
-                <p className="text-[2.5rem]">Password :)</p>
+                <p className="text-[2.5rem]">Hang Tight — </p>
+                <p className="text-[2.5rem]">We’re On It :)</p>
             </div>
             <div className="flex flex-col space-y-4">
-                <div>
-                    <p className="text-sm">
-                        To change your password, please enter the email address you used for login.
-                    </p>
-                </div>
+                <p className="text-sm">
+                    Almost there! Create a strong new password to secure your account and get back in.
+                </p>
                 <div className="flex items-center space-x-6 bg-gray-100 py-3 px-4 rounded-md">
                     <div>
                         <LockOutlinedIcon />
@@ -76,12 +70,12 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
                             value={passwordFPRP.new_password}
                             onChange={(e) => setPasswordFPRP({ ...passwordFPRP, new_password: e.target.value })}
                             type={showPassword ? 'text' : 'password'}
-                            className="border-2 h-8 w-full text-sm bg-gray-100 outline-none border-none tracking-widest"
+                            className="border-2 h-8 w-full text-sm bg-gray-100 outline-none border-none"
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword((prev) => !prev)}
-                            className={buttonClassName}
+                            className="absolute right-2 top-2"
                         >
                             {showPassword ? (
                                 <BiShowAlt
@@ -108,7 +102,7 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
                         <button
                             type="button"
                             onClick={() => setShowReenterPassword((prev) => !prev)}
-                            className={buttonClassName}
+                            className="absolute right-2 top-2"
                         >
                             {showReenterPassword ? (
                                 <BiShowAlt
@@ -122,7 +116,9 @@ export default function RedirectFPRPForm({ dbemail, formtype }: IRedirectFPRPFor
             </div>
             <div className="flex space-x-4">
                 <button onClick={handleTrigger} className={buttonClassName}>
-                    Submit
+                    <div className="flex space-x-2 items-center justify-center">
+                        {isMutating ? <><span><LoadingOutlined /></span> <span>Let’s Go</span></> : <span>Let’s Go</span>}
+                    </div>
                 </button>
             </div>
         </div>

@@ -11,8 +11,13 @@ export function middleware(request: NextRequest) {
     path === "/auth/signup/email" ||
     path === "/auth/signup/otp" ||
     path === "/auth/signup/password" ||
-    path === "/auth/home" ||
-    path === "/auth/forgot-password";
+    path === "/auth/forgot-password/email" ||
+    path === "/auth/forgot-password/otp" ||
+    path === "/auth/forgot-password/password" ||
+    path === "/auth/reset-password/email" ||
+    path === "/auth/reset-password/otp" ||
+    path === "/auth/reset-password/password" ||
+    path === "/auth/home";
 
   const token = request.cookies.get("token")?.value || "";
 
@@ -35,7 +40,8 @@ export const config = {
     "/",
     "/auth/login/:path*",
     "/auth/signup/:path*",
-    "/auth/forgot-password",
+    "/auth/forgot-password/:path*",
+    "/auth/reset-password/:path*",
     "/dashboard/:path*",
     "/settings/:path*",
     "/profile/:path*",

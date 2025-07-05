@@ -13,6 +13,7 @@ import { useAuthStore } from "@/stores/signupStore";
 
 interface IOTPReq {
     email: string
+    hasUser: boolean
 }
 
 interface IOTPRes {
@@ -74,7 +75,7 @@ export default function SignupEmail() {
                     </div>
                     <div className="flex flex-col w-full">
                         <input
-                            placeholder="johndoe@gmail.com"
+                            placeholder="johndoe@dailyquill.com"
                             type="email"
                             className="border-2 h-8 w-full text-sm bg-gray-100 outline-none border-none"
                             value={email}
@@ -86,7 +87,7 @@ export default function SignupEmail() {
                 <div className="flex space-x-4">
                     <div>
                         <button
-                            onClick={() => trigger({ email })}
+                            onClick={() => trigger({ email, hasUser: false })}
                             className={`${buttonClassName} ${(!name || !email) ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={!name || !email}
                         >

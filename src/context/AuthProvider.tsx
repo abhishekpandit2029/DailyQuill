@@ -67,7 +67,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
     },
     onError: () => {
-      message.error("Something went wrong");
+      message.error("Password is invalid");
     },
   });
 
