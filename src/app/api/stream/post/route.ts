@@ -1,6 +1,6 @@
-export async function POST(req: {
-  json: () => PromiseLike<{ prompt: any }> | { prompt: any };
-}) {
+import { NextRequest } from "next/server";
+
+export async function POST(req: NextRequest) {
   const { prompt } = await req.json();
 
   const response = await fetch("https://api.aimlapi.com/chat/completions", {
@@ -21,7 +21,7 @@ export async function POST(req: {
 
   const stream = new ReadableStream({
     async start(controller) {
-      const reader = response?.body?.getReader();
+      const reader = response.body?.getReader();
 
       if (!reader) {
         controller.close();
@@ -32,7 +32,7 @@ export async function POST(req: {
         const { value, done } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value);
+        const chunk = decoder.decode(value, { stream: true });
         controller.enqueue(encoder.encode(chunk));
       }
 
@@ -44,6 +44,7 @@ export async function POST(req: {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
+      Connection: "keep-alive",
     },
   });
 }
