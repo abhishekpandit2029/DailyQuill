@@ -27,6 +27,7 @@ import { defaultProfileImage } from "@/constants/strings";
 import { TbUserEdit } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 import { reactions } from "@/constants/options";
+import AiPostGenerator from "@/components/Dashboard/StramPost";
 
 export interface IThoughtCards {
     title: string,
@@ -177,19 +178,20 @@ export default function ProfilePage() {
                             <TbUserEdit className="text-2xl ring-1 ring-gray-500 rounded-xl p-1 cursor-pointer" onClick={() => push("/dashboard/settings/profile-details")} />
                         </div>
                     </div>
-
-                    <div
-                        className={clsx(
-                            "cursor-pointer border-dashed border-2 border-gray-200 flex justify-center rounded-xl p-3",
-                            filteredData && filteredData.length > 0 ? "block" : "hidden"
-                        )}
-                        onClick={() => {
-                            setIsAddNewModalOpen(true);
-                        }}
-                    >
-                        <AddIcon /> Add New
+                    <div className="flex w-full gap-3">
+                        <div
+                            className={clsx(
+                                "cursor-pointer w-full border-dashed border-2 border-gray-200 flex justify-center rounded-xl p-3",
+                                filteredData && filteredData.length > 0 ? "block" : "hidden"
+                            )}
+                            onClick={() => {
+                                setIsAddNewModalOpen(true);
+                            }}
+                        >
+                            <AddIcon /> Add New
+                        </div>
+                        <AiPostGenerator />
                     </div>
-
                     <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200">
                         {isLoading ? (
                             <div className="bg-white flex flex-col space-y-1 rounded-xl ring-1 ring-gray-200">
