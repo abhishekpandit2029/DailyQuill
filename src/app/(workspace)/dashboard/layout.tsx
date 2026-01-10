@@ -15,7 +15,6 @@ import { useAuth } from "@/context/AuthProvider";
 import { TbMessageChatbot } from "react-icons/tb";
 import { Image } from "antd";
 import { defaultProfileImage } from "@/constants/strings";
-import { io } from "socket.io-client";
 import { useCookies } from "react-cookie";
 import { getSocket } from "@/lib/socket";
 
